@@ -1,6 +1,8 @@
 {
   "pages":[
+    "pages/answer/answer",
     "pages/index/index"
+    
 
 
   ],

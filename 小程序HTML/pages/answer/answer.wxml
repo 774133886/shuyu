@@ -1,0 +1,67 @@
+<!--pages/answer/answer.wxml-->
+<view class='Con font30'>
+  <view class='answerCon'>
+    <view class='questionList'>
+      <view class='questionTitle fontPF flex_dom'>
+        <view class='color-333'>1/3</view>
+        <view class='flex_1 l-h-40rpx color-333 m-l-30 fontPF'>贾宝玉挨打的本质原因贾宝玉挨打的本质原因？</view>
+      </view>
+      <view class='answerArea'>
+        <view class='between-center answerList'>
+          <image src='../../files/icon_selected.png' class='selectPic'></image>
+          <view class='l-h-40rpx font28 m-l-30 flex_1'>
+            A.贾宝玉不愿意走仕途经济的老路。这与贾政望子成龙、重整家业的期望背道而驰的。
+          </view>
+        </view>
+        <view class='between-center answerList'>
+          <image src='../../files/icon_select.png' class='selectPic'></image>
+          <view class='l-h-40rpx font28 m-l-30 flex_1'>
+            B.贾宝玉不愿意走仕途经济的老路。这与贾政望子成龙、重整家业的期望背道而驰的。
+          </view>
+        </view>
+        <view class='between-center answerList'>
+          <image src='../../files/icon_select.png' class='selectPic'></image>
+          <view class='l-h-40rpx font28 m-l-30 flex_1'>
+            C.贾宝玉不愿意走仕途经济的老路。这与贾政望子成龙、重整家业的期望背道而驰的。
+          </view>
+        </view>
+      </view>
+    </view>
+    <view class='questionList'>
+      <view class='questionTitle fontPF flex_dom'>
+        <view class='color-333'>1/3</view>
+        <view class='flex_1 l-h-40rpx color-333 m-l-30 fontPF'>贾宝玉挨打的本质原因贾宝玉挨打的本质原因？</view>
+      </view>
+      <view class='answerArea'>
+        <view class='between-center answerList'>
+          <image src='../../files/icon_selected.png' class='selectPic'></image>
+          <view class='l-h-40rpx font28 m-l-30 flex_1'>
+            A.贾宝玉不愿意走仕途经济的老路。这与贾政望子成龙、重整家业的期望背道而驰的。
+          </view>
+        </view>
+        <view class='between-center answerList'>
+          <image src='../../files/icon_select.png' class='selectPic'></image>
+          <view class='l-h-40rpx font28 m-l-30 flex_1'>
+            B.贾宝玉不愿意走仕途经济的老路。这与贾政望子成龙、重整家业的期望背道而驰的。
+          </view>
+        </view>
+        <!-- <view class='between-center answerList'>
+          <image src='../../files/icon_select.png' class='selectPic'></image>
+          <view class='l-h-40rpx font28 m-l-30 flex_1'>
+            C.贾宝玉不愿意走仕途经济的老路。这与贾政望子成龙、重整家业的期望背道而驰的。
+          </view>
+        </view>
+        <view class='between-center answerList'>
+          <image src='../../files/icon_select.png' class='selectPic'></image>
+          <view class='l-h-40rpx font28 m-l-30 flex_1'>
+            D.贾宝玉不愿意走仕途经济的老路。这与贾政望子成龙、重整家业的期望背道而驰的。
+          </view>
+        </view> -->
+      </view>
+    </view>
+    <view class='text-center'>
+     <button class='keepBtn'>提交</button>
+    </view>
+  </view>
+  
+</view>
