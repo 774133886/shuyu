@@ -1,0 +1,11 @@
+<!--pages/template/template.wxml-->
+<template name="go_alert" >
+  <view class='goalert' wx:if="{{show}}">
+       <view class='msg'>
+          <div>{{msg}}</div>
+       
+       </view>
+    
+  </view>
+</template>
+

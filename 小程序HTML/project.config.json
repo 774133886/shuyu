@@ -1,0 +1,165 @@
+{
+	"description": "项目配置文件。",
+	"setting": {
+		"urlCheck": false,
+		"es6": true,
+		"postcss": true,
+		"minified": true,
+		"newFeature": true,
+		"autoAudits": false
+	},
+	"compileType": "miniprogram",
+	"libVersion": "2.3.2",
+	"appid": "wx51a5dafb85649058",
+	"projectname": "%E4%B9%A6%E4%BA%88%E5%B0%8F%E7%A8%8B%E5%BA%8F",
+	"isGameTourist": false,
+	"condition": {
+		"search": {
+			"current": -1,
+			"list": []
+		},
+		"conversation": {
+			"current": -1,
+			"list": []
+		},
+		"plugin": {
+			"current": -1,
+			"list": []
+		},
+		"game": {
+			"currentL": -1,
+			"list": []
+		},
+		"miniprogram": {
+			"current": 17,
+			"list": [
+				{
+					"id": -1,
+					"name": "apply",
+					"pathName": "pages/apply/apply",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "apply",
+					"pathName": "pages/index/index",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "apply",
+					"pathName": "pages/success/success",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "apply",
+					"pathName": "pages/success/success",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "s",
+					"pathName": "pages/success/success",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "s",
+					"pathName": "pages/failed/failed",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "f",
+					"pathName": "pages/failed/failed",
+					"query": ""
+				},
+				{
+					"id": 7,
+					"name": "f",
+					"pathName": "pages/failed/failed",
+					"query": ""
+				},
+				{
+					"id": 8,
+					"name": "f",
+					"pathName": "pages/withdrawal/withdrawal",
+					"query": ""
+				},
+				{
+					"id": 9,
+					"name": "f",
+					"pathName": "pages/withdrawalsuccess/withdrawalsuccess",
+					"query": ""
+				},
+				{
+					"id": 10,
+					"name": "order",
+					"pathName": "pages/order/order",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "order",
+					"pathName": "pages/help/help",
+					"query": ""
+				},
+				{
+					"id": 12,
+					"name": "feedback",
+					"pathName": "pages/MyPrize/MyPrize",
+					"query": ""
+				},
+				{
+					"id": 13,
+					"name": "myprize",
+					"pathName": "pages/MyPrize/MyPrize",
+					"query": ""
+				},
+				{
+					"id": 14,
+					"name": "myprize",
+					"pathName": "pages/feedback/ feedback",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "alert",
+					"pathName": "pages/alert/alert",
+					"query": ""
+				},
+				{
+					"id": 16,
+					"name": "alert",
+					"pathName": "pages/feedback/ feedback",
+					"query": ""
+				},
+				{
+					"id": 17,
+					"name": "alert",
+					"pathName": "pages/MyPrize/MyPrize",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "alert",
+					"pathName": "pages/articleDetail/articleDetail",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "alert",
+					"pathName": "pages/matchExplain/matchExplain",
+					"query": ""
+				},
+				{
+					"id": 20,
+					"name": "alert",
+					"pathName": "pages/withdrawalsuccess/withdrawalsuccess",
+					"query": ""
+				}
+			]
+		}
+	}
+}

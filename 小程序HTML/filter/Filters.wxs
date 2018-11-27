@@ -1,0 +1,75 @@
+/*
+使用方法 在 wxml引用
+<wxs module="filter" src="../../filter/Filters.wxs"></wxs>
+赋值：
+{{filter.toFix(item.dMoney)}}
+ */
+
+
+var Filters = {
+  //两位小数
+  toFix: function (value) {
+    return  parseFloat(isNaN(value) ? 0 : value).toFixed(2);
+  },
+  abs:function(value){
+    return Math.abs(value);
+  },
+  //判断字符串中是否包含指定的值，如果没有则插入
+  strIndexOf: function (value, searchvalue, host) {
+    if (value != null && value.length > 0) {
+      if (value.indexOf(searchvalue) != -1) {
+        return value;
+      }
+      else {
+        return host + value;
+      }
+    }
+  },
+  //判断字符串中是否包含http://或https://，如果没有则插入
+  strIndexOfHTTP: function (value, host) {
+    console.log(value);
+    if (value != null && value.length > 0) {
+      if (value.indexOf("http://") != -1 || value.indexOf("https://") != -1) {
+        return value;
+      }
+      else {
+        return host + value;
+      }
+    }
+  },
+  substrXX: function (val, start, length) {
+    if (length == undefined) {
+      return val.toString().substring(start);
+    }
+    else {
+      return val.toString().substring(start, length);
+    }
+  }
+}
+function formatTime(date) {
+  date = date.replace('/Date(', '').replace(')/', '');
+  var year = date.getFullYear()
+  var month = date.getMonth() + 1
+  var day = date.getDate()
+  var hour = date.getHours()
+  var minute = date.getMinutes()
+  var second = date.getSeconds()
+
+  return [year, month, day].map(formatNumber).join('-') + ' ' + [hour, minute, second].map(formatNumber).join(':')
+}
+
+function formatNumber(n) {
+  n = n.toString()
+  return n[1] ? n : '0' + n
+}
+
+module.exports = {
+  abs: Filters.abs,
+  toFix: Filters.toFix,
+  strIndexOf: Filters.strIndexOf,
+  strIndexOfHTTP: Filters.strIndexOfHTTP,
+  formatTime: Filters.formatTime,
+  substrXX: Filters.substrXX
+
+
+}
