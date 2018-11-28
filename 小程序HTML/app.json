@@ -1,6 +1,8 @@
 {
   "pages":[
     "pages/index/index",
+    "pages/answerResolution/answerResolution",
+    "pages/weekClass/weekClass",
     "pages/answer/answer"
     
   ],

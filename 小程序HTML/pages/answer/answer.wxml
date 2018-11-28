@@ -3,7 +3,7 @@
   <view class='answerCon'>
     <view class='questionList'>
       <view class='questionTitle fontPF flex_dom'>
-        <view class='color-333'>1/3</view>
+        <view class='color-333 fw_600'>1/3</view>
         <view class='flex_1 l-h-40rpx color-333 m-l-30 fontPF'>贾宝玉挨打的本质原因贾宝玉挨打的本质原因？</view>
       </view>
       <view class='answerArea'>
@@ -29,7 +29,7 @@
     </view>
     <view class='questionList'>
       <view class='questionTitle fontPF flex_dom'>
-        <view class='color-333'>1/3</view>
+        <view class='color-333 fw_600'>1/3</view>
         <view class='flex_1 l-h-40rpx color-333 m-l-30 fontPF'>贾宝玉挨打的本质原因贾宝玉挨打的本质原因？</view>
       </view>
       <view class='answerArea'>
@@ -60,7 +60,7 @@
       </view>
     </view>
     <view class='text-center'>
-     <button class='keepBtn'>提交</button>
+     <button class='keepBtn fw_600'>提交</button>
     </view>
   </view>
   

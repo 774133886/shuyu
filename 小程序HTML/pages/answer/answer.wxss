@@ -1,6 +1,7 @@
 /* pages/answer/answer.wxss */
 page{
   background-color: #fef9f8;
+  box-shadow:0px 5px 10px 0px rgba(248,238,236,.7) inset;
 }
 .answerCon{
   padding: 50rpx 23rpx;
