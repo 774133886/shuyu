@@ -801,3 +801,25 @@ border: none;
   font-size:36rpx;
   font-family:PingFangSC-Medium;
 }
+
+/* 新增 */
+.curBg{
+  background: -webkit-linear-gradient(153deg, #f9ab71 , #ff5a71) !important; 
+  background: linear-gradient(153deg, #f9ab71 , #ff5a71) !important;
+}
+.curBg2{
+  background: -webkit-linear-gradient(127deg, #f9ab71 , #ff5a71) !important; 
+  background: linear-gradient(127deg, #f9ab71 , #ff5a71) !important;
+}
+.curBg3{
+  background: -webkit-linear-gradient(135deg, #f9ab71 , #ff5a71) !important; 
+  background: linear-gradient(135deg, #f9ab71 , #ff5a71) !important;
+}
+.curBg4{
+  background: -webkit-linear-gradient(139deg, #f9ab71 , #ff5a71) !important; 
+  background: linear-gradient(139deg, #f9ab71 , #ff5a71) !important;
+}
+.curBg5{
+  background: -webkit-linear-gradient(142deg, #f9ab71 , #ff5a71) !important; 
+  background: linear-gradient(142deg, #f9ab71 , #ff5a71) !important;
+}

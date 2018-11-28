@@ -1,4 +1,139 @@
 <!--pages/index/index.wxml-->
-<view>
-index
+<view class='hgt_100 flex_column'>
+  <view class='indexFixed'>我的..</view>
+  <view class='indexHead'>
+    <view class='ih_box curBg flex_dom flex_item_mid'>
+      <view>
+        <view class='color-fff font36 hide111'>《红楼梦》</view>
+        <view class='color-fff font28'>
+          张一男老师为你提供一个全新的角度，解析故事走向与性格发展再次欣赏红楼梦。张一男老师为你提供一个全新的角度...  
+        </view>
+      </view>
+    </view>
+  </view>
+  <scroll-view scroll-y="{{true}}" class='flex_1 w-sectionD indexCtt'>
+    <view class='icItem flex_dom flex_item_mid'>
+      <view class='ic_text color-333 font26'>林黛玉---仙姝玉带林中挂</view>
+      <view class='ic_btn curBg2' bindtap='openMask'>一元完成任务</view>
+    </view>
+    <view class='icItem flex_dom flex_item_mid'>
+      <view class='ic_text color-ff5a71 font26'>林黛玉---仙姝玉带林中挂</view>
+    </view>
+    <view class='icItem flex_dom flex_item_mid'>
+      <view class='ic_text color-f9ab71 font26'>林黛玉---仙姝玉带林中挂</view>
+      <view class='ic_btn curBg2' bindtap='openMask2'><text>2/</text>12天</view>
+    </view>
+    <view class='icItem flex_dom flex_item_mid'>
+      <view class='ic_text color-333 font26'>林黛玉---仙姝玉带林中挂</view>
+    </view>
+    <view class='icItem flex_dom flex_item_mid'>
+      <view class='ic_text color-333 font26'>林黛玉---仙姝玉带林中挂</view>
+    </view>
+    <view class='icItem flex_dom flex_item_mid'>
+      <view class='ic_text color-333 font26'>林黛玉---仙姝玉带林中挂,林黛玉---仙姝玉带林中挂</view>
+    </view>
+    <view class='icItem flex_dom flex_item_mid'>
+      <view class='ic_text color-333 font26'>林黛玉---仙姝玉带林中挂</view>
+    </view>
+    <view class='icItem flex_dom flex_item_mid'>
+      <view class='ic_text color-333 font26'>林黛玉---仙姝玉带林中挂</view>
+    </view>
+    <view class='icItem flex_dom flex_item_mid'>
+      <view class='ic_text color-333 font26'>林黛玉---仙姝玉带林中挂</view>
+    </view>
+    <view class='icItem flex_dom flex_item_mid'>
+      <view class='ic_text color-333 font26'>林黛玉---仙姝玉带林中挂</view>
+    </view>
+  </scroll-view>
+  <view class='indexFoot'>
+    <view class='if_text font24 m-b-20'>每天来读，连续21t天完成任务</view>
+    <view class='if_dot flex_dom p-v-10'>
+      <view class='flex_1'></view>
+      <view class='flex_1'></view>
+      <view class='flex_1'></view>
+      <view class='flex_1'></view>
+      <view class='flex_1'></view>
+      <view class='flex_1'></view>
+    </view>
+  </view>
+</view>
+
+<!-- 首次阅读弹窗 -->
+<view class='indexMask {{mask ? "" : "hide"}}'>
+  <view class='flex_column maskCenter'>
+    <view class='flex_1 flex_column maskCtt'>
+      <view class='im_head font36 color-fff curBg3'>坚持每日阅读</view>
+      <scroll-view scroll-y="{{true}}" class='im_ctt flex_1 font28'>
+        <view style='padding: 25rpx'>
+          <view class='color-333'>
+            中国古代章回体长篇小说，又名《石头记》等，被列为中国古典四大名著之首，一般认为是清代作家曹雪芹所著。小说以贾、史、王、薛四大家族的兴衰为背景，以富贵公子贾宝玉为视角，描绘了一批举止见识出于须眉之上的闺阁佳人的人生百态，展现了真正的人性美和悲剧美，可以说是一部从各个角度.小说以贾、史、王、薛四大家族的兴衰为背景，以富贵公子贾宝玉为视角，描绘了一批举止见识出于须眉之上的闺阁佳人的人生百态...
+          </view>
+          <view class='color-666'>
+            本书分为21日份学习任务，让我们用21天时间，以各个人物的解析入手，再次回顾《红楼梦》，也感谢张一南老师给我们另一种角度去欣赏体会。
+          </view>
+        </view>
+      </scroll-view>
+      <view class='im_text'>
+        <view class='im_text_tit'>
+          <image src='../../files/horn.png'></image>
+          <view class='font28 color-333 font-w6'>必读：挑战规则</view>
+        </view>
+        <view class='font24'>
+          <view class='color-666'>
+            1.一块钱开启后，坚持每日来阅读，成功打卡后，免费开放次日阅读任务。
+          </view>
+          <view class='color-666'>
+            2.分享小程序给好友，好友开启一本书，您将获得一张复活卡。
+          </view>
+          <view class='color-666'>
+            3.若阅读在某天断开，需要一元或是用复活卡重启计划。
+          </view>
+          <view class='color-666'>
+            4.可同时开启多本读物进行阅读。
+          </view>
+        </view>
+      </view>
+      <view class='im_btn'>
+        <button class='curBg2'>立即付款</button>
+      </view>
+    </view>
+    <view class='im_foot'>
+      <image bindtap='closeMask' src='../../files/close.png' class='im_close'></image>
+    </view>
+  </view>
+</view>
+
+<!-- 中断阅读弹窗 -->
+<view class='indexMask mask2 {{mask2 ? "" : "hide"}}'>
+  <view class='flex_column maskCenter'>
+    <view class='flex_1 flex_column maskCtt'>
+      <text class='font40 color-333'>开启阅读</text>
+      <view class='flex_dom choiceType'>
+        <view class='flex_1 m-r-25 {{cType == "wechat" ? "curBg4" : ""}}' bindtap='choiceType' data-type="wechat">
+          <image class='icon-wechat m-b-10' src='../../files/wechat.png'></image>
+          <view>微信支付</view>
+          <view>1圆开启</view>
+        </view>
+        <view class='flex_1 {{cType == "car" ? "curBg4" : ""}}' bindtap='choiceType' data-type="car">
+          <image class='icon-car m-b-10' src='../../files/car.png'></image>
+          <view>复活卡</view>
+          <view>开启</view>
+        </view>
+      </view>
+      <view>
+        <button class='im_btn2 curBg5' bindtap='submitType'>确认</button>
+      </view>
+    </view>
+    <view class='im_foot'>
+      <image bindtap='closeMask2' src='../../files/close.png' class='im_close'></image>
+    </view>
+  </view>
+</view>
+
+<!-- 分享朋友圈 -->
+<view class='indexMask {{shareMask ? "" : "hide"}}'>
+  <view class='shareMask text-right'>
+    <image src='../../files/shareMask.png'></image>
+    <button class='share_btn curBg5' bindtap='closeShareMask'>知道了</button>
+  </view>
 </view>
