@@ -1,0 +1,104 @@
+/* pages/personal/personal.wxss */
+page{
+  background-color: #fef9f8;
+  box-shadow:0px 5px 10px 0px rgba(248,238,236,.7) inset;
+}
+.personalCon{
+  width: 100%;
+  height: auto;
+  padding-bottom: 50rpx;
+}
+.pTop{
+  width: 100%;
+  height: 275rpx;
+  background:linear-gradient(0deg,rgba(255,90,113,1) 0%,rgba(249,171,113,1) 100%);
+  padding: 0 23rpx;
+  padding-top: 47rpx;
+}
+.pTopBox{
+  width:100%;
+  height:260rpx;
+  background:rgba(255,255,255,1);
+  box-shadow:0px 2rpx 16rpx 0px rgba(241,124,30,0.53);
+  border-radius:12rpx;
+  padding: 38rpx 34rpx;
+}
+.icon_person{
+  width: 142rpx;
+  height: 142rpx;
+  border-radius: 50%;
+}
+.indexFixed{
+  position: absolute;
+  top: 250rpx;
+  right: 0;
+  font-size: 24rpx;
+  color: #97430c;
+  text-align: center;
+  width: 120rpx;
+  height: 80rpx;
+  line-height: 80rpx;
+  background-color: #ffcd85;
+  border-top-left-radius: 40rpx;
+  border-bottom-left-radius: 40rpx;
+  -webkit-box-shadow: 0 1px 6rpx 4rpx rgba(254,98,114,.65);
+  box-shadow: 0 1px 6rpx 4rpx rgba(254,98,114,.65);
+  z-index: 11;
+}
+.pCenter{
+  margin-top: 70rpx;
+  padding: 0 23rpx;
+}
+.tline{
+  width:8rpx;
+  height:36rpx;
+  background:rgba(255,102,102,1);
+}
+.pListbox{
+  width: 100%;
+  padding: 35rpx 30rpx;
+  box-shadow:0px 2rpx 16rpx 0px rgba(250,213,187,0.69);
+  border-radius:12rpx;
+  background-color: #fff;
+  margin-top: 28rpx;
+}
+.pDoneArea{
+  width: 100%;
+  padding: 20rpx;
+  white-space: nowrap;
+  overflow-x:auto;
+
+}
+.pdoneList{
+  width:187rpx;
+  min-height:250rpx;
+  background:rgba(238,238,238,1);
+  box-shadow:0px 2rpx 16rpx 0px rgba(250,213,187,0.31);
+  border-radius:8rpx;
+  display: inline-block;
+  margin-right: 23rpx;
+  font-size: 0;
+}
+.pdoneList:last-child{
+  margin-right: 0rpx;
+}
+.bookPic{
+  width: 100%;
+  height: 200rpx;
+  border-top-left-radius: 8rpx;
+  border-top-right-radius: 8rpx;
+  display: block
+}
+.dayColor{
+  color:rgba(149,110,106,1);
+}
+
+
+
+
+
+
+
+
+
+

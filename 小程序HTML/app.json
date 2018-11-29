@@ -6,6 +6,8 @@
     "pages/taskList/taskList",
     "pages/answerResolution/answerResolution",
     "pages/weekClass/weekClass",
+    "pages/personal/personal",
+    "pages/missionDetail/missionDetail",
     "pages/answer/answer"
     
   ],

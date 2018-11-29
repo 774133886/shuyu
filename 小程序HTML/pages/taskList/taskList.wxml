@@ -71,6 +71,8 @@
         <image class='icon-arrow-left' src='../../files/arrow-left.png'></image>
         <view class='flex_1 m-r-20 font30 color-333'><view class='p-v-10'>打卡</view></view>
         <image class='icon-right' src='../../files/next.png'></image>
+        <!-- 已完成标签 -->
+        <image class='desk_done' src='../../files/desk_done.png'></image>
       </view>
     </view>
   </view>

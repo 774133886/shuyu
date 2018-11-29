@@ -1,0 +1,85 @@
+<!--pages/personal/personal.wxml-->
+<view class='Con font30'>
+  <view class='personalCon'>
+    <view class='indexFixed'>首页..</view>
+    <view class='pTop'>
+      <view class='pTopBox'>
+        <view class='hgt150rpx wid100 between'>
+          <image src='../../files/icon_person.png' class='icon_person'></image>
+          <view class='hgt150 font28 column-between flex_1 m-l-30'>
+            <view class='text-right color-333'>lexie已经连续阅读0天</view>
+            <view class='text-right color-333'>在阅读0本书</view>
+            <view class='text-right color-333'>已获得4张复活卡，还可使用2张</view>
+          </view> 
+        </view>
+      </view>
+    </view>
+    <view class='pCenter'>
+      <view class='pTitle center'>
+        <view class='tline m-r-5'></view>
+        <view class='font30 fw_600 m-l-10 color-333'>已完成</view>
+      </view>
+      <view class='pDoneArea'>
+        <view class='pdoneList'>
+          <image mode='aspectFill' src='https://img.zcool.cn/community/0129845bfb8b89a801209252427fcf.jpg@1280w_1l_0o_100sh.jpg' class='bookPic'></image>
+          <view class='hgt100rpx p-t-10 p-b-10 column-center-c'>
+            <view class='lh1 text-center wid100 font30 color-333 only_line'>《呐喊呐》</view>
+            <view class='lh1 font24 dayColor'>3/3天</view>
+          </view>
+        </view>
+        <view class='pdoneList'>
+          <image mode='aspectFill' src='https://img.zcool.cn/community/0129845bfb8b89a801209252427fcf.jpg@1280w_1l_0o_100sh.jpg' class='bookPic'></image>
+          <view class='hgt100rpx p-t-10 p-b-10 column-center-c'>
+            <view class='lh1 text-center wid100 font30 color-333 only_line'>《呐喊呐》</view>
+            <view class='lh1 font24 dayColor'>3/3天</view>
+          </view>
+        </view>
+        <view class='pdoneList'>
+          <image mode='aspectFill' src='https://img.zcool.cn/community/0129845bfb8b89a801209252427fcf.jpg@1280w_1l_0o_100sh.jpg' class='bookPic'></image>
+          <view class='hgt100rpx p-t-10 p-b-10 column-center-c'>
+            <view class='lh1 text-center wid100 font30 color-333 only_line'>《呐喊呐》</view>
+            <view class='lh1 font24 dayColor'>3/3天</view>
+          </view>
+        </view>
+        <view class='pdoneList'>
+          <image mode='aspectFill' src='https://img.zcool.cn/community/0129845bfb8b89a801209252427fcf.jpg@1280w_1l_0o_100sh.jpg' class='bookPic'></image>
+          <view class='hgt100rpx p-t-10 p-b-10 column-center-c'>
+            <view class='lh1 text-center wid100 font30 color-333 only_line'>《呐喊呐》</view>
+            <view class='lh1 font24 dayColor'>3/3天</view>
+          </view>
+        </view>
+        
+      </view>
+      <view class='pTitle m-t-30 center'>
+        <view class='tline m-r-5'></view>
+        <view class='font30 m-l-10 fw_600 color-333'>为您推荐</view>
+      </view>
+      <view class='pListArea'>
+        <view class='pListbox between-center'>
+          <view class='flex_1 l-h-40rpx color-333 m-r-30'>
+            《呐喊》：****，从小任务开始吧！
+          </view>
+          <view class='font24 color-333'>12天</view>
+        </view>
+        <view class='pListbox between-center'>
+          <view class='flex_1 l-h-40rpx color-333 m-r-30'>
+            《呐喊》：****，从小任务开始吧！
+          </view>
+          <view class='font24 color-333'>12天</view>
+        </view>
+      </view>
+      <view class='pTitle m-t-30 center'>
+        <view class='tline m-r-5'></view>
+        <view class='font30 m-l-10 fw_600 color-333'>进行中</view>
+      </view>
+      <view class='pListArea'>
+        <view class='pListbox between-center'>
+          <view class='flex_1 l-h-40rpx color-333 m-r-30'>
+            《呐喊》：****，从小任务开始吧！
+          </view>
+          <view class='font24 color-333'>5/12天</view>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>
