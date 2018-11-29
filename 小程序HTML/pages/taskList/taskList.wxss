@@ -1,0 +1,109 @@
+/* pages/taskList/taskList.wxss */
+page{
+  background-color: #fef9f8;
+  box-sizing: border-box;
+  height: 100%;
+  padding: 30rpx 25rpx;
+  -webkit-box-shadow: 0 1px 5px 0 #f8eeec inset;
+  box-shadow: 0 1px 5px 0 #f8eeec inset;
+}
+.taskHead{
+  background-color: #fff;
+  border-radius: 10rpx;
+  overflow: hidden;
+  -webkit-box-shadow: 0 0 16rpx 2rpx rgba(241,124,30,.18);
+  box-shadow: 0 0 16rpx 2rpx rgba(241,124,30,.18);
+  z-index: 11;
+}
+.taskHead text{
+  display: block;
+  height: 120rpx;
+  line-height: 120rpx;
+  text-align: center;
+  font-size: 36rpx;
+  color: #fff;
+}
+.taskHead scroll-view{
+  height: 360rpx;
+  overflow-y: auto;
+}
+.th_text{
+  padding: 35rpx;
+  font-size: 28rpx;
+  color: #333;
+}
+.taskList{
+  padding-left: 20rpx;
+}
+.tl_tit{
+  height: 110rpx;
+}
+.icon-task{
+  width: 38rpx;
+  height: 44rpx;
+  display: block;
+  margin-top: -3rpx;
+}
+.tl_btn{
+  width: 140rpx;
+  height: 50rpx;
+  line-height: 50rpx;
+  border-radius: 50rpx;
+  font-size: 24rpx;
+  color: #fff !important;
+}
+.icon-com{
+  width: 35rpx;
+  height: 35rpx;
+  margin-right: 2rpx;
+}
+.taskItem{
+  padding: 30rpx;
+  background-color: #fff;
+  border-radius: 10rpx;
+  margin-left: 40rpx;
+  position: relative;
+  -webkit-box-shadow: 0 0 16rpx 2rpx rgba(241,124,30,.18);
+  box-shadow: 0 0 16rpx 2rpx rgba(241,124,30,.18);
+}
+.icon-arrow-left{
+  position: absolute;
+  top: calc(50% -14rpx);
+  left: calc(-35rpx + 1px);
+  width: 35rpx;
+  height: 29rpx;
+}
+.icon-voice{
+  width: 50rpx;
+  height: 50rpx;
+}
+.taskCtt .m-b-30:first-child:before,.taskCtt .m-b-30:last-child:after{
+  display: none;
+}
+.taskCtt .m-b-30:before{
+  content: '';
+  position: absolute;
+  top: -15rpx;
+  left: 15rpx;
+  height: calc(50% - 15rpx);
+  border-left: 1px solid #d2d2d2;
+  -webkit-transform: scaleX(0.5);
+  transform: scaleX(0.5);
+  z-index: 11;
+}
+.taskCtt .m-b-30:after{
+  content: '';
+  position: absolute;
+  bottom: -15rpx;
+  left: 15rpx;
+  height: calc(50% - 15rpx);
+  border-left: 1px solid #d2d2d2;
+  -webkit-transform: scaleX(0.5);
+  transform: scaleX(0.5);
+  z-index: 11;
+}
+.icon-right{
+  width: 15rpx;
+  height: 26rpx;
+  margin-right: 10rpx;
+}

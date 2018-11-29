@@ -1,0 +1,62 @@
+/* pages/read/read.wxss */
+page{
+  background-color: #fef9f8;
+  box-sizing: border-box;
+  height: 100%;
+  padding: 30rpx 25rpx;
+  -webkit-box-shadow: 0 1px 5px 0 #f8eeec inset;
+  box-shadow: 0 1px 5px 0 #f8eeec inset;
+}
+.readHead{
+  border-radius: 10rpx;
+  padding: 35rpx;
+  background-color: #fff;
+  -webkit-box-shadow: 0 0 16rpx 2rpx rgba(241,124,30,.18);
+  box-shadow: 0 0 16rpx 2rpx rgba(241,124,30,.18);
+}
+.audioBox{
+  margin: 20rpx 0 10rpx;
+}
+.icon-play{
+  width: 72rpx;
+  height: 72rpx;
+  margin-right: 25rpx;
+}
+.audioLine{
+  height: 8rpx;
+  border-radius: 8rpx;
+  background-color: #fae8e8;
+  position: relative;
+}
+.audioLine view{
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 8rpx;
+  border-radius: 8rpx;
+  background-color: #fe424c;
+}
+.read_btn{
+  margin: 30rpx 25rpx;
+  height: 90rpx;
+  line-height: 90rpx;
+  border-radius: 90rpx;
+  color: #fff !important;
+  font-size: 36rpx;
+}
+.readBtm{
+  margin-top: 60rpx;
+}
+.taskItem{
+  padding: 30rpx;
+  background-color: #fff;
+  border-radius: 10rpx;
+  position: relative;
+  -webkit-box-shadow: 0 0 16rpx 2rpx rgba(241,124,30,.18);
+  box-shadow: 0 0 16rpx 2rpx rgba(241,124,30,.18);
+  margin: 20rpx 0 50rpx;
+}
+.icon-voice{
+  width: 50rpx;
+  height: 50rpx;
+}

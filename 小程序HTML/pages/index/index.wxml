@@ -23,7 +23,7 @@
       <view class='ic_text color-f9ab71 font26'>林黛玉---仙姝玉带林中挂</view>
       <view class='ic_btn curBg2' bindtap='openMask2'><text>2/</text>12天</view>
     </view>
-    <view class='icItem flex_dom flex_item_mid'>
+    <view class='icItem flex_dom flex_item_mid' bindtap='goRead'>
       <view class='ic_text color-333 font26'>林黛玉---仙姝玉带林中挂</view>
     </view>
     <view class='icItem flex_dom flex_item_mid'>

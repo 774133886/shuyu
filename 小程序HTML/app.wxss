@@ -827,3 +827,7 @@ border: none;
   background: -webkit-linear-gradient(142deg, #f9ab71 , #ff5a71) !important; 
   background: linear-gradient(142deg, #f9ab71 , #ff5a71) !important;
 }
+.curBg6{
+  background: -webkit-linear-gradient(144deg, #f9ab71 , #ff5a71) !important; 
+  background: linear-gradient(144deg, #f9ab71 , #ff5a71) !important;
+}

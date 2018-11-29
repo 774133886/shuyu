@@ -1,0 +1,77 @@
+<!--pages/taskList/taskList.wxml-->
+<view class='taskHead'>
+  <text class='curBg2 only_line'>“假正”的贾政--贾二爷</text>
+  <scroll-view scroll-y="{{true}}">
+    <view class='th_text'>
+  《红楼梦》里那么多人物，从谁写起好呢？
+曹雪芹是从刘姥姥写起的，一个几乎是最底层的边缘人物，让他带着我们，从下往上审视他编织的这个梦。而我既然是来拆解这个梦的，那么就要反其道而行之，写一个几乎是最顶层的边缘人物，透过他，从上往下审视这个梦，我选择的这个人物，就是贾政。
+    </view>
+  </scroll-view>
+</view>
+
+<view class='taskList'>
+  <view class='tl_tit flex_dom flex_item_between flex_item_mid'>
+    <image class='icon-task' src='../../files/task.png'></image>
+    <button class='tl_btn curBg6'>顺序播放</button>
+  </view>
+
+  <view class='taskCtt'>
+    <view class='flex_dom flex_item_mid m-b-30 relative'>
+      <image class='icon-com' src='../../files/icon_selected.png'></image>
+      <view class='flex_1 taskItem flex_dom flex_item_mid'>
+        <image class='icon-arrow-left' src='../../files/arrow-left.png'></image>
+        <view class='flex_1 m-r-20'>
+          <view class='color-333 font30 only_line'>为什么叫他“贾二爷”</view>
+          <view class='color-999 font24'>曹雪芹为何对“二爷”如此情有独钟？</view>
+        </view>
+        <image class='icon-voice' src='../../files/voice.png'></image>
+      </view>
+    </view>
+    <view class='flex_dom flex_item_mid m-b-30 relative'>
+      <image class='icon-com' src='../../files/noCom.png'></image>
+      <view class='flex_1 taskItem flex_dom flex_item_mid'>
+        <image class='icon-arrow-left' src='../../files/arrow-left.png'></image>
+        <view class='flex_1 m-r-20'>
+          <view class='color-333 font30 only_line'>为什么叫他“贾二爷”</view>
+          <view class='color-999 font24'>曹雪芹为何对“二爷”如此情有独钟？</view>
+        </view>
+        <image class='icon-voice' src='../../files/voice.png'></image>
+      </view>
+    </view>
+    <view class='flex_dom flex_item_mid m-b-30 relative'>
+      <image class='icon-com' src='../../files/noCom.png'></image>
+      <view class='flex_1 taskItem flex_dom flex_item_mid'>
+        <image class='icon-arrow-left' src='../../files/arrow-left.png'></image>
+        <view class='flex_1 m-r-20'>
+          <view class='color-333 font30 only_line'>为什么叫他“贾二爷”</view>
+          <view class='color-999 font24'>曹雪芹为何对“二爷”如此情有独钟？曹雪芹为何对“二爷”如此情有独钟？</view>
+        </view>
+        <image class='icon-voice' src='../../files/voice.png'></image>
+      </view>
+    </view>
+    <view class='flex_dom flex_item_mid m-b-30 relative'>
+      <image class='icon-com' src='../../files/noCom.png'></image>
+      <view class='flex_1 taskItem flex_dom flex_item_mid'>
+        <image class='icon-arrow-left' src='../../files/arrow-left.png'></image>
+        <view class='flex_1 m-r-20 font30 color-333'><view class='p-v-10'>今日有份思考题</view></view>
+        <image class='icon-right' src='../../files/next.png'></image>
+      </view>
+    </view>
+    <view class='flex_dom flex_item_mid m-b-30 relative'>
+      <image class='icon-com' src='../../files/noCom.png'></image>
+      <view class='flex_1 taskItem flex_dom flex_item_mid'>
+        <image class='icon-arrow-left' src='../../files/arrow-left.png'></image>
+        <view class='flex_1 m-r-20 font30 color-333'><view class='p-v-10'>趣解：贾政老爷有点意思</view></view>
+        <image class='icon-right' src='../../files/next.png'></image>
+      </view>
+    </view>
+    <view class='flex_dom flex_item_mid m-b-30 relative'>
+      <image class='icon-com' src='../../files/noCom.png'></image>
+      <view class='flex_1 taskItem flex_dom flex_item_mid'>
+        <image class='icon-arrow-left' src='../../files/arrow-left.png'></image>
+        <view class='flex_1 m-r-20 font30 color-333'><view class='p-v-10'>打卡</view></view>
+        <image class='icon-right' src='../../files/next.png'></image>
+      </view>
+    </view>
+  </view>
+</view>
