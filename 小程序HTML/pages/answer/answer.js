@@ -15,6 +15,12 @@ Page({
 
   },
 
+  //提交
+  formSubmit: function () {
+    wx.navigateTo({
+      url: '../answerResolution/answerResolution'
+    })
+  },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */

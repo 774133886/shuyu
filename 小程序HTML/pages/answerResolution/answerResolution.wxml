@@ -95,7 +95,7 @@
     </view>
     <view class='text-center'>
     <!-- 或者打卡 -->
-     <button class='keepBtn fw_600'>趣解</button>
+     <button class='keepBtn fw_600' bindtap='goClass'>趣解</button>
     </view>
   </view>
   

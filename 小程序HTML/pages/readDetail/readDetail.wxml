@@ -25,6 +25,6 @@
   曹雪芹是从刘姥姥写起的，一个几乎是最底层的边缘人物，让他带着我们，从下往上审视他编织的这个梦。而我既然是来拆解这个梦的，那么就要反其道而行之，写一个几乎是最顶层的边缘人物，透过他，从上往下审视这个梦，我选择的这个人物，就是贾政。
     </view>
   </view>
-  <button class='read_btn curBg4'>完成</button>
-  <button class='read_btn curBg4'>已完成阅读任务，去做题</button>
+  <button class='read_btn curBg4' wx:if="{{!isComplete}}" bindtap='goBack'>完成</button>
+  <button class='read_btn curBg4' wx:if="{{isComplete}}" bindtap='goAnswer'>已完成阅读任务，去做题</button>
 </view>

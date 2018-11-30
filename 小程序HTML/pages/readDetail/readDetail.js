@@ -1,6 +1,6 @@
 // pages/readDetail/readDetail.js
-const innerAudioContext = wx.createInnerAudioContext()
 
+const innerAudioContext = wx.createInnerAudioContext()
 Page({
 
   /**
@@ -10,7 +10,8 @@ Page({
     play: false,
     duration: '00:00',
     currentTime: '00:00',
-    progress: '0%'
+    progress: '0%',
+    isComplete: false
   },
 
   //播放
@@ -21,11 +22,47 @@ Page({
       innerAudioContext.play()
     }
   },
-
+  //完成返回
+  goBack: function(){
+    wx.navigateBack()
+  },
+  //去答题
+  goAnswer: function(){
+    wx.navigateTo({
+      url: '../answer/answer'
+    })
+  },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    console.log(options.id)
+    if(options.id){
+      this.setData({
+        isComplete: true
+      })
+    }
+
+  },
+
+  //格式化时间
+  formatTime: function (time) {
+    var hours = parseInt(time / 60);
+    var minute = parseInt(time % 60);
+    return (hours < 10 ? '0' + hours : hours) + ':' + (minute < 10 ? '0' + minute : minute)
+  },
+
+  /**
+   * 生命周期函数--监听页面初次渲染完成
+   */
+  onReady: function () {
+
+  },
+
+  /**
+   * 生命周期函数--监听页面显示
+   */
+  onShow: function () {
     var that = this;
     innerAudioContext.loop = true
     innerAudioContext.src = 'http://ting666.yymp3.com:86/new27/yuxi/4.mp3'
@@ -68,28 +105,6 @@ Page({
       console.log(res.errMsg)
       console.log(res.errCode)
     })
-
-  },
-
-  //格式化时间
-  formatTime: function (time) {
-    var hours = parseInt(time / 60);
-    var minute = parseInt(time % 60);
-    return (hours < 10 ? '0' + hours : hours) + ':' + (minute < 10 ? '0' + minute : minute)
-  },
-
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
-
   },
 
   /**

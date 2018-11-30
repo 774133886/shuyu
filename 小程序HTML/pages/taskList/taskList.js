@@ -5,16 +5,44 @@ Page({
    * 页面的初始数据
    */
   data: {
-
+    isComplete: false
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    if(options.id){
+      this.setData({
+        isComplete: true
+      })
+    }
   },
-
+  //跳转阅读详情
+  goDetail: function(e){
+    if (e.currentTarget.dataset.last == 1){
+      wx.navigateTo({
+        url: '../readDetail/readDetail?id=1'
+      })
+    }else{
+      wx.navigateTo({
+        url: '../read/read'
+      })
+    }
+    
+  },
+  //去答题
+  goAnswer: function(e){
+    wx.navigateTo({
+      url: '../answer/answer'
+    })
+  },
+  //去课程
+  goClass: function(){
+    wx.navigateTo({
+      url: '../weekClass/weekClass'
+    })
+  },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */

@@ -14,7 +14,18 @@ Page({
   onLoad: function (options) {
 
   },
-
+  //跳转首页
+  goIndexMian: function(){
+    wx.reLaunch({
+      url: '../index/index'
+    })
+  },
+  //跳转完成列表
+  gomissionDetail: function(){
+    wx.navigateTo({
+      url: '../missionDetail/missionDetail'
+    })
+  },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */

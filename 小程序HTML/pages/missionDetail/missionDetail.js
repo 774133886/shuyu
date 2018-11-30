@@ -17,7 +17,12 @@ Page({
   onLoad: function(options) {
   
   },
-
+  //跳转任务列表
+  goTaskList: function(){
+    wx.navigateTo({
+      url: '../taskList/taskList?id=1'
+    })
+  },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */

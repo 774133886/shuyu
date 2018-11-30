@@ -3,9 +3,13 @@ page{
   background-color: #fef9f8;
   box-sizing: border-box;
   height: 100%;
-  padding: 0 25rpx;
+  /* padding: 0 25rpx; */
   -webkit-box-shadow: 0 1px 5px 0 #f8eeec inset;
   box-shadow: 0 1px 5px 0 #f8eeec inset;
+}
+.indexCen{
+  padding: 0 25rpx;
+  box-sizing: border-box;
 }
 .hgt_100{
   height: 100%;
@@ -34,6 +38,9 @@ page{
   height: 12rpx;
   border-radius: 12rpx;
   margin-right: 15rpx;
+}
+.if_dot view.active{
+  background-color: #FF5A71;
 }
 .if_dot view:last-child{
   margin-right: 0;
@@ -242,4 +249,23 @@ page{
   border-radius: 90rpx;
   color: #fff !important;
   margin: 110rpx auto 0;
+}
+.maskBox{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%,-50%);
+  transform: translate(-50%,-50%);
+  background-color: #fff;
+  border-radius: 10rpx;
+  padding: 45rpx 90rpx;
+  width: 470rpx;
+}
+.maskBox button{
+  height: 70rpx;
+  line-height: 70rpx;
+  border-radius: 70rpx;
+  color: #fff !important;
+  font-size: 30rpx;
+  margin-top: 30rpx;
 }

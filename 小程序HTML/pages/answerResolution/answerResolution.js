@@ -15,6 +15,12 @@ Page({
 
   },
 
+  //去课程
+  goClass: function () {
+    wx.navigateTo({
+      url: '../weekClass/weekClass'
+    })
+  },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */

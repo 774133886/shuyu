@@ -60,7 +60,7 @@
       </view>
     </view>
     <view class='text-center'>
-     <button class='keepBtn fw_600'>提交</button>
+     <button class='keepBtn fw_600' bindtap='formSubmit'>提交</button>
     </view>
   </view>
   

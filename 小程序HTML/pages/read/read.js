@@ -22,7 +22,12 @@ Page({
       innerAudioContext.play()
     }
   },
-
+  //详情跳转
+  goReadDetail: function(){
+    wx.navigateTo({
+      url: '../readDetail/readDetail'
+    })
+  },
   /**
    * 生命周期函数--监听页面加载
    */
