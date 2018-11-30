@@ -6,7 +6,12 @@
       贾宝玉不愿意走仕途经济的老路。这与贾政望子成龙、重整家业的期望背道而驰的。贾宝玉不愿意走仕途经济的老路。这与贾政望子成龙、重整家业的期望背道而驰的。贾宝玉不愿意走仕途经济的老路。这与贾政望子成龙、重整家业的期望背道而驰的。
     </view>
     <view class='Con m-t-20'>
-      <video class='myVideo' objectFit="contain" poster="../../files/icon_select.png" controls src="http://wxsnsdy.tc.qq.com/105/20210/snsdyvideodownload?filekey=30280201010421301f0201690402534804102ca905ce620b1241b726bc41dcff44e00204012882540400&bizid=1023&hy=SH&fileparam=302c020101042530230204136ffd93020457e3c4ff02024ef202031e8d7f02030f42400204045a320a0201000400"></video>
+      <video class='myVideo relative' id='myVideo' bindplay='bindplay' objectFit="contain" poster="../../files/icon_select.png" controls src="http://wxsnsdy.tc.qq.com/105/20210/snsdyvideodownload?filekey=30280201010421301f0201690402534804102ca905ce620b1241b726bc41dcff44e00204012882540400&bizid=1023&hy=SH&fileparam=302c020101042530230204136ffd93020457e3c4ff02024ef202031e8d7f02030f42400204045a320a0201000400">
+      <cover-view  wx:if="{{!is_display}}"  class='videoBg around-center'>
+        <cover-image bindtap='playVideo' class='hgt80rpx wid80rpx' src='../../files/play.png'></cover-image>
+      </cover-view>
+      
+      </video>
     </view>
   </view>
   <view class='hgt170rpx wid100'></view>

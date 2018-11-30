@@ -6,6 +6,8 @@ Page({
    */
   data: {
     signBoxShow:false,
+    is_display:false,
+    videoContext:'',
   },
 
 
@@ -19,11 +21,22 @@ Page({
       signBoxShow: false
     })
   },
+  bindplay: function () {//开始播放按钮或者继续播放函数
+    //this.data.VideoContext.requestFullScreen();
+    this.setData({
+      is_display: true
+    });
+    this.data.videoContext.play();
+
+  },
+  playVideo: function () {
+    this.bindplay();
+  },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    this.data.videoContext = wx.createVideoContext('myVideo');
   },
 
   /**
