@@ -110,7 +110,7 @@
 <view class='indexMask mask2 {{mask2 ? "" : "hide"}}'>
   <view class='flex_column maskCenter'>
     <view class='flex_1 flex_column maskCtt'>
-      <text class='font40 color-333'>开启阅读</text>
+      <text class='font40 color-333 font-w6'>开启阅读</text>
       <view class='flex_dom choiceType'>
         <view class='flex_1 m-r-25 {{cType == "wechat" ? "curBg4" : ""}}' bindtap='choiceType' data-type="wechat">
           <image class='icon-wechat m-b-10' src='../../files/wechat.png'></image>

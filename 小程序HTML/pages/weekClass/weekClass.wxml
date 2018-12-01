@@ -32,8 +32,8 @@
        <cover-image src='../../files/icon_littleBot.png' class='icon_littleBot'></cover-image>
        <cover-view class='color-333 whitenormal flex_1 font28 m-l-10'>成功解锁明日任务，记得明天免费来读</cover-view>
       </cover-view>
-      <cover-view>
-        <button class='im_btn2 curBg5' bindtap='submitType'>分享</button>
+      <cover-view class='around-center wid100 hgt200rpx'>
+        <button class='im_btn2  curBg5'  open-type='share'>分享</button>
       </cover-view>
     </cover-view>
     <cover-view class='im_foot'>
