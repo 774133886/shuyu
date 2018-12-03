@@ -46,7 +46,9 @@ Page({
   submitType: function(){
     var cType = this.data.cType;
     if(cType == 'wechat'){
-
+      wx.navigateTo({
+        url: '../taskList/taskList'
+      })
     }else if(cType == 'car'){
       this.openShareMask()
     }
@@ -54,7 +56,7 @@ Page({
   //阅读跳转
   goReadMain: function(){
     wx.navigateTo({
-      url: '../read/read'
+      url: '../taskList/taskList?id=1'
     })
   },
   //我的跳转

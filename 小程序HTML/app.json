@@ -1,14 +1,14 @@
 {
   "pages":[
     "pages/index/index",
-    "pages/readDetail/readDetail",
-    "pages/read/read",
-    "pages/taskList/taskList",
     "pages/answerResolution/answerResolution",
+    "pages/answer/answer",
+    "pages/read/read",
+    "pages/readDetail/readDetail",
+    "pages/taskList/taskList",
     "pages/weekClass/weekClass",
     "pages/personal/personal",
-    "pages/missionDetail/missionDetail",
-    "pages/answer/answer"
+    "pages/missionDetail/missionDetail"
     
   ],
   "window":{

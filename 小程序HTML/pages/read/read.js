@@ -28,6 +28,11 @@ Page({
       url: '../readDetail/readDetail'
     })
   },
+  goReadDetail2: function () {
+    wx.navigateTo({
+      url: '../readDetail/readDetail?id=1'
+    })
+  },
   /**
    * 生命周期函数--监听页面加载
    */

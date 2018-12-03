@@ -4,8 +4,8 @@
 <view class='indexFixed' bindtap='goPersonal'>我的..</view>
 
 <view class='hgt_100 flex_column'>
-<swiper class='flex_1' indicator-dots="{{false}}" bindchange="swiperChange">
-  <swiper-item class='hgt_100 flex_column indexCen' wx:for="{{list}}" wx:key="item">
+<swiper class='flex_1' indicator-dots="{{false}}" circular="{{true}}" bindchange="swiperChange">
+  <swiper-item class='hgt_100 flex_column indexCen' wx:for="{{list}}" wx:key="item" wx:for-index="index">
     <view class='indexHead'>
       <view class='ih_box curBg flex_dom flex_item_mid'>
         <view>
@@ -17,16 +17,16 @@
       </view>
     </view>
     <scroll-view scroll-y="{{true}}" scroll-top="{{scrollTop}}" id='indexCtt' class='flex_1 w-sectionD indexCtt'>
-      <view class='icItem flex_dom flex_item_mid'>
+      <view wx:if="{{index == 0}}" class='icItem flex_dom flex_item_mid'>
         <view class='ic_text color-333 font26'>林黛玉---仙姝玉带林中挂</view>
         <view class='ic_btn curBg2' bindtap='openMask'>一元完成任务</view>
       </view>
       <view class='icItem flex_dom flex_item_mid' bindtap='goReadMain'>
-        <view class='ic_text color-ff5a71 font26'>林黛玉---仙姝玉带林中挂</view>
+        <view class='ic_text {{index != 0 ? "color-ff5a71" : ""}} font26'>林黛玉---仙姝玉带林中挂</view>
       </view>
       <view class='icItem flex_dom flex_item_mid'>
-        <view class='ic_text color-f9ab71 font26'>林黛玉---仙姝玉带林中挂</view>
-        <view class='ic_btn curBg2' bindtap='openMask2'><text>2/</text>12天</view>
+        <view class='ic_text {{index != 0 ? "color-f9ab71" : ""}} font26'>林黛玉---仙姝玉带林中挂</view>
+        <view wx:if="{{index != 0}}" class='ic_btn curBg2' bindtap='openMask2'><text>2/</text>12天</view>
       </view>
       <view class='icItem flex_dom flex_item_mid'>
         <view class='ic_text color-333 font26'>林黛玉---仙姝玉带林中挂</view>
@@ -81,18 +81,18 @@
           <image src='../../files/horn.png'></image>
           <view class='font28 color-333 font-w6'>必读：挑战规则</view>
         </view>
-        <view class='font24'>
+        <view class='font22'>
           <view class='color-666'>
-            1.一块钱开启后，坚持每日来阅读，成功打卡后，免费开放次日阅读任务。
+            1.开启阅读后,坚持每日打卡,免费开启次日阅读任务;
           </view>
           <view class='color-666'>
-            2.分享小程序给好友，好友开启一本书，您将获得一张复活卡。
+            2.分享小程序给好友开启一本书,您将获得一张复活卡;
           </view>
           <view class='color-666'>
-            3.若阅读在某天断开，需要一元或是用复活卡重启计划。
+            3.若阅读断开，您需要重启计划;
           </view>
           <view class='color-666'>
-            4.可同时开启多本读物进行阅读。
+            4.可同时开启多本读物阅读任务。
           </view>
         </view>
       </view>
@@ -115,7 +115,7 @@
         <view class='flex_1 m-r-25 {{cType == "wechat" ? "curBg4" : ""}}' bindtap='choiceType' data-type="wechat">
           <image class='icon-wechat m-b-10' src='../../files/wechat.png'></image>
           <view>微信支付</view>
-          <view>1圆开启</view>
+          <view>1元开启</view>
         </view>
         <view class='flex_1 {{cType == "car" ? "curBg4" : ""}}' bindtap='choiceType' data-type="car">
           <image class='icon-car m-b-10' src='../../files/car.png'></image>
