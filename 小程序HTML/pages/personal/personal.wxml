@@ -50,7 +50,7 @@
         </view>
         
       </view>
-      <view class='pTitle m-t-30 center'>
+      <!-- <view class='pTitle m-t-30 center'>
         <view class='tline m-r-5'></view>
         <view class='font30 m-l-10 fw_600 color-333'>为您推荐</view>
       </view>
@@ -67,7 +67,7 @@
           </view>
           <view class='font24 color-333'>12天</view>
         </view>
-      </view>
+      </view> -->
       <view class='pTitle m-t-30 center'>
         <view class='tline m-r-5'></view>
         <view class='font30 m-l-10 fw_600 color-333'>进行中</view>

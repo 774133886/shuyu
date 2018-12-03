@@ -5,7 +5,8 @@ Page({
    * 页面的初始数据
    */
   data: {
-    isComplete: false
+    isComplete: false,
+    signBoxShow: false
   },
 
   /**
@@ -18,11 +19,24 @@ Page({
       })
     }
   },
+  //打卡
+  clockIn: function(){
+    this.setData({
+      signBoxShow: true
+    })
+  },
+  closeMask: function(){
+    this.setData({
+      signBoxShow: false
+    })
+  },
   //跳转阅读详情
   goDetail: function(e){
     if (e.currentTarget.dataset.last == 1){
-      wx.navigateTo({
-        url: '../readDetail/readDetail?id=1'
+      wx.showToast({
+        title: '为了更好的阅读效果，请先完成之前的内容',
+        icon: 'none',
+        duration: 2000
       })
     }else{
       wx.navigateTo({

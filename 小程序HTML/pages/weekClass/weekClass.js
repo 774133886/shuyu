@@ -17,8 +17,11 @@ Page({
     })
   },
   closeMask: function () {
-    this.setData({
-      signBoxShow: false
+    // this.setData({
+    //   signBoxShow: false
+    // })
+    wx.reLaunch({
+      url: '../index/index'
     })
   },
   bindplay: function () {//开始播放按钮或者继续播放函数

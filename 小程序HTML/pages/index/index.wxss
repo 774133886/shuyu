@@ -150,19 +150,19 @@ page{
   margin: auto;
 }
 .im_ctt{
-  margin: 25rpx 30rpx 35rpx 30rpx;
+  margin: 25rpx 30rpx 10rpx 30rpx;
   border: 1px solid #dcdcdc;
   width: calc(100% - 60rpx);
   box-sizing: border-box;
   overflow-y: auto;
 }
 .im_text{
-  padding: 0 50rpx;
+  padding: 0 20rpx;
 }
 .im_text_tit{
   font-size: 0;
   text-align: center;
-  margin-bottom: 15rpx;
+  margin-bottom: 10rpx;
 }
 .im_text_tit image{
   width: 29rpx;
