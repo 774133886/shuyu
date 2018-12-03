@@ -103,6 +103,24 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function () {
-
+    var that = this;
+    if (res.from === 'button') {
+      // 来自页面内转发按钮
+      console.log(res.target)
+    }
+    return {
+      path: '/pages/index/index',
+      success: (res) => {    // 成功后要做的事情
+        //console.log(res.shareTickets[0])
+        // console.log
+        that.setData({
+          signBoxShow: false
+        })
+      },
+      fail: function (res) {
+        // 分享失败
+        console.log(res)
+      }
+    }
   }
 })
