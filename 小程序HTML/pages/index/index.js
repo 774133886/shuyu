@@ -42,6 +42,13 @@ Page({
       cType: e.currentTarget.dataset.type
     })
   },
+  //提示
+  noTap: function(){
+    wx.showToast({
+      title: '这不是今天的任务哦~',
+      icon: 'none'
+    })
+  },
   //开启中断阅读确认
   submitType: function(){
     var cType = this.data.cType;

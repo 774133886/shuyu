@@ -49,11 +49,11 @@ page{
   background-color: #fff;
   border-radius: 10rpx;
 }
-.indexCtt::-webkit-scrollbar-thumb{
+/* .indexCtt::-webkit-scrollbar-thumb{
   width: 6rpx;
   border-radius: 6rpx;
   background-color: #e5e5e5;
-}
+} */
 .icItem{
   padding: 0 40rpx 0 28rpx;
   position: relative;

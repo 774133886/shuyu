@@ -831,3 +831,21 @@ border: none;
   background: -webkit-linear-gradient(144deg, #f9ab71 , #ff5a71) !important; 
   background: linear-gradient(144deg, #f9ab71 , #ff5a71) !important;
 }
+/* ::-webkit-scrollbar{
+  color: transparent;
+  background-color: transparent !important;
+}
+::-webkit-scrollbar-track
+{
+  width: 6rpx;
+  border-radius: 6rpx;
+  color: transparent;
+  background-color: transparent;
+}
+::-webkit-scrollbar-thumb{
+  background-color: transparent;
+  background-clip: padding-box;
+}
+::-webkit-scrollbar-thumb:hover{
+  background-color: transparent;
+} */

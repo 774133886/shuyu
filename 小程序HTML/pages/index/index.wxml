@@ -21,32 +21,32 @@
         <view class='ic_text color-333 font26'>林黛玉---仙姝玉带林中挂</view>
         <view class='ic_btn curBg2' bindtap='openMask'>一元完成任务</view>
       </view>
-      <view class='icItem flex_dom flex_item_mid' bindtap='goReadMain'>
+      <view wx:if="{{index != 0}}" class='icItem flex_dom flex_item_mid' bindtap='goReadMain'>
         <view class='ic_text {{index != 0 ? "color-ff5a71" : ""}} font26'>林黛玉---仙姝玉带林中挂</view>
       </view>
-      <view class='icItem flex_dom flex_item_mid'>
+      <view wx:if="{{index != 0}}" class='icItem flex_dom flex_item_mid'>
         <view class='ic_text {{index != 0 ? "color-f9ab71" : ""}} font26'>林黛玉---仙姝玉带林中挂</view>
         <view wx:if="{{index != 0}}" class='ic_btn curBg2' bindtap='openMask2'><text>2/</text>12天</view>
       </view>
-      <view class='icItem flex_dom flex_item_mid'>
+      <view class='icItem flex_dom flex_item_mid' bindtap='noTap'>
         <view class='ic_text color-333 font26'>林黛玉---仙姝玉带林中挂</view>
       </view>
-      <view class='icItem flex_dom flex_item_mid'>
+      <view wx:if="{{index != list.length-1}}" class='icItem flex_dom flex_item_mid' bindtap='noTap'>
         <view class='ic_text color-333 font26'>林黛玉---仙姝玉带林中挂</view>
       </view>
-      <view class='icItem flex_dom flex_item_mid'>
+      <view wx:if="{{index != list.length-1}}" class='icItem flex_dom flex_item_mid' bindtap='noTap'>
         <view class='ic_text color-333 font26'>林黛玉---仙姝玉带林中挂,林黛玉---仙姝玉带林中挂</view>
       </view>
-      <view class='icItem flex_dom flex_item_mid'>
+      <view wx:if="{{index != list.length-1}}" class='icItem flex_dom flex_item_mid' bindtap='noTap'>
         <view class='ic_text color-333 font26'>林黛玉---仙姝玉带林中挂</view>
       </view>
-      <view class='icItem flex_dom flex_item_mid'>
+      <view wx:if="{{index != list.length-1}}" class='icItem flex_dom flex_item_mid' bindtap='noTap'>
         <view class='ic_text color-333 font26'>林黛玉---仙姝玉带林中挂</view>
       </view>
-      <view class='icItem flex_dom flex_item_mid'>
+      <view wx:if="{{index != list.length-1}}" class='icItem flex_dom flex_item_mid' bindtap='noTap'>
         <view class='ic_text color-333 font26'>林黛玉---仙姝玉带林中挂</view>
       </view>
-      <view class='icItem flex_dom flex_item_mid'>
+      <view wx:if="{{index != list.length-1}}" class='icItem flex_dom flex_item_mid' bindtap='noTap'>
         <view class='ic_text color-333 font26'>林黛玉---仙姝玉带林中挂</view>
       </view>
     </scroll-view>
