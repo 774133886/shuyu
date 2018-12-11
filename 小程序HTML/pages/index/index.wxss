@@ -271,3 +271,6 @@ page{
   font-size: 30rpx;
   margin-top: 30rpx;
 }
+.btm68{
+  margin-bottom: 68rpx;
+}

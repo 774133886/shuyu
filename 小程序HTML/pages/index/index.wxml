@@ -23,6 +23,7 @@
       </view>
       <view wx:if="{{index != 0}}" class='icItem flex_dom flex_item_mid' bindtap='goReadMain'>
         <view class='ic_text {{index != 0 ? "color-ff5a71" : ""}} font26'>林黛玉---仙姝玉带林中挂</view>
+        <view wx:if="{{index != 0}}" class='ic_btn curBg2'>已完成</view>
       </view>
       <view wx:if="{{index != 0}}" class='icItem flex_dom flex_item_mid'>
         <view class='ic_text {{index != 0 ? "color-f9ab71" : ""}} font26'>林黛玉---仙姝玉带林中挂</view>
@@ -55,7 +56,7 @@
     </view>
   </swiper-item>
 </swiper>
-<view class='indexCen'>
+<view class='indexCen {{isIphone ? "btm68" : ""}}'>
   <view class='if_dot flex_dom p-v-10'>
     <view wx:for="{{list}}" wx:key="item" wx:for-index="idx" class='flex_1 {{activeIdx == idx ? "active" : ""}}'></view>
   </view>

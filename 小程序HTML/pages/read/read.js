@@ -24,12 +24,12 @@ Page({
   },
   //详情跳转
   goReadDetail: function(){
-    wx.navigateTo({
+    wx.redirectTo({
       url: '../readDetail/readDetail'
     })
   },
   goReadDetail2: function () {
-    wx.navigateTo({
+    wx.redirectTo({
       url: '../readDetail/readDetail?id=1'
     })
   },

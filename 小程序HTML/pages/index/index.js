@@ -16,7 +16,8 @@ Page({
     isLogin: true,
     user: '',
     list: [{},{},{},{},{},{}],
-    activeIdx: 0
+    activeIdx: 0,
+    isIphone: false
   },
   //swiper
   swiperChange: function(e){
@@ -249,7 +250,26 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-    this.loadUser()
+    
+    this.loadUser();
+
+    var that = this;
+    //iphone 底部横线适配
+    var iphones = ['iPhone X', 'unknown<iPhone11,2>', 'unknown<iPhone11,8>', 'unknown<iPhone11,4>','unknown<iPhone11,6>']
+    wx.getSystemInfo({
+      success: function (res) {
+        //console.log(res.model)
+        //console.log(res.language)//zh_CN(en)
+        //console.log(res.model=="iPhone X")
+        console.log(iphones.indexOf(res.model) > -1)
+        if (iphones.indexOf(res.model) > -1) {
+          that.setData({
+            isIphone: true
+          })
+        }
+      }
+    })
+
   },
 
   /**
