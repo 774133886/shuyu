@@ -142,6 +142,13 @@
   </view>
 </view>
 
+<!-- 滑动提示 -->
+<view class='indexMask {{firstIn && !isLogin ? "" : "hide"}}'>
+  <image class='swiperHand' src='../../files/swiperHand.png'></image>
+  <image class='swiperMark' src='../../files/swiperMark.png'></image>
+  <button class='curBg4 swiperMarkBtn' bindtap='firstCome'>我知道了</button>
+</view>
+
 <!-- 授权 -->
 <view class='indexMask {{isLogin ? "" : "hide"}}'>
   <view class='maskBox text-center'>
@@ -150,3 +157,4 @@
     <button class='curBg4' open-type="getUserInfo" bindgetuserinfo="userInfoHandler">微信授权快速登陆</button>
   </view>
 </view>
+

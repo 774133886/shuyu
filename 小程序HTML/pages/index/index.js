@@ -17,7 +17,8 @@ Page({
     user: '',
     list: [{},{},{},{},{},{}],
     activeIdx: 0,
-    isIphone: false
+    isIphone: false,
+    firstIn: false
   },
   //swiper
   swiperChange: function(e){
@@ -246,6 +247,13 @@ Page({
     //   }
     // })
   },
+  //首次进入提示
+  firstCome: function(){
+    wx.setStorageSync("first", true);
+    this.setData({
+      firstIn: false
+    })
+  },
   /**
    * 生命周期函数--监听页面加载
    */
@@ -269,6 +277,17 @@ Page({
         }
       }
     })
+    //判断首次进入提示滑动
+    console.log(wx.getStorageSync("first"))
+    if (wx.getStorageSync("first") == null || wx.getStorageSync("first") == ""){
+      this.setData({
+        firstIn: true
+      })
+    }else{
+      this.setData({
+        firstIn: false
+      })
+    }
 
   },
 
