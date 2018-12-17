@@ -299,3 +299,11 @@ page{
   bottom: 100rpx;
   left: calc(50% - 140rpx);
 }
+.completeBtn{
+  width: 70rpx;
+  height: 71rpx;
+  margin-bottom: -2rpx;
+}
+.wid180{
+  width: 180rpx;
+}
