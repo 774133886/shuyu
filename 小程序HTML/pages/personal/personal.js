@@ -1,4 +1,6 @@
 // pages/personal/personal.js
+var http = require('../../http.js')
+const app = getApp()
 Page({
 
   /**
@@ -12,7 +14,15 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    http.postReq('/api/Answer/getQuestions?token=019d1a4a-8d59-4435-82ba-b30d4c133706&aid=2', data, function (res) {
+      if (res) {
 
+      } else {
+        console.log('xxx')
+      }
+      console.log(that.data.info)
+      console.log(res)
+    });
   },
   //跳转首页
   goIndexMian: function(){
