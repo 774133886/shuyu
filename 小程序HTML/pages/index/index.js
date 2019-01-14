@@ -1,5 +1,6 @@
 // pages/index/index.js
 const util = require('../../utils/util.js')
+const http = require('../../http.js')
 const app = getApp();
 
 Page({
@@ -76,6 +77,7 @@ Page({
   },
   //用户点击登录按钮
   userInfoHandler: function(e) {
+    
     var that = this;
     wx.getSetting({
       success: function(res) {
@@ -98,8 +100,7 @@ Page({
                       //   callback('')
                       // })
                     }else{
-                      wx.setStorageSync("user", 1);
-                      that.loadUser()
+                      that.getlist();
                     }
                   }
                 })
@@ -107,7 +108,35 @@ Page({
             }
           })
         } else {
-          wx.setStorageSync("user", 1);
+          wx.login({
+            success: function (res1) {
+              if (res1.code) {
+                wx.request({
+                  url: 'https://shuyu.qingshanyuwo.cn/api/Login/code2Session?code='+res1.code,
+                  success: function(res2){
+                    if(res2.data.openid){
+                      wx.getUserInfo({
+                        success: function (res3) {
+                          wx.request({
+                            url: 'https://shuyu.qingshanyuwo.cn/api/login/third_login',
+                            data: {
+                              nickname: res3.userInfo.nickName,
+                              openid: res2.data.openid,
+                              img: res3.userInfo.avatarUrl,
+                              // pid: ''  //邀请人id
+                            }, success: function (res4) {
+                              wx.setStorageSync('token', res4.data.data.token);
+                              that.getlist();
+                            }
+                          })
+                        }
+                      })
+                    }
+                  }
+                })
+              }
+            }
+          })
           // var data = {
           //   encryptedData: e.detail.encryptedData,
           //   iv: e.detail.iv,
@@ -130,7 +159,8 @@ Page({
           //   }
           // });
         }
-        that.loadUser()
+        that.loadUser();
+        that.getlist();
       },
       fail:function(res){
         console.log('授权失败');
@@ -140,7 +170,7 @@ Page({
   //加载用户信息
   loadUser: function () {
     var that = this;
-    var user = wx.getStorageSync('user');
+    var user = wx.getStorageSync('token');
     if (user == null || user == "") {
       var getWxUser = setInterval(function () {
         if (that.data.bNull) {
@@ -191,6 +221,17 @@ Page({
         isLogin: false
       });
     }
+  },
+  //getlist
+  getlist: function(){
+    var token = wx.getStorageSync('token')
+    if(!token) return;
+    var that = this;
+    http.getReq('/api/Index/getBooks',function(res){
+      that.setData({
+        list: res.data.rows
+      })
+    })
   },
   //滚动位置
   listLocation: function (selectId) {
@@ -260,7 +301,7 @@ Page({
   onLoad: function(options) {
     
     this.loadUser();
-
+    this.getlist();
     var that = this;
     //iphone 底部横线适配
     var iphones = ['iPhone X', 'unknown<iPhone11,2>', 'unknown<iPhone11,8>', 'unknown<iPhone11,4>','unknown<iPhone11,6>']

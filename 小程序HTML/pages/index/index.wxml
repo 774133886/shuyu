@@ -7,23 +7,26 @@
 <swiper class='flex_1' indicator-dots="{{false}}" circular="{{true}}" bindchange="swiperChange">
   <swiper-item class='hgt_100 flex_column indexCen' wx:for="{{list}}" wx:key="item" wx:for-index="index">
     <view class='indexHead'>
-      <view class='ih_box curBg flex_dom flex_item_mid'>
+      <view class='ih_box curBg flex_dom'>
         <view>
-          <view class='color-fff font36 hide111'>《红楼梦》</view>
-          <view class='color-fff font28'>
-            张一男老师为你提供一个全新的角度，解析故事走向与性格发展再次欣赏红楼梦。张一男老师为你提供一个全新的角度...  
+          <view class='color-fff font36 hide111'>{{item.name}}</view>
+          <view class='color-fff font28 m-t-10'>
+            {{item.description}} 
           </view>
         </view>
       </view>
     </view>
     <scroll-view scroll-y="{{true}}" scroll-top="{{scrollTop}}" id='indexCtt' class='flex_1 w-sectionD indexCtt'>
-      <view wx:if="{{index == 0}}" class='icItem flex_dom flex_item_mid'>
+      <view wx:for="{{item.articles}}" wx:key="article" class='icItem flex_dom flex_item_mid'>
+        <view class='ic_text color-333 font26'>林黛玉---仙姝玉带林中挂</view>
+      </view>
+      <!-- <view wx:if="{{index == 0}}" class='icItem flex_dom flex_item_mid'>
         <view class='ic_text color-333 font26'>林黛玉---仙姝玉带林中挂</view>
         <view class='ic_btn curBg2' bindtap='openMask'>一元完成任务</view>
       </view>
       <view wx:if="{{index != 0}}" class='icItem flex_dom flex_item_mid' bindtap='goReadMain'>
         <view class='ic_text {{index != 0 ? "color-ff5a71" : ""}} font26'>林黛玉---仙姝玉带林中挂</view>
-        <!-- <view wx:if="{{index != 0}}" class='ic_btn'>已完成</view> -->
+        <view wx:if="{{index != 0}}" class='ic_btn'>已完成</view>
         <view class='text-right wid180'>
           <image wx:if="{{index != 0}}" class='completeBtn' src='../../files/flag.png'></image>
         </view>
@@ -37,22 +40,7 @@
       </view>
       <view wx:if="{{index != list.length-1}}" class='icItem flex_dom flex_item_mid' bindtap='noTap'>
         <view class='ic_text color-333 font26'>林黛玉---仙姝玉带林中挂</view>
-      </view>
-      <view wx:if="{{index != list.length-1}}" class='icItem flex_dom flex_item_mid' bindtap='noTap'>
-        <view class='ic_text color-333 font26'>林黛玉---仙姝玉带林中挂,林黛玉---仙姝玉带林中挂</view>
-      </view>
-      <view wx:if="{{index != list.length-1}}" class='icItem flex_dom flex_item_mid' bindtap='noTap'>
-        <view class='ic_text color-333 font26'>林黛玉---仙姝玉带林中挂</view>
-      </view>
-      <view wx:if="{{index != list.length-1}}" class='icItem flex_dom flex_item_mid' bindtap='noTap'>
-        <view class='ic_text color-333 font26'>林黛玉---仙姝玉带林中挂</view>
-      </view>
-      <view wx:if="{{index != list.length-1}}" class='icItem flex_dom flex_item_mid' bindtap='noTap'>
-        <view class='ic_text color-333 font26'>林黛玉---仙姝玉带林中挂</view>
-      </view>
-      <view wx:if="{{index != list.length-1}}" class='icItem flex_dom flex_item_mid' bindtap='noTap'>
-        <view class='ic_text color-333 font26'>林黛玉---仙姝玉带林中挂</view>
-      </view>
+      </view> -->
     </scroll-view>
     <view class='indexFoot'>
       <view class='if_text font24 m-b-20'>每天来读，连续21t天完成任务</view>

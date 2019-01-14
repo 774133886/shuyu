@@ -5,13 +5,22 @@ var header = {
   'Authorization': null,
 }
 function getReq(url, cb) {
+  var token = wx.getStorageSync('token');
+  if(!token){
+    wx.showToast({
+      icon: 'none',
+      title: '重新登录',
+    })
+    return false;
+  }
   wx.showLoading({
     title: '加载中',
   })
   //console.log("header=="),
     //console.log(header)
+
   wx.request({
-    url: rootDocment + url,
+    url: rootDocment + url + '?token=' + token,
     method: 'get',
     header: header,
     success: function (res) {
