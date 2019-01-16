@@ -28,7 +28,7 @@ Page({
     })
   },
   //开启遮罩
-  openMask: function(){this.setData({mask: true})},
+  openMask: function(e){this.setData({mask: true,payBookId: e.currentTarget.dataset.id});},
   //关闭遮罩
   closeMask: function () {this.setData({mask: false})},
   //开启中断遮罩
@@ -96,11 +96,8 @@ Page({
                       //这里是授权成功之后 填写你重新获取数据的js
                       //参考:
                       
-                      // that.getLogiCallback('', function() {
-                      //   callback('')
-                      // })
                     }else{
-                      that.getlist();
+                      that.userLogin();
                     }
                   }
                 })
@@ -108,129 +105,116 @@ Page({
             }
           })
         } else {
-          wx.login({
-            success: function (res1) {
-              if (res1.code) {
-                wx.request({
-                  url: 'https://shuyu.qingshanyuwo.cn/api/Login/code2Session?code='+res1.code,
-                  success: function(res2){
-                    if(res2.data.openid){
-                      wx.getUserInfo({
-                        success: function (res3) {
-                          wx.request({
-                            url: 'https://shuyu.qingshanyuwo.cn/api/login/third_login',
-                            data: {
-                              nickname: res3.userInfo.nickName,
-                              openid: res2.data.openid,
-                              img: res3.userInfo.avatarUrl,
-                              // pid: ''  //邀请人id
-                            }, success: function (res4) {
-                              wx.setStorageSync('token', res4.data.data.token);
-                              that.getlist();
-                            }
-                          })
-                        }
-                      })
-                    }
-                  }
-                })
-              }
-            }
-          })
-          // var data = {
-          //   encryptedData: e.detail.encryptedData,
-          //   iv: e.detail.iv,
-          //   sCode: wx.getStorageSync('code'),
-          //   sOpenId: wx.getStorageSync('openid'),
-          // };
-          // app.request('GetWXUserInfo', data, function(res) {
-          //   if (res.success) {
-          //     app.globalData.bIsLogin = true;
-          //     res = res.data;
-          //     app.globalData.userState = res.user.iState;
-          //     wx.setStorageSync("user", res.user);
-          //     that.setData({
-          //       bLogin: true,
-          //       user: res.user,
-          //       yesterdayData: res.yesterdayData
-          //     });
-          //   } else {
-          //     app.alert('获取用户信息时出现错误，请稍后再试', that);
-          //   }
-          // });
+          that.userLogin();
         }
-        that.loadUser();
-        that.getlist();
       },
       fail:function(res){
         console.log('授权失败');
       }
     });
   },
-  //加载用户信息
+  //用户登录
+  userLogin: function(){
+    var that = this;
+    wx.login({
+      success: function (res1) {
+        if (res1.code) {
+          wx.request({
+            url: 'https://shuyu.qingshanyuwo.cn/api/Login/code2Session?code=' + res1.code,
+            success: function (res2) {
+              if (res2.data.openid) {
+                wx.getUserInfo({
+                  success: function (res3) {
+                    wx.request({
+                      url: 'https://shuyu.qingshanyuwo.cn/api/login/third_login',
+                      data: {
+                        nickname: res3.userInfo.nickName,
+                        openid: res2.data.openid,
+                        img: res3.userInfo.avatarUrl,
+                        // pid: ''  //邀请人id
+                      }, success: function (res4) {
+                        wx.setStorageSync('token', res4.data.data.token);
+                        that.setData({
+                          isLogin: false,
+                          firstIn: true
+                        })
+                        that.getlist();
+                      }
+                    })
+                  }
+                })
+              }
+            }
+          })
+        }
+      }
+    })
+  },
+  //用户是否授权
   loadUser: function () {
     var that = this;
-    var user = wx.getStorageSync('token');
-    if (user == null || user == "") {
-      var getWxUser = setInterval(function () {
-        if (that.data.bNull) {
-          var code = wx.getStorageSync('code');
-          if (code != null && code != "") {
-            that.setData({
-              bNull: false
-            });
-            var data = {
-              sCode: code
-            };
-            app.request('JudgeUser', data, function (result) {
-              if (result.data != null && result.data.sessionKey != undefined) {
-                that.setData({
-                  sessionKey: result.data.sessionKey
-                });
-                wx.setStorage({
-                  key: 'sessionKey',
-                  data: result.data.sessionKey,
-                });
-                if (result.success) {
-                  app.globalData.bIsLogin = true;
-                  var res = result.data.user;
-                  app.globalData.userState = res.iState;
-                  wx.setStorageSync("user", res);
-                  that.setData({
-                    user: res,
-                    bLogin: true,
-                    sOpenId: result.data.openid,
-                    yesterdayData: result.data.yesterdayData
-                  });
-                } else {
-                  that.setData({
-                    sOpenId: result.data.openid,
-                  });
-                }
-                that.getWeRun();
-              }
-            });
+    var token = wx.getStorageSync('token');
+    wx.getSetting({
+      success: function (res) {
+        if (!res.authSetting['scope.userInfo']) {
+          that.setData({
+            isLogin: true
+          })
+        }else{
+          if(!token){
+            that.userLogin();
           }
-        } else {
-          clearInterval(getWxUser)
+          that.setData({
+            isLogin: false
+          })
         }
-      }, 500);
-    } else {
-      that.setData({
-        user: user,
-        isLogin: false
-      });
-    }
+      }
+    })
   },
   //getlist
   getlist: function(){
-    var token = wx.getStorageSync('token')
+    var token = wx.getStorageSync('token');
     if(!token) return;
     var that = this;
     http.getReq('/api/Index/getBooks',function(res){
       that.setData({
         list: res.data.rows
       })
+    })
+  },
+  //点击去付款
+  goPay: function(){
+    console.log(this.data.payBookId)
+    var that = this;
+    var bookId = this.data.payBookId;
+    
+    http.postReq('/api/Book/buy', {book_id: bookId},function(res){
+      var data = res.data;
+      console.log(data.nonceStr);
+      // wx.requestPayment({
+      //   timeStamp: String(data.timesTamp),
+      //   nonceStr: data.nonceStr,
+      //   package: data.package,
+      //   signType: 'MD5',
+      //   paySign: data.paySign,
+      //   success(res) {
+      //     wx.showToast({
+      //       title: '支付成功',
+      //       icon: 'none'
+      //     });
+      //     that.setData({
+      //       mask: false
+      //     });
+      //     that.getlist();
+      //   },
+      //   fail(res) {
+      //     console.log(res)
+      //     wx.showToast({
+      //       title: '支付失败',
+      //       icon: 'none'
+      //     })
+      //   }
+      // })
     })
   },
   //滚动位置

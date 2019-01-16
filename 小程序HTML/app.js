@@ -23,25 +23,25 @@ App({
       }
     });
     // 登录
-    wx.login({
-      success: res => {
-        wx.setStorage({
-          key: 'code',
-          data: res.code,
-        });
-        var data = {
-          sCode: res.code
-        };
-        that.request('GetWeKey', data, function(res) {
-          if (res.success) {
-            wx.setStorage({
-              key: 'openid',
-              data: res.data,
-            });
-          }
-        });
-      }
-    });
+    // wx.login({
+    //   success: res => {
+    //     wx.setStorage({
+    //       key: 'code',
+    //       data: res.code,
+    //     });
+    //     var data = {
+    //       sCode: res.code
+    //     };
+    //     that.request('GetWeKey', data, function(res) {
+    //       if (res.success) {
+    //         wx.setStorage({
+    //           key: 'openid',
+    //           data: res.data,
+    //         });
+    //       }
+    //     });
+    //   }
+    // });
     // wx.getSetting({//引导用户允许微信获得你的公共信息，重新唤起微信运动授权
     //   success: function (res) {
     //     wx.openSetting({
@@ -89,55 +89,55 @@ App({
       sCommandName: commandName,
       sInput: JSON.stringify(param)
     };
-    wx.request({
-      method: 'POST',
-      url: host + 'api/DoCommand',
-      data: data,
-      header: {
-        'content-type': 'application/json'
-      },
-      success: function(res) {
-        if (maskwin) {
-          wx.hideLoading();
-        }
-        var result = res.data;
-        if (!result.success) {
-          if (result.data == -200) {
-            user.iState = 2;
-            wx.setStorageSync('user', user)
-            wx.showToast({
-              title: result.message,
-              duration: 3000,
-              mask: true,
-              icon: "none"
-            });
-          } else if (result.data == -100) {
-            wx.removeStorageSync('user');
-            wx.showToast({
-              title: '用户不存在，请退出等待15分钟后再进入',
-              duration: 3000,
-              mask: true,
-              icon: "none"
-            });
-            setTimeout(function() {
-              wx.navigateBack({
-                delta: -5
-              });
-            }, 3000);
-          }
+    // wx.request({
+    //   method: 'POST',
+    //   url: host + 'api/DoCommand',
+    //   data: data,
+    //   header: {
+    //     'content-type': 'application/json'
+    //   },
+    //   success: function(res) {
+    //     if (maskwin) {
+    //       wx.hideLoading();
+    //     }
+    //     var result = res.data;
+    //     if (!result.success) {
+    //       if (result.data == -200) {
+    //         user.iState = 2;
+    //         wx.setStorageSync('user', user)
+    //         wx.showToast({
+    //           title: result.message,
+    //           duration: 3000,
+    //           mask: true,
+    //           icon: "none"
+    //         });
+    //       } else if (result.data == -100) {
+    //         wx.removeStorageSync('user');
+    //         wx.showToast({
+    //           title: '用户不存在，请退出等待15分钟后再进入',
+    //           duration: 3000,
+    //           mask: true,
+    //           icon: "none"
+    //         });
+    //         setTimeout(function() {
+    //           wx.navigateBack({
+    //             delta: -5
+    //           });
+    //         }, 3000);
+    //       }
 
-        }
-        typeof callBack == "function" && callBack(res.data);
-      },
-      fail: function(error) {
-        console.log(error);
-      },
-      complete: function() {
-        // if (true) {
-        //   wx.hideLoading()
-        // }
-      }
-    })
+    //     }
+    //     typeof callBack == "function" && callBack(res.data);
+    //   },
+    //   fail: function(error) {
+    //     console.log(error);
+    //   },
+    //   complete: function() {
+    //     // if (true) {
+    //     //   wx.hideLoading()
+    //     // }
+    //   }
+    // })
   },
   globalData: {
     userInfo: null,
@@ -215,6 +215,8 @@ App({
       }
     })
   },
+  //支付
+  
   onError: function(msg) {
     console.log("onError:" + msg);
   }

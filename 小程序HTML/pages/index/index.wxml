@@ -17,8 +17,13 @@
       </view>
     </view>
     <scroll-view scroll-y="{{true}}" scroll-top="{{scrollTop}}" id='indexCtt' class='flex_1 w-sectionD indexCtt'>
-      <view wx:for="{{item.articles}}" wx:key="article" class='icItem flex_dom flex_item_mid'>
-        <view class='ic_text color-333 font26'>林黛玉---仙姝玉带林中挂</view>
+      <view wx:for="{{item.articles}}" wx:key="article" wx:for-index="idx" wx:for-item="article" class='icItem flex_dom flex_item_mid'>
+        <view class='ic_text font26 {{article.read ? "color-ff5a71" : (article.today ? "color-f9ab71" : "color-333")}}'>{{article.name}}</view>
+        <view class='ic_btn curBg2' data-id="{{item.id}}" bindtap='openMask' wx:if="{{!item.buy && idx == 0}}">一元完成任务</view>
+        <view class='text-right wid180' wx:if="{{article.read}}">
+          <image class='completeBtn' src='../../files/flag.png'></image>
+        </view>
+        <view wx:if="{{article.today}}" class='ic_btn curBg2' bindtap='openMask2'><text>{{idx}}/</text>{{item.maxday}}天</view>
       </view>
       <!-- <view wx:if="{{index == 0}}" class='icItem flex_dom flex_item_mid'>
         <view class='ic_text color-333 font26'>林黛玉---仙姝玉带林中挂</view>
@@ -89,7 +94,7 @@
         </view>
       </view>
       <view class='im_btn'>
-        <button class='curBg2'>立即付款</button>
+        <button class='curBg2' bindtap='goPay'>立即付款</button>
       </view>
     </view>
     <view class='im_foot'>

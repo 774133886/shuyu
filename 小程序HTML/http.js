@@ -16,16 +16,44 @@ function getReq(url, cb) {
   wx.showLoading({
     title: '加载中',
   })
-  //console.log("header=="),
-    //console.log(header)
-
   wx.request({
     url: rootDocment + url + '?token=' + token,
     method: 'get',
-    header: header,
     success: function (res) {
       wx.hideLoading();
-      return typeof cb == "function" && cb(res.data)
+      if (res.data.msg == "请登录后操作") {
+        wx.login({
+          success: function (res1) {
+            if (res1.code) {
+              wx.request({
+                url: 'https://shuyu.qingshanyuwo.cn/api/Login/code2Session?code=' + res1.code,
+                success: function (res2) {
+                  if (res2.data.openid) {
+                    wx.getUserInfo({
+                      success: function (res3) {
+                        wx.request({
+                          url: 'https://shuyu.qingshanyuwo.cn/api/login/third_login',
+                          data: {
+                            nickname: res3.userInfo.nickName,
+                            openid: res2.data.openid,
+                            img: res3.userInfo.avatarUrl,
+                            // pid: ''  //邀请人id
+                          }, success: function (res4) {
+                            wx.setStorageSync('token', res4.data.data.token);
+                            getReq(url, cb);
+                          }
+                        })
+                      }
+                    })
+                  }
+                }
+              })
+            }
+          }
+        })
+      }else{
+        return typeof cb == "function" && cb(res.data)
+      }
     },
     fail: function () {
       wx.hideLoading();
@@ -43,28 +71,50 @@ function postReq(url, data, cb) {
   wx.showLoading({
     title: '加载中',
   })
-  //console.log("header=="),
-    //console.log(header),
     if(!data){
       data={};
     }
-    var member_id = wx.getStorageSync('member_id');
     var token = wx.getStorageSync('token');
-    if (member_id){
-      data.member_id = member_id;
-    }
-    if (token) {
-      data.token = token;
-    }
     console.log(data);
     wx.request({
-      url: rootDocment + url,
-      header: header,
+      url: rootDocment + url + '?token=' + token,
       data: data,
       method: 'post',
       success: function (res) {
         wx.hideLoading();
-        return typeof cb == "function" && cb(res.data)
+        if (res.data.msg == "请登录后操作") {
+          wx.login({
+            success: function (res1) {
+              if (res1.code) {
+                wx.request({
+                  url: 'https://shuyu.qingshanyuwo.cn/api/Login/code2Session?code=' + res1.code,
+                  success: function (res2) {
+                    if (res2.data.openid) {
+                      wx.getUserInfo({
+                        success: function (res3) {
+                          wx.request({
+                            url: 'https://shuyu.qingshanyuwo.cn/api/login/third_login',
+                            data: {
+                              nickname: res3.userInfo.nickName,
+                              openid: res2.data.openid,
+                              img: res3.userInfo.avatarUrl,
+                              // pid: ''  //邀请人id
+                            }, success: function (res4) {
+                              wx.setStorageSync('token', res4.data.data.token);
+                              postReq(url, data, cb);
+                            }
+                          })
+                        }
+                      })
+                    }
+                  }
+                })
+              }
+            }
+          })
+        } else {
+          return typeof cb == "function" && cb(res.data)
+        }
       },
       fail: function () {
         wx.hideLoading();
