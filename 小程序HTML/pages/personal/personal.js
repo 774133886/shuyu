@@ -1,28 +1,25 @@
 // pages/personal/personal.js
 var http = require('../../http.js')
-const app = getApp()
+const app = getApp();
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-
+    token: wx.getStorageSync('token'),
+    info:{},
+    host: app.host,
+    doneBooks:[],
+    doingBooks: [],
+    recommendBooks: [],
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    http.postReq('/api/Answer/getQuestions?token=019d1a4a-8d59-4435-82ba-b30d4c133706&aid=2', data, function (res) {
-      if (res) {
-
-      } else {
-        console.log('xxx')
-      }
-      console.log(that.data.info)
-      console.log(res)
-    });
+    console.log(app.host)
   },
   //跳转首页
   goIndexMian: function(){
@@ -47,7 +44,23 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    var data = {};
+    var that = this;
+    data.token = this.data.token;
+    http.postReq('/api/User/info', data, function (res) {
+      if (res) {
+        that.setData({
+          info: res.data,
+          doneBooks: res.data.my_books,
+          doingBooks: res.data.jxz_books,
+          recommendBooks: res.data.tj_books,
+        })
+      } else {
+        console.log('xxx')
+      }
+      console.log(that.data.info)
+      console.log(res)
+    });
   },
 
   /**
