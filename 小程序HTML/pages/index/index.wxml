@@ -1,6 +1,5 @@
 <!--pages/index/index.wxml-->
 
-<!-- <button open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber">手机号</button> -->
 <view class='indexFixed' bindtap='goPersonal'>我的..</view>
 
 <view class='hgt_100 flex_column'>
@@ -17,13 +16,13 @@
       </view>
     </view>
     <scroll-view scroll-y="{{true}}" scroll-top="{{scrollTop}}" id='indexCtt' class='flex_1 w-sectionD indexCtt'>
-      <view wx:for="{{item.articles}}" wx:key="article" wx:for-index="idx" wx:for-item="article" class='icItem flex_dom flex_item_mid'>
-        <view class='ic_text font26 {{article.read ? "color-ff5a71" : (article.today ? "color-f9ab71" : "color-333")}}'>{{article.name}}</view>
+      <view wx:for="{{item.articles}}" wx:key="article" wx:for-index="idx" wx:for-item="article" class='icItem flex_dom flex_item_mid'  bindtap='goReadMain' data-item="{{article}}" data-book="{{item}}">
+        <view class='ic_text font26 {{article.today ? "color-f9ab71" : (article.read ? "color-ff5a71" : "color-333")}}'>{{article.name}}</view>
         <view class='ic_btn curBg2' data-id="{{item.id}}" bindtap='openMask' wx:if="{{!item.buy && idx == 0}}">一元完成任务</view>
-        <view class='text-right wid180' wx:if="{{article.read}}">
+        <view class='text-right wid180' wx:if="{{article.read && !article.today}}">
           <image class='completeBtn' src='../../files/flag.png'></image>
         </view>
-        <view wx:if="{{article.today}}" class='ic_btn curBg2' bindtap='openMask2'><text>{{idx}}/</text>{{item.maxday}}天</view>
+        <view wx:if="{{article.today}}" class='ic_btn curBg2'><text>{{idx+1}}/</text>{{item.maxday}}天</view>
       </view>
       <!-- <view wx:if="{{index == 0}}" class='icItem flex_dom flex_item_mid'>
         <view class='ic_text color-333 font26'>林黛玉---仙姝玉带林中挂</view>
@@ -121,7 +120,7 @@
         </view>
       </view>
       <view>
-        <button class='im_btn2 curBg5' bindtap='submitType'>确认</button>
+        <button class='im_btn2 curBg5' bindtap='goPay2'>确认</button>
       </view>
     </view>
     <view class='im_foot'>
