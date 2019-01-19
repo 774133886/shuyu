@@ -13,7 +13,7 @@
     <view>
     <!-- <image class='icon-task' src='../../files/task.png'></image> -->
     </view>
-    <button class='tl_btn curBg6'>顺序播放</button>
+    <button class='tl_btn curBg6' bindtap='goPlay'>顺序播放</button>
   </view>
 
   <view class='taskCtt'>

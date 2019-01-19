@@ -1,4 +1,4 @@
-var rootDocment = 'https://shuyu.qingshanyuwo.cn/';
+var rootDocment = 'https://shuyu.qingshanyuwo.cn';
 var header = {
   'Accept': 'application/json',
   'content-type': 'application/json',

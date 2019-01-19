@@ -50,9 +50,31 @@ Page({
     })
   },
   closeMask: function(){
-    this.setData({
-      signBoxShow: false
+    http.postReq('/api/Clock/signInArticle', { aid: info.id},function(res){
+      if(res.code == 101){
+        this.setData({
+          signBoxShow: false
+        })
+      }
     })
+    
+  },
+  //顺序播放
+  goPlay: function(){
+    var that = this;
+    var list = this.data.info.yp;
+    var aid = list[0].id;
+    // for(var i = 0;i < list.length;i++){
+    //   if (!list[i].flag){
+    //     aid = list[i].id
+    //     return;
+    //   }
+    // }
+    wx.setStorageSync('bookInfo', this.data.info);
+    wx.navigateTo({
+      url: '../read/read?id=' + aid
+    })
+    
   },
   //跳转阅读详情
   goDetail: function(e){
@@ -62,7 +84,8 @@ Page({
     console.log(e)
     if (idx != 0 && !list[idx-1].flag){
       that.toast();
-    }else{
+    } else {
+      wx.setStorageSync('bookInfo', this.data.info);
       wx.navigateTo({
         url: '../read/read?id=' + list[idx].id
       })

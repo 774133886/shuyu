@@ -1,6 +1,9 @@
 // pages/read/read.js
+const util = require('../../utils/util.js')
+const http = require('../../http.js')
+const app = getApp();
 
-const innerAudioContext = wx.createInnerAudioContext()
+
 
 Page({
 
@@ -11,36 +14,98 @@ Page({
     play: false,
     duration: '00:00',
     currentTime: '00:00',
-    progress: '0%'
+    progress: '0%',
+    info: {},
+    isComplete: false,
+    nextId: '',
+    innerAudioContext: {}
   },
 
   //播放
   playAudio: function(){
+    var innerAudioContext = this.data.innerAudioContext;
     if(this.data.play){
       innerAudioContext.pause()
     }else{
       innerAudioContext.play()
     }
   },
+  //判断是否最后一个
+  isLast: function(){
+    var bookInfo = wx.getStorageSync('bookInfo');
+    var list = bookInfo.yp;
+    var id = this.data.info.id;
+    var that = this;
+    for(var i = 0;i < list.length;i++){
+      if (list[i].id == id) {
+        if (i == list.length - 1 && !bookInfo.dt.flag){
+          that.setData({
+            isComplete: true
+          })
+        }else{
+          that.setData({
+            isComplete: false,
+            nextId: list[i + 1].id
+          })
+        }
+      } 
+    }
+  },
   //详情跳转
   goReadDetail: function(){
+    wx.setStorageSync('yw', this.data.info.yw);
     wx.redirectTo({
       url: '../readDetail/readDetail'
     })
   },
   goReadDetail2: function () {
-    wx.redirectTo({
-      url: '../readDetail/readDetail?id=1'
-    })
+    var id = this.data.nextId;
+    this.getAudio(id);
   },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
     var that = this;
-    innerAudioContext.loop = true
-    innerAudioContext.src = 'http://ting666.yymp3.com:86/new27/yuxi/4.mp3'
-    
+    this.getAudio(options.id);
+
+  },
+  //去答题
+  goAnswer: function () {
+    var info = wx.getStorageSync('bookInfo');
+    wx.redirectTo({
+      url: '../answer/answer?aid=' + info.id
+    })
+  },
+  //获取音频
+  getAudio: function(id){
+    var that = this;
+    http.postReq('/api/Yp/info', { id: id }, function (res) {
+      if (res.code == 101) {
+        that.loadAudio(res.data.file);
+        that.setData({
+          info: res.data
+        });
+        that.isLast();
+      }
+    })
+  },
+  //音频初始化
+  loadAudio: function(src){
+    var that = this;
+    if (this.data.innerAudioContext.src){
+      console.log(1243)
+      this.data.innerAudioContext.destroy();
+      this.setData({
+        play: false,
+        duration: '00:00',
+        currentTime: '00:00',
+        progress: '0%'
+      })
+    }
+    const innerAudioContext = wx.createInnerAudioContext()
+    // innerAudioContext.loop = true
+    innerAudioContext.src = src;
     innerAudioContext.onPlay(() => {
       console.log('开始播放')
       that.setData({ play: true })
@@ -49,21 +114,20 @@ Page({
       console.log('暂停播放')
       that.setData({ play: false })
     })
-    console.log(innerAudioContext)
     innerAudioContext.onCanplay(() => {
       var getDuration = setInterval(function () {
         var duration = innerAudioContext.duration
-        if(duration > 0){
+        if (duration > 0) {
           that.setData({
             duration: that.formatTime(duration)
           })
           console.log(duration);
           clearInterval(getDuration);
         }
-      },500)
+      }, 500)
     })
-    
-    
+
+
     innerAudioContext.onTimeUpdate((res) => {
       var porg = this.data.progress;
       var duration = innerAudioContext.duration;
@@ -79,7 +143,9 @@ Page({
       console.log(res.errMsg)
       console.log(res.errCode)
     })
-
+    this.setData({
+      innerAudioContext: innerAudioContext
+    })
   },
 
   //格式化时间
@@ -107,14 +173,15 @@ Page({
    * 生命周期函数--监听页面隐藏
    */
   onHide: function () {
-
+    
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
   onUnload: function () {
-
+    var innerAudioContext = this.data.innerAudioContext;
+    innerAudioContext.destroy()
   },
 
   /**

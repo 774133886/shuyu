@@ -1,6 +1,6 @@
 // pages/readDetail/readDetail.js
 
-const innerAudioContext = wx.createInnerAudioContext()
+
 Page({
 
   /**
@@ -11,11 +11,13 @@ Page({
     duration: '00:00',
     currentTime: '00:00',
     progress: '0%',
-    isComplete: false
+    info: {},
+    innerAudioContext: {}
   },
 
   //播放
   playAudio: function () {
+    var innerAudioContext = this.data.innerAudioContext;
     if (this.data.play) {
       innerAudioContext.pause()
     } else {
@@ -26,46 +28,23 @@ Page({
   goBack: function(){
     wx.navigateBack()
   },
-  //去答题
-  goAnswer: function(){
-    wx.navigateTo({
-      url: '../answer/answer'
-    })
-  },
+  
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    console.log(options.id)
-    if(options.id){
-      this.setData({
-        isComplete: true
-      })
-    }
-
+    var yw = wx.getStorageSync('yw');
+    this.setData({
+      info: yw
+    });
+    this.loadAudio();
   },
-
-  //格式化时间
-  formatTime: function (time) {
-    var hours = parseInt(time / 60);
-    var minute = parseInt(time % 60);
-    return (hours < 10 ? '0' + hours : hours) + ':' + (minute < 10 ? '0' + minute : minute)
-  },
-
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
+  //加载音频
+  loadAudio: function(){
     var that = this;
-    innerAudioContext.loop = true
-    innerAudioContext.src = 'http://ting666.yymp3.com:86/new27/yuxi/4.mp3'
+    const innerAudioContext = wx.createInnerAudioContext();
+    // innerAudioContext.loop = true
+    innerAudioContext.src = this.data.info.file;
 
     innerAudioContext.onPlay(() => {
       console.log('开始播放')
@@ -75,7 +54,7 @@ Page({
       console.log('暂停播放')
       that.setData({ play: false })
     })
-    console.log(innerAudioContext)
+
     innerAudioContext.onCanplay(() => {
       var getDuration = setInterval(function () {
         var duration = innerAudioContext.duration
@@ -105,20 +84,44 @@ Page({
       console.log(res.errMsg)
       console.log(res.errCode)
     })
+    this.setData({
+      innerAudioContext: innerAudioContext
+    })
+  },
+  //格式化时间
+  formatTime: function (time) {
+    var hours = parseInt(time / 60);
+    var minute = parseInt(time % 60);
+    return (hours < 10 ? '0' + hours : hours) + ':' + (minute < 10 ? '0' + minute : minute)
+  },
+
+  /**
+   * 生命周期函数--监听页面初次渲染完成
+   */
+  onReady: function () {
+
+  },
+
+  /**
+   * 生命周期函数--监听页面显示
+   */
+  onShow: function () {
+    
   },
 
   /**
    * 生命周期函数--监听页面隐藏
    */
   onHide: function () {
-
+    
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
   onUnload: function () {
-
+    var innerAudioContext = this.data.innerAudioContext;
+    innerAudioContext.destroy();
   },
 
   /**
