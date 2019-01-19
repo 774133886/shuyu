@@ -152,4 +152,12 @@
     <button class='curBg4' open-type="getUserInfo" bindgetuserinfo="userInfoHandler">微信授权快速登陆</button>
   </view>
 </view>
+<!-- 授权手机号 -->
+<view class='indexMask {{isPhone ? "" : "hide"}}'>
+  <view class='maskBox text-center'>
+    <view class='font30 color-333'>您当前未绑定手机号</view>
+    <view class='font30 color-333'>是否授权手机号绑定?</view>
+    <button class='curBg4' open-type="getPhoneNumber" bindgetuserinfo="getPhoneNumber">微信授权获取手机号</button>
+  </view>
+</view>
 

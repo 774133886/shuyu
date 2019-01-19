@@ -1,8 +1,8 @@
 <!--pages/read/read.wxml-->
 
 <view class='readHead'>
-  <view class='font30 color-333'>为什么叫他“贾二爷”</view>
-  <view class='font24 color-999'>曹雪芹为何对“二爷”如此情有独钟？</view>
+  <view class='font30 color-333'>{{info.name}}</view>
+  <view class='font24 color-999'>{{info.description}}</view>
   <view class='flex_dom flex_item_mid audioBox'>
     <image class='icon-play' bindtap='playAudio' src='{{play ? "../../files/pause.png" : "../../files/play.png"}}'></image>
     <view class='flex_1'>
@@ -15,8 +15,9 @@
 </view>
 
 <view class='readCtt m-t-30'>
-  <view>
-    <view class='font28 color-333' style='text-indent:2em;'>
+  <view class='font28 color-333'>
+  {{info.content}}
+    <!-- <view class='font28 color-333' style='text-indent:2em;'>
     《红楼梦》里的人都管贾宝玉叫“二爷”，其实你有没有想过，贾宝玉的父亲，也是一个“贾二爷”呢。不但如此，贾政的爷爷荣国公，是宁国公的弟弟，也是一个“贾二爷”。就连似乎并没有哥哥的贾琏，也被人叫做“琏二爷”。曹雪芹似乎总是对“二爷”情有独钟。
     </view>
     <view class='font28 color-333' style='text-indent:2em;'>
@@ -24,22 +25,23 @@
     </view>
     <view class='font28 color-333' style='text-indent:2em;'>
     当然，现实是复杂的，现实中的哥哥不一定都比弟弟面临更大的压力，但是现实主义小说是要讲究典型性的，曹雪芹在塑造人物的时候，对“袭官”的长子们，与“贾二爷”们，按照他对世界的理解，有着不同的安排。
-    </view>
+    </view> -->
     <!-- <view class='font28 color-333 m-t-40'>
       《红楼梦》里那么多人物，从谁写起好呢？
   曹雪芹是从刘姥姥写起的，一个几乎是最底层的边缘人物，让他带着我们，从下往上审视他编织的这个梦。而我既然是来拆解这个梦的，那么就要反其道而行之，写一个几乎是最顶层的边缘人物，透过他，从上往下审视这个梦，我选择的这个人物，就是贾政。
     </view> -->
-    <view class='font28 color-999 m-t-40'>注：鉴赏内容引用自白先勇《白先勇细说红楼梦》</view>
+    <view class='font28 color-999 m-t-40' wx:if="{{info.tips}}">注：{{info.tips}}</view>
   </view>
-  <button class='read_btn curBg4' bindtap='goReadDetail2'>继续阅读</button>
+  <button class='read_btn curBg4' wx:if="{{!isComplete}}" bindtap='goReadDetail2'>继续阅读</button>
+  <button class='read_btn curBg4' wx:if="{{isComplete}}" bindtap='goAnswer'>已完成阅读任务，去做题</button>
 </view>
 
-<view class='readBtm'>
+<view class='readBtm' wx:if="{{info.yw.length != 0}}">
   <view class='font36 color-333'> 溯洄原文</view>
   <view class='taskItem flex_dom flex_item_mid' bindtap='goReadDetail'>
     <view class='flex_1 m-r-20'>
-      <view class='color-333 font30 only_line'>《红楼梦》第二十二回</view>
-      <view class='color-999 font24'>听曲文宝玉悟禅机 制灯谜贾政悲谶语</view>
+      <view class='color-333 font30 only_line'>{{info.yw.name}}</view>
+      <view class='color-999 font24'>{{info.yw.description}}</view>
     </view>
     <image class='icon-voice' src='../../files/voice.png'></image>
   </view>
