@@ -19,7 +19,8 @@ Page({
     list: [{},{},{},{},{},{}],
     activeIdx: 0,
     isIphone: false,
-    firstIn: false
+    firstIn: false,
+    pid: ''
   },
   //swiper
   swiperChange: function(e){
@@ -64,10 +65,26 @@ Page({
     }
   },
   //阅读跳转
-  goReadMain: function(){
-    wx.navigateTo({
-      url: '../taskList/taskList?id=1'
-    })
+  goReadMain: function(e){
+    var item = e.currentTarget.dataset.item;
+    var book = e.currentTarget.dataset.book;
+    if(!book.buy){
+      return false;
+    }
+    if(item.buy){
+      this.setData({
+        mask2: true,
+        articleId: item.id
+      });
+      return false;
+    }
+    if (item.read) {
+      wx.navigateTo({
+        url: '../taskList/taskList?id=' + book.id
+      })
+    }else{
+      this.noTap();
+    }
   },
   //我的跳转
   goPersonal: function(){
@@ -116,6 +133,7 @@ Page({
   //用户登录
   userLogin: function(){
     var that = this;
+    var pid = this.data.pid;
     wx.login({
       success: function (res1) {
         if (res1.code) {
@@ -131,9 +149,10 @@ Page({
                         nickname: res3.userInfo.nickName,
                         openid: res2.data.openid,
                         img: res3.userInfo.avatarUrl,
-                        // pid: ''  //邀请人id
+                        pid: pid  //邀请人id
                       }, success: function (res4) {
                         wx.setStorageSync('token', res4.data.data.token);
+                        wx.setStorageSync('user', res4.data.data.info)
                         that.setData({
                           isLogin: false,
                           firstIn: true
@@ -184,37 +203,70 @@ Page({
   },
   //点击去付款
   goPay: function(){
-    console.log(this.data.payBookId)
     var that = this;
     var bookId = this.data.payBookId;
     
     http.postReq('/api/Book/buy', {book_id: bookId},function(res){
       var data = res.data;
-      console.log(data.nonceStr);
-      // wx.requestPayment({
-      //   timeStamp: String(data.timesTamp),
-      //   nonceStr: data.nonceStr,
-      //   package: data.package,
-      //   signType: 'MD5',
-      //   paySign: data.paySign,
-      //   success(res) {
-      //     wx.showToast({
-      //       title: '支付成功',
-      //       icon: 'none'
-      //     });
-      //     that.setData({
-      //       mask: false
-      //     });
-      //     that.getlist();
-      //   },
-      //   fail(res) {
-      //     console.log(res)
-      //     wx.showToast({
-      //       title: '支付失败',
-      //       icon: 'none'
-      //     })
-      //   }
-      // })
+      that.wxPay(data);
+    })
+  },
+  //中断阅读支付
+  goPay2: function(){
+    var that = this;
+    var bookId = this.data.articleId;
+    var cType = this.data.cType;
+    if (cType == 'wechat'){
+      http.postReq('/api/Article/buy', { aid: bookId }, function (res) {
+        var data = res.data;
+        that.wxPay(data);
+      })
+    }else{
+      http.postReq('/api/Article/coupon', { aid: bookId }, function (res) {
+        if(res.code == 120){
+          if (res.data == '没有可用的复活币了！'){
+            that.setData({
+              shareMask: true,
+              mask2: false
+            });
+          }else{
+            that.setData({
+              mask2: false
+            });
+            that.getlist();
+          }
+        }
+      })
+    }
+  },
+  //付款
+  wxPay: function(data){
+    var that = this;
+    wx.requestPayment({
+      appId: data.appid,
+      timeStamp: String(data.timeStamp),
+      nonceStr: data.nonceStr,
+      package: data.package,
+      signType: 'MD5',
+      paySign: data.paySign,
+      success(res) {
+        wx.showToast({
+          title: '支付成功',
+          icon: 'none'
+        });
+        that.setData({
+          mask: false,
+          mask2: false
+        });
+        that.getlist();
+      },
+      fail(res) {
+        console.log(res)
+        wx.showToast({
+          title: '支付失败',
+          icon: 'none'
+        })
+      }
     })
   },
   //滚动位置
@@ -287,6 +339,12 @@ Page({
     this.loadUser();
     this.getlist();
     var that = this;
+    //获取要求人id
+    if (options.pid){
+      that.setData({
+        pid: options.pid
+      })
+    }
     //iphone 底部横线适配
     var iphones = ['iPhone X', 'unknown<iPhone11,2>', 'unknown<iPhone11,8>', 'unknown<iPhone11,4>','unknown<iPhone11,6>']
     wx.getSystemInfo({
@@ -303,16 +361,16 @@ Page({
       }
     })
     //判断首次进入提示滑动
-    console.log(wx.getStorageSync("first"))
-    if (wx.getStorageSync("first") == null || wx.getStorageSync("first") == ""){
-      this.setData({
-        firstIn: true
-      })
-    }else{
-      this.setData({
-        firstIn: false
-      })
-    }
+    // console.log(wx.getStorageSync("token"))
+    // if (wx.getStorageSync("first") == null || wx.getStorageSync("first") == ""){
+    //   this.setData({
+    //     firstIn: true
+    //   })
+    // }else{
+    //   this.setData({
+    //     firstIn: false
+    //   })
+    // }
 
   },
 
@@ -370,6 +428,27 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function() {
-
+    var that = this;
+    if (res.from === 'button') {
+      // 来自页面内转发按钮
+      console.log(res.target)
+    }
+    var user = wx.getStorageSync('user');
+    return {
+      title: '跟我一起重新认识一本书',
+      path: '/pages/index/index?pid=' + user.id,
+      imageUrl: '/files/icon_book.png',
+      success: (res) => {    // 成功后要做的事情
+        //console.log(res.shareTickets[0])
+        // console.log
+        that.setData({
+          signBoxShow: false
+        })
+      },
+      fail: function (res) {
+        // 分享失败
+        console.log(res)
+      }
+    }
   }
 })

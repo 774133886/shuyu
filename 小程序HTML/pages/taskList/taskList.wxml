@@ -1,10 +1,9 @@
 <!--pages/taskList/taskList.wxml-->
 <view class='taskHead'>
-  <text class='curBg2 only_line'>“假正”的贾政--贾二爷</text>
+  <text class='curBg2 only_line'>{{info.name}}</text>
   <scroll-view scroll-y="{{true}}">
     <view class='th_text'>
-  《红楼梦》里那么多人物，从谁写起好呢？
-曹雪芹是从刘姥姥写起的，一个几乎是最底层的边缘人物，让他带着我们，从下往上审视他编织的这个梦。而我既然是来拆解这个梦的，那么就要反其道而行之，写一个几乎是最顶层的边缘人物，透过他，从上往下审视这个梦，我选择的这个人物，就是贾政。
+  {{info.description}}
     </view>
   </scroll-view>
 </view>
@@ -18,18 +17,19 @@
   </view>
 
   <view class='taskCtt'>
-    <view class='flex_dom flex_item_mid m-b-30 relative'>
-      <image class='icon-com' src='../../files/icon_selected.png'></image>
-      <view class='flex_1 taskItem flex_dom flex_item_mid' bindtap='goDetail' data-last="0">
+    <view class='flex_dom flex_item_mid m-b-30 relative' wx:for="{{info.yp}}" wx:key="item" wx:for-index="idx">
+      <image wx:if="{{item.flag}}" class='icon-com' src='../../files/icon_selected.png'></image>
+      <image wx:if="{{!item.flag}}" class='icon-com' src='../../files/noCom.png'></image>
+      <view class='flex_1 taskItem flex_dom flex_item_mid' data-idx="{{idx}}" bindtap='goDetail'>
         <image class='icon-arrow-left' src='../../files/arrow-left.png'></image>
         <view class='flex_1 m-r-20'>
-          <view class='color-333 font30 only_line font-w6'>为什么叫他“贾二爷”</view>
-          <view class='color-999 font24'>曹雪芹为何对“二爷”如此情有独钟？</view>
+          <view class='color-333 font30 only_line font-w6'>{{item.name}}</view>
+          <view class='color-999 font24'>{{item.description}}</view>
         </view>
-        <image class='icon-voice' src='../../files/play.png'></image>
+        <image wx:if="{{item.file}}" class='icon-voice' src='../../files/play.png'></image>
       </view>
     </view>
-    <view class='flex_dom flex_item_mid m-b-30 relative'>
+    <!-- <view class='flex_dom flex_item_mid m-b-30 relative'>
       <image class='icon-com' src='../../files/noCom.png'></image>
       <view class='flex_1 taskItem flex_dom flex_item_mid' bindtap='goDetail' data-last="1">
         <image class='icon-arrow-left' src='../../files/arrow-left.png'></image>
@@ -50,20 +50,31 @@
         </view>
         <image class='icon-voice' src='../../files/play.png'></image>
       </view>
-    </view>
-    <view class='flex_dom flex_item_mid m-b-30 relative'>
-      <image class='icon-com' src='../../files/noCom.png'></image>
+    </view> -->
+    <!-- <view class='flex_dom flex_item_mid m-b-30 relative' wx:if="{{!info.dt.name}}">
+      <image wx:if="{{info.dt.flag}}" class='icon-com' src='../../files/icon_selected.png'></image>
+      <image wx:if="{{!info.dt.flag}}" class='icon-com' src='../../files/noCom.png'></image>
       <view class='flex_1 taskItem flex_dom flex_item_mid' bindtap='goAnswer'>
         <image class='icon-arrow-left' src='../../files/arrow-left.png'></image>
-        <view class='flex_1 m-r-20 font30 color-333'><view class='p-v-10'>{{isComplete ? '答题' : '今日有份思考题'}}</view></view>
+        <view class='flex_1 m-r-20 font30 color-333'><view class='p-v-10'>{{'答题'}}</view></view>
+        <image class='icon-right' src='../../files/next.png'></image>
+      </view>
+    </view> -->
+    <view class='flex_dom flex_item_mid m-b-30 relative' wx:if="{{info.dt.name}}">
+      <image wx:if="{{info.dt.flag}}" class='icon-com' src='../../files/icon_selected.png'></image>
+      <image wx:if="{{!info.dt.flag}}" class='icon-com' src='../../files/noCom.png'></image>
+      <view class='flex_1 taskItem flex_dom flex_item_mid' bindtap='goAnswer'>
+        <image class='icon-arrow-left' src='../../files/arrow-left.png'></image>
+        <view class='flex_1 m-r-20 font30 color-333'><view class='p-v-10'>{{'今日有份思考题'}}</view></view>
         <image class='icon-right' src='../../files/next.png'></image>
       </view>
     </view>
-    <view class='flex_dom flex_item_mid m-b-30 relative'>
-      <image class='icon-com' src='../../files/noCom.png'></image>
+    <view class='flex_dom flex_item_mid m-b-30 relative' wx:if="{{info.sp}}">
+      <image wx:if="{{info.sp.flag}}" class='icon-com' src='../../files/icon_selected.png'></image>
+      <image wx:if="{{!info.sp.flag}}" class='icon-com' src='../../files/noCom.png'></image>
       <view class='flex_1 taskItem flex_dom flex_item_mid' bindtap='goClass'>
         <image class='icon-arrow-left' src='../../files/arrow-left.png'></image>
-        <view class='flex_1 m-r-20 font30 color-333'><view class='p-v-10'>趣解：贾政老爷有点意思</view></view>
+        <view class='flex_1 m-r-20 font30 color-333'><view class='p-v-10'>{{info.sp.name}}</view></view>
         <image class='icon-right' src='../../files/next.png'></image>
       </view>
     </view>
@@ -74,7 +85,7 @@
         <view class='flex_1 m-r-20 font30 color-333'><view class='p-v-10'>打卡</view></view>
         <image class='icon-right' src='../../files/next.png'></image>
         <!-- 已完成标签 -->
-        <image wx:if="{{isComplete}}" class='desk_done' src='../../files/desk_done.png'></image>
+        <image wx:if="{{info.dk}}" class='desk_done' src='../../files/desk_done.png'></image>
       </view>
     </view>
   </view>
