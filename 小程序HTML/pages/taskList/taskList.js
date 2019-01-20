@@ -26,10 +26,15 @@ Page({
   },
   getDetail: function(id){
     var that = this;
-    http.postReq('/api/Article/info', { id: 6},function(res){
+    http.postReq('/api/Article/info', { id: id},function(res){
       if(res.code == 101){
         that.setData({
           info: res.data
+        })
+      }else{
+        wx.showToast({
+          title: res.msg,
+          icon: 'none'
         })
       }
     })

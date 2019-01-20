@@ -12,6 +12,7 @@ Page({
     mask: false,
     mask2: false,
     shareMask: false,
+    isPhone: false,
     cType: 'car',
     scrollTop: 0,
     isLogin: true,
@@ -80,7 +81,7 @@ Page({
     }
     if (item.read) {
       wx.navigateTo({
-        url: '../taskList/taskList?id=' + book.id
+        url: '../taskList/taskList?id=' + item.id
       })
     }else{
       this.noTap();
@@ -141,6 +142,7 @@ Page({
             url: 'https://shuyu.qingshanyuwo.cn/api/Login/code2Session?code=' + res1.code,
             success: function (res2) {
               if (res2.data.openid) {
+                wx.setStorageSync('sskey', res2.data.session_key);
                 wx.getUserInfo({
                   success: function (res3) {
                     wx.request({
@@ -152,10 +154,11 @@ Page({
                         pid: pid  //邀请人id
                       }, success: function (res4) {
                         wx.setStorageSync('token', res4.data.data.token);
-                        wx.setStorageSync('user', res4.data.data.info)
+                        wx.setStorageSync('user', res4.data.data.info);
                         that.setData({
                           isLogin: false,
-                          firstIn: true
+                          // firstIn: true
+                          isPhone: true
                         })
                         that.getlist();
                       }
@@ -297,32 +300,44 @@ Page({
   getPhoneNumber: function (e) {
     console.log(e.detail.iv);
     console.log(e.detail.encryptedData);
-    // wx.login({
-    //   success: res => {
-    //     console.log(res.code);
-    //     wx.request({
-    //       url: 'https://你的解密地址',
-    //       data: {
-    //         'encryptedData': encodeURIComponent(e.detail.encryptedData),
-    //         'iv': e.detail.iv,
-    //         'code': res.code
-    //       },
-    //       method: 'GET', // OPTIONS, GET, HEAD, POST, PUT, DELETE, TRACE, CONNECT
-    //       header: {
-    //         'content-type': 'application/json'
-    //       }, // 设置请求的 header
-    //       success: function (res) {
-    //         if (res.status == 1) {//我后台设置的返回值为1是正确
-    //           //存入缓存即可
-    //           wx.setStorageSync('phone', res.phone);
-    //         }
-    //       },
-    //       fail: function (err) {
-    //         console.log(err);
-    //       }
-    //     })
-    //   }
-    // })
+    var that = this;
+    wx.request({
+      url: 'https://shuyu.qingshanyuwo.cn/api/Login/decode',
+      data: {
+        'encryptedData': e.detail.encryptedData,
+        'iv': e.detail.iv,
+        'sessionKey': wx.getStorageSync('sskey')
+      },
+      method: 'POST', // OPTIONS, GET, HEAD, POST, PUT, DELETE, TRACE, CONNECT
+      // header: {
+      //   'content-type': 'application/json'
+      // }, // 设置请求的 header
+      success: function (res) {
+        if (res.data.phoneNumber) {//我后台设置的返回值为1是正确
+          http.postReq('/api/User/bindMobile', { 'mobile': res.data.phoneNumber},function(res1){
+            if(res1.code == 101){
+              that.setData({
+                isPhone: false,
+                firstIn: true
+              })
+            }else{
+              wx.showToast({
+                title: res1.msg,
+                icon: 'none'
+              })
+            }
+          })
+
+          //存入缓存即可
+          // wx.setStorageSync('phone', res.phone);
+
+        }
+      },
+      fail: function (err) {
+        console.log(err);
+      }
+    })
+      
   },
   //首次进入提示
   firstCome: function(){
