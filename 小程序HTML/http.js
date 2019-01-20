@@ -29,6 +29,7 @@ function getReq(url, cb) {
                 url: 'https://shuyu.qingshanyuwo.cn/api/Login/code2Session?code=' + res1.code,
                 success: function (res2) {
                   if (res2.data.openid) {
+                    wx.setStorageSync('sskey', res2.data.session_key);
                     wx.getUserInfo({
                       success: function (res3) {
                         wx.request({
@@ -90,6 +91,7 @@ function postReq(url, data, cb) {
                   url: 'https://shuyu.qingshanyuwo.cn/api/Login/code2Session?code=' + res1.code,
                   success: function (res2) {
                     if (res2.data.openid) {
+                      wx.setStorageSync('sskey', res2.data.session_key);
                       wx.getUserInfo({
                         success: function (res3) {
                           wx.request({

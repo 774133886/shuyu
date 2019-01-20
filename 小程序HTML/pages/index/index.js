@@ -15,7 +15,7 @@ Page({
     isPhone: false,
     cType: 'car',
     scrollTop: 0,
-    isLogin: true,
+    isLogin: false,
     user: '',
     list: [{},{},{},{},{},{}],
     activeIdx: 0,
@@ -178,6 +178,7 @@ Page({
     var token = wx.getStorageSync('token');
     wx.getSetting({
       success: function (res) {
+        console.log(res);
         if (!res.authSetting['scope.userInfo']) {
           that.setData({
             isLogin: true
@@ -298,8 +299,8 @@ Page({
   },
   //获取手机号
   getPhoneNumber: function (e) {
-    console.log(e.detail.iv);
-    console.log(e.detail.encryptedData);
+    // console.log(e.detail.iv);
+    // console.log(e.detail.encryptedData);
     var that = this;
     wx.request({
       url: 'https://shuyu.qingshanyuwo.cn/api/Login/decode',
