@@ -1,6 +1,6 @@
 // pages/missionDetail/missionDetail.js
-const util = require('../../utils/util.js')
-const app = getApp();
+var http = require('../../http.js')
+const app = getApp()
 
 Page({
 
@@ -9,18 +9,41 @@ Page({
    */
   data: {
     mask: false,
+    id:'',
+    info:{}
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-  
+    var that = this;
+    this.setData({
+      id: options.id
+    })
+    var data = {};
+    data.id = that.data.id;
+    http.postReq('/api/Book/info', data, function (res) {
+      if (res) {
+        that.setData({
+          info: res.data
+        })
+      } else {
+        wx.showToast({
+          title: res.msg,
+          icon: 'none',
+          duration: 2000
+        })
+      }
+
+      console.log(res)
+    });
   },
   //跳转任务列表
-  goTaskList: function(){
+  goTaskList: function(e){
+    var id = e.currentTarget.dataset.id;
     wx.navigateTo({
-      url: '../taskList/taskList?id=1'
+      url: '../taskList/taskList?id=' + id
     })
   },
   /**

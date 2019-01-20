@@ -20,7 +20,7 @@ Page({
     data.aid = that.data.id;
     http.postReq('/api/Clock/signInArticle', data, function (res) {
       if (res.code==101) {
-        this.setData({
+        that.setData({
           signBoxShow: true
         })
       } else {

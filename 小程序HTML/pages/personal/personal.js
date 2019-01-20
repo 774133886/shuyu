@@ -23,17 +23,18 @@ Page({
   },
   //跳转首页
   goIndexMian: function(){
-    wx.reLaunch({
-      url: '../index/index'
+    var id = e.currentTarget.dataset.id;
+    wx.navigateTo({
+      url: '../../pages/taskList/taskList?id=' + id
     })
   },
   //跳转完成列表
   gomissionDetail: function(e){
     var id = e.currentTarget.dataset.id;
     wx.navigateTo({
-      url: '../../pages/taskList/taskList?id=' + id
+      url: '../../pages/missionDetail/missionDetail?id=' + id
     })
-  },
+  }, 
   /**
    * 生命周期函数--监听页面初次渲染完成
    */

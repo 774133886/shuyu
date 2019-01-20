@@ -3,42 +3,18 @@
   <view class='indexHead'>
     <view class='ih_box curBg flex_dom flex_item_mid'>
       <view>
-        <view class='color-fff font36 hide111'>《红楼梦》</view>
+        <view class='color-fff font36 hide111'>《{{info.name}}》</view>
         <view class='color-fff font28'>
-          张一男老师为你提供一个全新的角度，解析故事走向与性格发展再次欣赏红楼梦。张一男老师为你提供一个全新的角度...  
+          {{info.content}}
         </view>
       </view>
     </view>
   </view>
   <scroll-view scroll-y="{{true}}" class='flex_1 w-sectionD indexCtt'>
-    <view class='icItem flex_dom flex_item_mid' bindtap='goTaskList'>
-      <view class='ic_text color-ff5a71 font26'>林黛玉---仙姝玉带林中挂</view>
-    </view>
-    <view class='icItem flex_dom flex_item_mid'>
-      <view class='ic_text color-ff5a71 font26'>林黛玉---仙姝玉带林中挂</view>
-    </view>
-    <view class='icItem flex_dom flex_item_mid'>
-      <view class='ic_text color-ff5a71 font26'>林黛玉---仙姝玉带林中挂</view>
+    <view wx:for="{{info.articles}}"  wx:key="{{unique}}" class='icItem flex_dom flex_item_mid' data-id='{{item.id}}' bindtap='goTaskList'>
+      <view class='ic_text color-ff5a71 font26'>{{item.name}}</view>
     </view>
     <view class='icItem flex_dom flex_item_mid' bindtap='goRead'>
-      <view class='ic_text color-ff5a71 font26'>林黛玉---仙姝玉带林中挂</view>
-    </view>
-    <view class='icItem flex_dom flex_item_mid'>
-      <view class='ic_text color-ff5a71 font26'>林黛玉---仙姝玉带林中挂</view>
-    </view>
-    <view class='icItem flex_dom flex_item_mid'>
-      <view class='ic_text color-ff5a71 font26'>林黛玉---仙姝玉带林中挂,林黛玉---仙姝玉带林中挂</view>
-    </view>
-    <view class='icItem flex_dom flex_item_mid'>
-      <view class='ic_text color-ff5a71 font26'>林黛玉---仙姝玉带林中挂</view>
-    </view>
-    <view class='icItem flex_dom flex_item_mid'>
-      <view class='ic_text color-ff5a71 font26'>林黛玉---仙姝玉带林中挂</view>
-    </view>
-    <view class='icItem flex_dom flex_item_mid'>
-      <view class='ic_text color-ff5a71 font26'>林黛玉---仙姝玉带林中挂</view>
-    </view>
-    <view class='icItem flex_dom flex_item_mid'>
       <view class='ic_text color-ff5a71 font26'>林黛玉---仙姝玉带林中挂</view>
     </view>
   </scroll-view>
