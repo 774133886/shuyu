@@ -1,24 +1,49 @@
 // pages/answer/answer.js
+var http = require('../../http.js')
+const app = getApp()
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-
+    id: '',
+    answerList: [],
+    answer: [],
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    var token = wx.getStorageSync('token');
+    var that = this;
+    this.setData({
+      id: options.aid
+    })
+    var data = {};
+    data.aid = that.data.id;
+    http.postReq('/api/Answer/getQuestions', data, function (res) {
+      if (res) {
+        that.setData({
+          answerList: res.data.rows
+        })
+      } else {
+        wx.showToast({
+          title: res.msg,
+          icon: 'none',
+          duration: 2000
+        })
+      }
 
+      console.log(res)
+    });
   },
 
   //去课程
   goClass: function () {
     wx.navigateTo({
-      url: '../weekClass/weekClass'
+      url: '../weekClass/weekClass?aid=' + this.data.id
     })
   },
   /**

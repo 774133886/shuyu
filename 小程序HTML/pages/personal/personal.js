@@ -28,9 +28,10 @@ Page({
     })
   },
   //跳转完成列表
-  gomissionDetail: function(){
+  gomissionDetail: function(e){
+    var id = e.currentTarget.dataset.id;
     wx.navigateTo({
-      url: '../missionDetail/missionDetail'
+      url: '../../pages/taskList/taskList?id=' + id
     })
   },
   /**

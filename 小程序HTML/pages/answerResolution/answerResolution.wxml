@@ -8,87 +8,34 @@
       </view>
     </view>
     <view class='lastAnswer clearfix'>
-      <view class='laList column-center-b relative'>
-        <text class='font40 lh1 color-333'>1</text>
+      <view wx:for="{{answerList}}" wx:key="{{unique}}" wx:for-index="idx" class='laList column-center-b relative'>
+        <text class='font40 lh1 color-333'>{{idx+1}}</text>
         <text class='font24 lh1 color-333'>题目</text>
-        <image src='../../files/icon_right_s.png' class='laPic'></image>
-      </view>
-      <view class='laList column-center-b relative'>
-        <text class='font40 lh1 color-333'>1</text>
-        <text class='font24 lh1 color-333'>题目</text>
-        <image src='../../files/icon_right_s.png' class='laPic'></image>
-      </view>
-      <view class='laList column-center-b relative'>
-        <text class='font40 lh1 color-333'>1</text>
-        <text class='font24 lh1 color-333'>题目</text>
-        <image src='../../files/icon_wrong_s.png' class='laPic'></image>
+        <image wx:if="{{item.myanswer==item.answer}}" src='../../files/icon_right_s.png' class='laPic'></image>
+        <image wx:else src='../../files/icon_wrong_s.png' class='laPic'></image>
       </view>
     </view>
     <!-- 题目列表 -->
-    <view class='questionList'>
+    <view wx:for="{{answerList}}" wx:key="{{unique}}" wx:for-index="index" class='questionList'>
       <view class='answerArea'>
         <view class='border-b-e5 p-b-30'>
           <view class='questionTitle fontPF'>
-            <view class='color-333 font40'>1/2</view>
-            <view class='flex_1 fw_500 l-h-40rpx color-333 m-b-30 fontPF'>《红楼梦》第22回“制灯谜贾政悲谶语”，元宵佳节家人聚会，贾政为什么“烦闷”“大有悲戚之状”？</view>
+            <view class='color-333 font40'>{{index+1}}/{{answerList.length}}</view>
+            <view class='flex_1 fw_500 l-h-40rpx color-333 m-b-30 fontPF'>{{item.name}}</view>
           </view>
-          <view class='between-center answerList'>
-            <image src='../../files/icon_wrong.png' class='selectPic'></image>
+          <view wx:for="{{item.questions}}" wx:key="{{unique}}" wx:for-index="idx" wx:for-item="answer" class='between-center answerList'>
+            <image wx:if="{{answer.isrightchoice&&answer.selected}}" src="{{answer.isrightchoice?'../../files/icon_selected.png':'../../files/icon_select.png'}}" class='selectPic'></image>
+            <image wx:if="{{!answer.isrightchoice&&answer.selected}}" src="{{answer.selected?'../../files/icon_wrong.png':'../../files/icon_select.png'}}" class='selectPic'></image>
+            <image wx:if="{{answer.isrightchoice}}" src='../../files/icon_selected.png' class='selectPic'></image>
             <view class='l-h-40rpx font28 m-l-30 flex_1'>
-              A.因为贾政特意来聚会上监督宝玉的道德行止，发现其不思进取，只愿意混迹在姐妹堆里。
-            </view>
-          </view>
-          <view class='between-center answerList'>
-            <image src='../../files/icon_selected.png' class='selectPic'></image>
-            <view class='l-h-40rpx font28 m-l-30 flex_1'>
-              B.贾府元宵节以制灯谜猜灯谜为戏，元春、迎春、探春、惜春四人的灯谜谜底都是不祥之物，贾政预感她们“并非福寿之辈”，因而烦闷悲戚。
-            </view>
-          </view>
-          <view class='between-center answerList'>
-            <image src='../../files/icon_select.png' class='selectPic'></image>
-            <view class='l-h-40rpx font28 m-l-30 flex_1'>
-              C.因为贾政坐在宴席上，小辈们就都不敢言语。贾母怕孩子们拘束，就早早“撵贾政去歇息”。
+             {{answer.name}}.{{answer.content}}
             </view>
           </view>
         </view>
         <view class='resolutionArea p-t-30'>
           <view class='resolutionTtl'>【答案解析】</view>
           <view class='resolutionDtl'>
-            贾府元宵佳节，贾政并不是来监督宝玉的言行举止，虽然贾母“撵贾政去歇息”，但是贾政依然参加了惨灯谜活动，只是元春、迎春、探春、惜春四人的灯谜谜底都是不祥之物，贾政预感她们“并非福寿之辈”，因而烦闷悲戚。
-          </view>
-        </view>
-      </view>
-    </view>
-    <view class='questionList'>
-      <view class='answerArea'>
-        <view class='border-b-e5 p-b-30'>
-          <view class='questionTitle fontPF'>
-            <view class='color-333 font40'>2/2</view>
-            <view class='flex_1 fw_500 l-h-40rpx color-333 m-b-30 fontPF'>贾政是听了（ ）的“造谣”，所以认为宝玉害死了金钏儿，继而对宝玉大打出手。</view>
-          </view>
-          <view class='between-center answerList'>
-            <image src='../../files/icon_wrong.png' class='selectPic'></image>
-            <view class='l-h-40rpx font28 m-l-30 flex_1'>
-              A.忠顺王爷
-            </view>
-          </view>
-          <view class='between-center answerList'>
-            <image src='../../files/icon_selected.png' class='selectPic'></image>
-            <view class='l-h-40rpx font28 m-l-30 flex_1'>
-              B.贾环
-            </view>
-          </view>
-          <view class='between-center answerList'>
-            <image src='../../files/icon_select.png' class='selectPic'></image>
-            <view class='l-h-40rpx font28 m-l-30 flex_1'>
-              C.薛蟠
-            </view>
-          </view>
-        </view>
-        <view class='resolutionArea p-t-30'>
-          <view class='resolutionTtl'>【答案解析】</view>
-          <view class='resolutionDtl'>
-            忠顺亲王府来人提及的是宝玉结交蒋玉菡之事；贾政是听了贾环的说法，才认为宝玉对金钏儿“强奸不遂”，继而大打出手。
+            {{item.description}}
           </view>
         </view>
       </view>

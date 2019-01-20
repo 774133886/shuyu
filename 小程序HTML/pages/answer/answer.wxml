@@ -1,68 +1,18 @@
 <!--pages/answer/answer.wxml-->
 <view class='Con font30'>
   <view class='answerCon'>
-    <view class='questionList'>
+    <view wx:for="{{answerList}}" wx:key="{{unique}}" wx:for-index="index" class='questionList'>
       <view class='questionTitle fontPF flex_dom'>
-        <view class='color-333 fw_600'>1/3</view>
-        <view class='flex_1 l-h-40rpx color-333 m-l-30 fontPF'>《红楼梦》第22回“制灯谜贾政悲谶语”，元宵佳节家人聚会，贾政为什么“烦闷”“大有悲戚之状”？</view>
+        <view class='color-333 fw_600'>{{index+1}}/{{answerList.length}}</view>
+        <view class='flex_1 l-h-40rpx color-333 m-l-30 fontPF'>{{item.name}}</view>
       </view>
       <view class='answerArea'>
-        <view class='between-center answerList'>
-          <image src='../../files/icon_select.png' class='selectPic'></image>
+        <view wx:for="{{item.questions}}" wx:key="{{unique}}" wx:for-index="idx" wx:for-item="answer" bindtap='chooseThis' data-index='{{index}}' data-idx='{{idx}}' data-name='{{answer.name}}' class='between-center answerList'>
+          <image src="{{answer.selected?'../../files/icon_selected.png':'../../files/icon_select.png'}}" class='selectPic'></image>
           <view class='l-h-40rpx font28 m-l-30 flex_1'>
-            A.因为贾政特意来聚会上监督宝玉的道德行止，发现其不思进取，只愿意混迹在姐妹堆里。
+            {{answer.name}}.{{answer.content}}
           </view>
         </view>
-        <view class='between-center answerList'>
-          <image src='../../files/icon_selected.png' class='selectPic'></image>
-          <view class='l-h-40rpx font28 m-l-30 flex_1'>
-            B.贾府元宵节以制灯谜猜灯谜为戏，元春、迎春、探春、惜春四人的灯谜谜底都是不祥之物，贾政预感她们“并非福寿之辈”，因而烦闷悲戚。
-          </view>
-        </view>
-        <view class='between-center answerList'>
-          <image src='../../files/icon_select.png' class='selectPic'></image>
-          <view class='l-h-40rpx font28 m-l-30 flex_1'>
-            C.因为贾政坐在宴席上，小辈们就都不敢言语。贾母怕孩子们拘束，就早早“撵贾政去歇息”。
-          </view>
-        </view>
-      </view>
-    </view>
-    <view class='questionList'>
-      <view class='questionTitle fontPF flex_dom'>
-        <view class='color-333 fw_600'>1/3</view>
-        <view class='flex_1 l-h-40rpx color-333 m-l-30 fontPF'>2.贾政是听了（ ）的“造谣”，所以认为宝玉害死了金钏儿，继而对宝玉大打出手。</view>
-      </view>
-      <view class='answerArea'>
-        <view class='between-center answerList'>
-          <image src='../../files/icon_select.png' class='selectPic'></image>
-          <view class='l-h-40rpx font28 m-l-30 flex_1'>
-            A.忠顺王爷
-          </view>
-        </view>
-        <view class='between-center answerList'>
-          <image src='../../files/icon_selected.png' class='selectPic'></image>
-          <view class='l-h-40rpx font28 m-l-30 flex_1'>
-            B.贾环
-          </view>
-        </view>
-        <view class='between-center answerList'>
-          <image src='../../files/icon_select.png' class='selectPic'></image>
-          <view class='l-h-40rpx font28 m-l-30 flex_1'>
-            C.薛蟠
-          </view>
-        </view>
-        <!-- <view class='between-center answerList'>
-          <image src='../../files/icon_select.png' class='selectPic'></image>
-          <view class='l-h-40rpx font28 m-l-30 flex_1'>
-            C.贾宝玉不愿意走仕途经济的老路。这与贾政望子成龙、重整家业的期望背道而驰的。
-          </view>
-        </view>
-        <view class='between-center answerList'>
-          <image src='../../files/icon_select.png' class='selectPic'></image>
-          <view class='l-h-40rpx font28 m-l-30 flex_1'>
-            D.贾宝玉不愿意走仕途经济的老路。这与贾政望子成龙、重整家业的期望背道而驰的。
-          </view>
-        </view> -->
       </view>
     </view>
     <view class='text-center'>

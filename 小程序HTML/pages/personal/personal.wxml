@@ -33,7 +33,7 @@
         <view class='font30 m-l-10 fw_600 color-333'>为您推荐</view>
       </view>
       <view wx:if="{{recommendBooks.length}}" class='pListArea'>
-        <view wx:for="{{recommendBooks}}" wx:key="{{unique}}" class='pListbox between-center'  data-id='{{item.id}}' bindtap='goIndexMian'>
+        <view wx:for="{{recommendBooks}}" wx:key="{{unique}}" class='pListbox between-center'  data-id='{{item.id}}' bindtap='gomissionDetail'>
           <view class='flex_1 l-h-40rpx color-333 m-r-30'>
             《{{item.name}}》：{{item.content}}
           </view>
@@ -45,7 +45,7 @@
         <view class='font30 m-l-10 fw_600 color-333'>进行中</view>
       </view>
       <view  wx:if="{{doingBooks.length}}" class='pListArea'>
-        <view  wx:for="{{doingBooks}}" wx:key="{{unique}}" class='pListbox between-center'  data-id='{{item.id}}' bindtap='goIndexMian'>
+        <view  wx:for="{{doingBooks}}" wx:key="{{unique}}" class='pListbox between-center'  data-id='{{item.id}}' bindtap='gomissionDetail'>
           <view class='flex_1 l-h-40rpx color-333 m-r-30'>
             《{{item.name}}》：{{item.content}}
           </view>

@@ -1,4 +1,6 @@
 // pages/weekClass/weekClass.js
+var http = require('../../http.js')
+const app = getApp()
 Page({
 
   /**
@@ -8,13 +10,28 @@ Page({
     signBoxShow:false,
     is_display:false,
     videoContext:'',
+    info:{}
   },
 
-
+  // 打卡
   signBtn:function(){
-    this.setData({
-      signBoxShow: true
-    })
+    var that = this;
+    var data = {};
+    data.aid = that.data.id;
+    http.postReq('/api/Clock/signInArticle', data, function (res) {
+      if (res.code==101) {
+        this.setData({
+          signBoxShow: true
+        })
+      } else {
+        wx.showToast({
+          title: res.msg,
+          icon: 'none',
+          duration: 2000
+        })
+      }
+    });
+    
   },
   closeMask: function () {
     // this.setData({
@@ -40,6 +57,30 @@ Page({
    */
   onLoad: function (options) {
     this.data.videoContext = wx.createVideoContext('myVideo');
+
+    // 获取数据
+    var token = wx.getStorageSync('token');
+    var that = this;
+    this.setData({
+      id: options.aid
+    })
+    var data = {};
+    data.id = that.data.id;
+    http.postReq('/api/Sp/info', data, function (res) {
+      if (res) {
+        that.setData({
+          info: res.data
+        })
+      } else {
+        wx.showToast({
+          title: res.msg,
+          icon: 'none',
+          duration: 2000
+        })
+      }
+
+      console.log(res)
+    });
   },
 
   /**
@@ -93,9 +134,10 @@ Page({
       // 来自页面内转发按钮
       console.log(res.target)
     }
+    var user = wx.getStorageSync('user');
     return {
       title: '跟我一起重新认识一本书',
-      path: '/pages/index/index',
+      path: '/pages/index/index?pid=' + user.id,
       imageUrl: '/files/icon_book.png',
       success: (res) => {    // 成功后要做的事情
         //console.log(res.shareTickets[0])
