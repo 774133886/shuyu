@@ -14,9 +14,9 @@
     <view wx:for="{{info.articles}}"  wx:key="{{unique}}" class='icItem flex_dom flex_item_mid' data-id='{{item.id}}' bindtap='goTaskList'>
       <view class='ic_text color-ff5a71 font26'>{{item.name}}</view>
     </view>
-    <view class='icItem flex_dom flex_item_mid' bindtap='goRead'>
+    <!-- <view class='icItem flex_dom flex_item_mid' bindtap='goRead'>
       <view class='ic_text color-ff5a71 font26'>林黛玉---仙姝玉带林中挂</view>
-    </view>
+    </view> -->
   </scroll-view>
   <view class='hgt90rpx l-h-90rpx font28 color-999 text-center'>
     已经完成该阅读任务

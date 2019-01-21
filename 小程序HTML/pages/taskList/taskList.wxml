@@ -79,7 +79,8 @@
       </view>
     </view>
     <view class='flex_dom flex_item_mid m-b-30 relative'>
-      <image class='icon-com' src='../../files/noCom.png'></image>
+      <image wx:if="{{info.dk}}" class='icon-com' src='../../files/icon_selected.png'></image>
+      <image wx:if="{{!info.dk}}" class='icon-com' src='../../files/noCom.png'></image>
       <view class='flex_1 taskItem flex_dom flex_item_mid' bindtap='clockIn'>
         <image class='icon-arrow-left' src='../../files/arrow-left.png'></image>
         <view class='flex_1 m-r-20 font30 color-333'><view class='p-v-10'>打卡</view></view>

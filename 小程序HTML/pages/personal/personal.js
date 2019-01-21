@@ -22,10 +22,10 @@ Page({
     console.log(app.host)
   },
   //跳转首页
-  goIndexMian: function(){
+  goIndexMian: function(e){
     var id = e.currentTarget.dataset.id;
-    wx.navigateTo({
-      url: '../../pages/taskList/taskList?id=' + id
+    wx.reLaunch({
+      url: '../../pages/index/index?id=' + (id ?  id : '')
     })
   },
   //跳转完成列表

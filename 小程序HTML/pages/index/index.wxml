@@ -3,7 +3,7 @@
 <view class='indexFixed' bindtap='goPersonal'>我的..</view>
 
 <view class='hgt_100 flex_column'>
-<swiper class='flex_1' indicator-dots="{{false}}" circular="{{true}}" bindchange="swiperChange">
+<swiper class='flex_1' indicator-dots="{{false}}" circular="{{true}}" current="{{swiperIdx}}" bindchange="swiperChange">
   <swiper-item class='hgt_100 flex_column indexCen' wx:for="{{list}}" wx:key="item" wx:for-index="index">
     <view class='indexHead'>
       <view class='ih_box curBg flex_dom'>
@@ -16,9 +16,9 @@
       </view>
     </view>
     <scroll-view scroll-y="{{true}}" scroll-top="{{scrollTop}}" id='indexCtt' class='flex_1 w-sectionD indexCtt'>
-      <view wx:for="{{item.articles}}" wx:key="article" wx:for-index="idx" wx:for-item="article" class='icItem flex_dom flex_item_mid'  bindtap='goReadMain' data-item="{{article}}" data-book="{{item}}">
+      <view wx:for="{{item.articles}}" wx:key="article" wx:for-index="idx" wx:for-item="article" class='icItem flex_dom flex_item_mid'  bindtap='goReadMain' data-item="{{article}}" data-book="{{item}}" id="{{id}}">
         <view class='ic_text font26 {{article.today ? "color-f9ab71" : (article.read ? "color-ff5a71" : "color-333")}}'>{{article.name}}</view>
-        <view class='ic_btn curBg2' data-id="{{item.id}}" bindtap='openMask' wx:if="{{!item.buy && idx == 0}}">一元完成任务</view>
+        <view class='ic_btn curBg2' data-id="{{item.id}}" bindtap='openMask' data-content="{{item.content}}" wx:if="{{!item.buy && idx == 0}}">一元完成任务</view>
         <view class='text-right wid180' wx:if="{{article.read && !article.today}}">
           <image class='completeBtn' src='../../files/flag.png'></image>
         </view>
@@ -47,7 +47,7 @@
       </view> -->
     </scroll-view>
     <view class='indexFoot'>
-      <view class='if_text font24 m-b-20'>每天来读，连续21t天完成任务</view>
+      <view class='if_text font24 m-b-20'>每天来读，连续{{item.maxday}}天完成任务</view>
     </view>
   </swiper-item>
 </swiper>
@@ -63,13 +63,14 @@
     <view class='flex_1 flex_column maskCtt'>
       <view class='im_head font36 color-fff curBg3'>坚持每日阅读</view>
       <scroll-view scroll-y="{{true}}" class='im_ctt flex_1 font28'>
-        <view style='padding: 25rpx'>
-          <view class='color-333'>
+        <view class='color-333' style='padding: 25rpx'>
+        {{content}}
+          <!-- <view class='color-333'>
             中国古代章回体长篇小说，又名《石头记》等，被列为中国古典四大名著之首，一般认为是清代作家曹雪芹所著。小说以贾、史、王、薛四大家族的兴衰为背景，以富贵公子贾宝玉为视角，描绘了一批举止见识出于须眉之上的闺阁佳人的人生百态，展现了真正的人性美和悲剧美，可以说是一部从各个角度.小说以贾、史、王、薛四大家族的兴衰为背景，以富贵公子贾宝玉为视角，描绘了一批举止见识出于须眉之上的闺阁佳人的人生百态...
           </view>
           <view class='color-666'>
             本书分为21日份学习任务，让我们用21天时间，以各个人物的解析入手，再次回顾《红楼梦》，也感谢张一南老师给我们另一种角度去欣赏体会。
-          </view>
+          </view> -->
         </view>
       </scroll-view>
       <view class='im_text'>

@@ -62,7 +62,6 @@ Page({
         })
       }
     })
-    
   },
   //顺序播放
   goPlay: function(){

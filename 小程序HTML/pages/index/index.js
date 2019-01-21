@@ -17,11 +17,14 @@ Page({
     scrollTop: 0,
     isLogin: false,
     user: '',
-    list: [{},{},{},{},{},{}],
+    list: [],
     activeIdx: 0,
     isIphone: false,
     firstIn: false,
-    pid: ''
+    pid: '',
+    content: '',
+    tid: '',
+    swiperIdx: 0
   },
   //swiper
   swiperChange: function(e){
@@ -30,7 +33,7 @@ Page({
     })
   },
   //开启遮罩
-  openMask: function(e){this.setData({mask: true,payBookId: e.currentTarget.dataset.id});},
+  openMask: function(e){this.setData({mask: true,payBookId: e.currentTarget.dataset.id,content: e.currentTarget.dataset.content});},
   //关闭遮罩
   closeMask: function () {this.setData({mask: false})},
   //开启中断遮罩
@@ -178,7 +181,7 @@ Page({
     var token = wx.getStorageSync('token');
     wx.getSetting({
       success: function (res) {
-        console.log(res);
+        // console.log(res);
         if (!res.authSetting['scope.userInfo']) {
           that.setData({
             isLogin: true
@@ -202,7 +205,8 @@ Page({
     http.getReq('/api/Index/getBooks',function(res){
       that.setData({
         list: res.data.rows
-      })
+      });
+      that.listLocation();
     })
   },
   //点击去付款
@@ -274,27 +278,39 @@ Page({
     })
   },
   //滚动位置
-  listLocation: function (selectId) {
+  listLocation: function () {
     var that = this;
-    var active = wx.createSelectorQuery().select('#indexCtt').fields({
-      dataset: true,
-      size: true,
-      scrollOffset: true,
-      rect: true
-    }, function (res) {
-      var cttTop = res.top;
-      var active2 = wx.createSelectorQuery().select('#' + selectId).fields({
-        dataset: true,
-        size: true,
-        scrollOffset: true,
-        rect: true
-      }, function (res) {
-        var itemTop = res.top - cttTop;
+    var list = this.data.list;
+    var tid = this.data.tid;
+    if(!tid){
+      return;
+    }
+    for(var i = 0;i < list.length;i++){
+      if(list[i].id == tid){
         that.setData({
-          scrollTop: itemTop
+          swiperIdx: i
         })
-      }).exec()
-    }).exec()
+      }
+    }
+    // var active = wx.createSelectorQuery().select('#indexCtt').fields({
+    //   dataset: true,
+    //   size: true,
+    //   scrollOffset: true,
+    //   rect: true
+    // }, function (res) {
+    //   var cttTop = res.top;
+    //   var active2 = wx.createSelectorQuery().select('#' + selectId).fields({
+    //     dataset: true,
+    //     size: true,
+    //     scrollOffset: true,
+    //     rect: true
+    //   }, function (res) {
+    //     var itemTop = res.top - cttTop;
+    //     that.setData({
+    //       scrollTop: itemTop
+    //     })
+    //   }).exec()
+    // }).exec()
     
   },
   //获取手机号
@@ -351,31 +367,19 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-    
-    this.loadUser();
-    this.getlist();
     var that = this;
     //获取要求人id
-    if (options.pid){
+    if (options.pid) {
       that.setData({
         pid: options.pid
       })
     }
-    //iphone 底部横线适配
-    var iphones = ['iPhone X', 'unknown<iPhone11,2>', 'unknown<iPhone11,8>', 'unknown<iPhone11,4>','unknown<iPhone11,6>']
-    wx.getSystemInfo({
-      success: function (res) {
-        //console.log(res.model)
-        //console.log(res.language)//zh_CN(en)
-        //console.log(res.model=="iPhone X")
-        console.log(iphones.indexOf(res.model) > -1)
-        if (iphones.indexOf(res.model) > -1) {
-          that.setData({
-            isIphone: true
-          })
-        }
-      }
-    })
+    if (options.id) {
+      that.setData({
+        tid: options.id
+      })
+    }
+    
     //判断首次进入提示滑动
     // console.log(wx.getStorageSync("token"))
     // if (wx.getStorageSync("first") == null || wx.getStorageSync("first") == ""){
@@ -403,8 +407,26 @@ Page({
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function() {
+  onShow: function (options) {
+    this.loadUser();
+    this.getlist();
+    var that = this;
     
+    //iphone 底部横线适配
+    var iphones = ['iPhone X', 'unknown<iPhone11,2>', 'unknown<iPhone11,8>', 'unknown<iPhone11,4>', 'unknown<iPhone11,6>']
+    wx.getSystemInfo({
+      success: function (res) {
+        //console.log(res.model)
+        //console.log(res.language)//zh_CN(en)
+        //console.log(res.model=="iPhone X")
+        // console.log(iphones.indexOf(res.model) > -1)
+        if (iphones.indexOf(res.model) > -1) {
+          that.setData({
+            isIphone: true
+          })
+        }
+      }
+    })
   },
 
   /**
