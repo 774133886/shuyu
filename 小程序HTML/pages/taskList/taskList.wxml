@@ -69,7 +69,7 @@
         <image class='icon-right' src='../../files/next.png'></image>
       </view>
     </view>
-    <view class='flex_dom flex_item_mid m-b-30 relative' wx:if="{{info.sp}}">
+    <view class='flex_dom flex_item_mid m-b-30 relative' wx:if="{{info.sp.name}}">
       <image wx:if="{{info.sp.flag}}" class='icon-com' src='../../files/icon_selected.png'></image>
       <image wx:if="{{!info.sp.flag}}" class='icon-com' src='../../files/noCom.png'></image>
       <view class='flex_1 taskItem flex_dom flex_item_mid' bindtap='goClass'>
