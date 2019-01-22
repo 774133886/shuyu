@@ -11,7 +11,8 @@ Page({
   data: {
     signBoxShow: false,
     info: {},
-    id: ''
+    id: '',
+    days: ''
   },
 
   /**
@@ -30,7 +31,8 @@ Page({
       if(res.code == 101){
         that.setData({
           info: res.data
-        })
+        });
+        wx.setStorageSync('bookInfo', res.data);
       }else{
         wx.showToast({
           title: res.msg,
@@ -46,21 +48,23 @@ Page({
     if (info.dk){
       return false;
     }
-    if (!this.isreaded() || (info.dt.name && !info.dt.flag) || (info.sp && !info.sp.flag)) {
+    if (!this.isreaded() || (info.dt.name && !info.dt.flag) || (info.sp.name && !info.sp.flag)) {
       this.toast();
       return false;
     }
-    this.setData({
-      signBoxShow: true
+    http.postReq('/api/Clock/signInArticle', { aid: info.id }, function (res) {
+      if (res.code == 101) {
+        that.getDetail(that.data.id);
+        that.setData({
+          signBoxShow: true,
+          days: res.data
+        })
+      }
     })
   },
   closeMask: function(){
-    http.postReq('/api/Clock/signInArticle', { aid: info.id},function(res){
-      if(res.code == 101){
-        this.setData({
-          signBoxShow: false
-        })
-      }
+    this.setData({
+      signBoxShow: false
     })
   },
   //顺序播放
@@ -89,7 +93,7 @@ Page({
     if (idx != 0 && !list[idx-1].flag){
       that.toast();
     } else {
-      wx.setStorageSync('bookInfo', this.data.info);
+      
       wx.navigateTo({
         url: '../read/read?id=' + list[idx].id
       })
@@ -122,13 +126,21 @@ Page({
   //去答题
   goAnswer: function(e){
     
-    // if (!this.isreaded()){
-    //   this.toast();
-    //   return false;
-    // }
-    wx.navigateTo({
-      url: '../answer/answer?aid=' + this.data.info.id
-    })
+    if (!this.isreaded()){
+      this.toast();
+      return false;
+    }
+    var info = this.data.info;
+    if(info.dt.flag){
+      wx.navigateTo({
+        url: '../answerResolution/answerResolution?aid=' + this.data.info.id
+      })
+    }else{
+      wx.navigateTo({
+        url: '../answer/answer?aid=' + this.data.info.id
+      })
+    }
+    
   },
   //去课程
   goClass: function(){
@@ -138,7 +150,7 @@ Page({
       return false;
     }
     wx.navigateTo({
-      url: '../weekClass/weekClass?aid=' + this.data.info.id
+      url: '../weekClass/weekClass?aid=' + info.sp.id
     })
   },
   /**
@@ -187,7 +199,7 @@ Page({
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function () {
+  onShareAppMessage: function (res) {
     var that = this;
     if (res.from === 'button') {
       // 来自页面内转发按钮

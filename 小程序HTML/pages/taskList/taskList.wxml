@@ -13,7 +13,7 @@
     <view>
     <!-- <image class='icon-task' src='../../files/task.png'></image> -->
     </view>
-    <button class='tl_btn curBg6' bindtap='goPlay'>顺序播放</button>
+    <button wx:if="{{info.yp_btn}}" class='tl_btn curBg6' bindtap='goPlay'>顺序播放</button>
   </view>
 
   <view class='taskCtt'>
@@ -99,7 +99,7 @@
       <cover-image src='../../files/signBg.png' class='signBg'></cover-image>
       <cover-view  class='markArea center flex_dom'>
        <cover-image src='../../files/icon_littleBot.png' class='icon_littleBot vertical_mid'></cover-image>
-       <cover-view class='color-333 flex_1 font28 vertical_mid m-l-10'>已连续进行4天阅读</cover-view>
+       <cover-view class='color-333 flex_1 font28 vertical_mid m-l-10'>已连续进行{{days}}天阅读</cover-view>
       </cover-view>
       <cover-view  class='markArea center flex_dom'>
        <cover-image src='../../files/icon_littleBot.png' class='icon_littleBot'></cover-image>

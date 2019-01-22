@@ -32,15 +32,17 @@ function getReq(url, cb) {
                     wx.setStorageSync('sskey', res2.data.session_key);
                     wx.getUserInfo({
                       success: function (res3) {
+                        var pid = wx.getStorageSync('pid');
                         wx.request({
                           url: 'https://shuyu.qingshanyuwo.cn/api/login/third_login',
                           data: {
                             nickname: res3.userInfo.nickName,
                             openid: res2.data.openid,
                             img: res3.userInfo.avatarUrl,
-                            // pid: ''  //邀请人id
+                            pid: (pid ? pid : '')  //邀请人id
                           }, success: function (res4) {
                             wx.setStorageSync('token', res4.data.data.token);
+                            wx.setStorageSync('user', res4.data.data.info);
                             getReq(url, cb);
                           }
                         })
@@ -94,15 +96,17 @@ function postReq(url, data, cb) {
                       wx.setStorageSync('sskey', res2.data.session_key);
                       wx.getUserInfo({
                         success: function (res3) {
+                          var pid = wx.getStorageSync('pid');
                           wx.request({
                             url: 'https://shuyu.qingshanyuwo.cn/api/login/third_login',
                             data: {
                               nickname: res3.userInfo.nickName,
                               openid: res2.data.openid,
                               img: res3.userInfo.avatarUrl,
-                              // pid: ''  //邀请人id
+                              pid: (pid?pid:'')  //邀请人id
                             }, success: function (res4) {
                               wx.setStorageSync('token', res4.data.data.token);
+                              wx.setStorageSync('user', res4.data.data.info);
                               postReq(url, data, cb);
                             }
                           })

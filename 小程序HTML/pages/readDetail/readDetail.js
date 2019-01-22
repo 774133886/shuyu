@@ -45,6 +45,7 @@ Page({
     const innerAudioContext = wx.createInnerAudioContext();
     // innerAudioContext.loop = true
     innerAudioContext.src = this.data.info.file;
+    innerAudioContext.obeyMuteSwitch = false;
 
     innerAudioContext.onPlay(() => {
       console.log('开始播放')

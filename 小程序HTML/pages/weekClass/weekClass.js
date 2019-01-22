@@ -10,7 +10,8 @@ Page({
     signBoxShow:false,
     is_display:false,
     videoContext:'',
-    info:{}
+    info:{},
+    days: ''
   },
 
   // 打卡
@@ -21,7 +22,8 @@ Page({
     http.postReq('/api/Clock/signInArticle', data, function (res) {
       if (res.code==101) {
         that.setData({
-          signBoxShow: true
+          signBoxShow: true,
+          days: res.data
         })
       } else {
         wx.showToast({

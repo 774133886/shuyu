@@ -24,7 +24,7 @@
             <view class='flex_1 fw_500 l-h-40rpx color-333 m-b-30 fontPF'>{{item.name}}</view>
           </view>
           <view wx:for="{{item.questions}}" wx:key="{{unique}}" wx:for-index="idx" wx:for-item="answer" class='between-center answerList'>
-            <image wx:if="{{answer.isrightchoice&&answer.selected}}" src="{{answer.isrightchoice?'../../files/icon_selected.png':'../../files/icon_select.png'}}" class='selectPic'></image>
+            <image wx:if="{{!answer.isrightchoice&&!answer.selected}}" src="{{answer.isrightchoice?'../../files/icon_selected.png':'../../files/icon_select.png'}}" class='selectPic'></image>
             <image wx:if="{{!answer.isrightchoice&&answer.selected}}" src="{{answer.selected?'../../files/icon_wrong.png':'../../files/icon_select.png'}}" class='selectPic'></image>
             <image wx:if="{{answer.isrightchoice}}" src='../../files/icon_selected.png' class='selectPic'></image>
             <view class='l-h-40rpx font28 m-l-30 flex_1'>

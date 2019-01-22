@@ -370,9 +370,12 @@ Page({
     var that = this;
     //获取要求人id
     if (options.pid) {
+      wx.setStorageSync('pid', options.pid)
       that.setData({
         pid: options.pid
       })
+    }else{
+      wx.removeStorageSync('pid');
     }
     if (options.id) {
       that.setData({
@@ -465,7 +468,7 @@ Page({
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function() {
+  onShareAppMessage: function(res) {
     var that = this;
     if (res.from === 'button') {
       // 来自页面内转发按钮

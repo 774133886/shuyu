@@ -26,7 +26,7 @@
       <cover-image src='../../files/signBg.png' class='signBg'></cover-image>
       <cover-view  class='markArea center flex_dom'>
        <cover-image src='../../files/icon_littleBot.png' class='icon_littleBot vertical_mid'></cover-image>
-       <cover-view class='color-333 flex_1 font28 vertical_mid m-l-10'>已连续进行4天阅读</cover-view>
+       <cover-view class='color-333 flex_1 font28 vertical_mid m-l-10'>已连续进行{{days}}天阅读</cover-view>
       </cover-view>
       <cover-view  class='markArea center flex_dom'>
        <cover-image src='../../files/icon_littleBot.png' class='icon_littleBot'></cover-image>

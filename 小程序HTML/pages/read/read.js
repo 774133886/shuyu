@@ -73,9 +73,23 @@ Page({
   //去答题
   goAnswer: function () {
     var info = wx.getStorageSync('bookInfo');
-    wx.redirectTo({
-      url: '../answer/answer?aid=' + info.id
-    })
+    if(!info.dt.name){
+      wx.showToast({
+        title: '该任务没有答题',
+        icon: 'none'
+      })
+      return false;
+    }
+    if(info.dt.flag){
+      wx.redirectTo({
+        url: '../answerResolution/answerResolution?aid=' + info.id
+      })
+    }else{
+      wx.redirectTo({
+        url: '../answer/answer?aid=' + info.id
+      })
+    }
+    
   },
   //获取音频
   getAudio: function(id){
@@ -106,6 +120,7 @@ Page({
     const innerAudioContext = wx.createInnerAudioContext()
     // innerAudioContext.loop = true
     innerAudioContext.src = src;
+    innerAudioContext.obeyMuteSwitch = false;
     innerAudioContext.onPlay(() => {
       console.log('开始播放')
       that.setData({ play: true })
@@ -114,17 +129,18 @@ Page({
       console.log('暂停播放')
       that.setData({ play: false })
     })
+    var getDuration = setInterval(function () {
+      var duration = innerAudioContext.duration
+      if (duration > 0) {
+        that.setData({
+          duration: that.formatTime(duration)
+        })
+        console.log(duration);
+        clearInterval(getDuration);
+      }
+    }, 500)
     innerAudioContext.onCanplay(() => {
-      var getDuration = setInterval(function () {
-        var duration = innerAudioContext.duration
-        if (duration > 0) {
-          that.setData({
-            duration: that.formatTime(duration)
-          })
-          console.log(duration);
-          clearInterval(getDuration);
-        }
-      }, 500)
+      
     })
 
 
