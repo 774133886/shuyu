@@ -1,4 +1,6 @@
 //app.js
+const ald = require('./utils/ald-stat.js');
+
 var do_md5 = require('utils/md5.js');
 // var host = "http://192.168.1.80:8011/";
 // var host = "http://wenxue.iok.la/";

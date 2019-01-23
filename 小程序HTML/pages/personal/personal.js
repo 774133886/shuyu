@@ -1,5 +1,6 @@
 // pages/personal/personal.js
-var http = require('../../http.js')
+var http = require('../../http.js');
+var startTime = Date.now();//启动时间
 const app = getApp();
 Page({
 
@@ -13,13 +14,17 @@ Page({
     doneBooks:[],
     doingBooks: [],
     recommendBooks: [],
+    startTime:''
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    console.log(app.host)
+    console.log(Date.now());
+    this.setData({
+      startTime: Date.now() //启动时间
+    })
   },
   //跳转首页
   goIndexMian: function(e){
@@ -69,7 +74,18 @@ Page({
    * 生命周期函数--监听页面隐藏
    */
   onHide: function () {
-
+    // 停留时长
+    var shijiancha = Date.now() - this.data.startTime;
+    var days = shijiancha / 1000 / 60 / 60 / 24;
+    var daysRound = Math.floor(days);
+    var hours = shijiancha / 1000 / 60 / 60 - (24 * daysRound);
+    var hoursRound = Math.floor(hours);
+    var minutes = shijiancha / 1000 / 60 - (24 * 60 * daysRound) - (60 * hoursRound);
+    var minutesRound = Math.floor(minutes);
+    var seconds = shijiancha / 1000 - (24 * 60 * 60 * daysRound) - (60 * 60 * hoursRound) - (60 * minutesRound);
+    app.aldstat.sendEvent('个人主页停留时间', {
+      "时间": Math.floor(hours) + '时' + Math.floor(minutes) + '分' + Math.floor(seconds)+'秒',
+    })
   },
 
   /**
