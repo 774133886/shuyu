@@ -45,7 +45,7 @@ Page({
     var info = wx.getStorageSync('bookInfo');
     if (info.sp.id){
       wx.navigateTo({
-        url: '../weekClass/weekClass?aid=' + info.sp.id
+        url: '../weekClass/weekClass?aid=' + info.sp.id+'&dkid='+this.data.id
       })
     }else{
       wx.showToast({

@@ -18,7 +18,7 @@ Page({
   signBtn:function(){
     var that = this;
     var data = {};
-    data.aid = that.data.id;
+    data.aid = that.data.dkid;
     http.postReq('/api/Clock/signInArticle', data, function (res) {
       if (res.code==101) {
         that.setData({
@@ -64,7 +64,8 @@ Page({
     var token = wx.getStorageSync('token');
     var that = this;
     this.setData({
-      id: options.aid
+      id: options.aid,
+      dkid: options.dkid
     })
     var data = {};
     data.id = that.data.id;
