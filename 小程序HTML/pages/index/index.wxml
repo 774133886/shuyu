@@ -9,7 +9,7 @@
       <view class='ih_box curBg flex_dom'>
         <view>
           <view class='color-fff font36 hide111'>{{item.name}}</view>
-          <view class='color-fff font28 m-t-10'>
+          <view class='color-fff font28 m-t-10 line4'>
             {{item.description}} 
           </view>
         </view>
