@@ -70,12 +70,13 @@ page{
   margin-right: 0;
 }
 .laPic{
-  width: 85rpx;
-  height: 85rpx;
-  position: absolute;
-  left: 50%;
-  margin-left: -43rpx;
-  bottom: -40rpx;
+  width:65rpx;
+  height:65rpx;
+  position:absolute;
+  left:50%;
+  margin-left:-32rpx;
+  bottom:-32rpx;
+
 }
 .resolutionTtl{
   font-size:30rpx;

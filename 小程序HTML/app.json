@@ -7,6 +7,7 @@
     "pages/readDetail/readDetail",
     "pages/taskList/taskList",
     "pages/weekClass/weekClass",
+    "pages/paySuccess/paySuccess",
     "pages/personal/personal",
     "pages/missionDetail/missionDetail"
     

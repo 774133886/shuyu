@@ -1,0 +1,20 @@
+<!--pages/paySuccess/paySuccess.wxml-->
+<view class='Con font30'>
+  <view class='weekclassCon text-center'>
+    <image src='../../files/icon_right_s.png' class='paySucPic'></image>
+    <view class='psText'>支付成功</view>
+    <view class='wcText'>
+      中版国教教育技术有限公司
+    </view>
+    <view class='wcText font48 m-t-30'>
+      ¥50.00
+    </view>
+  </view>
+  <view class='wid100 text-center'>
+    <button bindtap='signBtn' bindtap='doneBtn' class='keepBtn fw_600'>完成</button>
+    <button bindtap='signBtn'  open-type='share' class='keepBtn  m-t-50 fw_600'>分享获得复活卡</button>
+  </view>
+  <view class='fhtext text-center'>复活卡：阅读断点后，可即时激活阅读</view>
+</view>
+
+
