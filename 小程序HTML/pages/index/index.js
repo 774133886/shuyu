@@ -30,8 +30,14 @@ Page({
   swiperChange: function(e){
     this.setData({
       activeIdx: e.detail.current
-    })
+    });
+    //每本书页面的访问量
+    var book = this.data.list[e.detail.current];
+    app.mtj.trackEvent('books', {
+      book: book.name
+    });
   },
+  
   //开启遮罩
   openMask: function(e){this.setData({mask: true,payBookId: e.currentTarget.dataset.id,content: e.currentTarget.dataset.content});},
   //关闭遮罩
@@ -207,6 +213,11 @@ Page({
         list: res.data.rows
       });
       that.listLocation();
+      console.log(app.mtj);
+      var book = that.data.list[0];
+      app.mtj.trackEvent('books', {
+        book: book.name
+      });
     })
   },
   //点击去付款
