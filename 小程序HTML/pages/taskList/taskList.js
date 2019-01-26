@@ -54,6 +54,7 @@ Page({
     }
     http.postReq('/api/Clock/signInArticle', { aid: info.id }, function (res) {
       if (res.code == 101) {
+        app.mtj.trackEvent('endread');
         that.getDetail(that.data.id);
         that.setData({
           signBoxShow: true,
@@ -165,7 +166,8 @@ Page({
    */
   onShow: function () {
     
-    this.getDetail(this.data.id)
+    this.getDetail(this.data.id);
+    app.mtj.trackEvent('startread');
   },
 
   /**

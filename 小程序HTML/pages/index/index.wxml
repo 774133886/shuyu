@@ -18,7 +18,7 @@
     <scroll-view scroll-y="{{true}}" scroll-top="{{scrollTop}}" id='indexCtt' class='flex_1 w-sectionD indexCtt'>
       <view wx:for="{{item.articles}}" wx:key="article" wx:for-index="idx" wx:for-item="article" class='icItem flex_dom flex_item_mid'  bindtap='goReadMain' data-item="{{article}}" data-book="{{item}}" id="{{id}}">
         <view class='ic_text font26 {{article.today ? "color-f9ab71" : (article.read ? "color-ff5a71" : "color-333")}}'>{{article.name}}</view>
-        <view class='ic_btn curBg2' data-id="{{item.id}}" bindtap='openMask' data-content="{{item.content}}" wx:if="{{!item.buy && idx == 0}}">一元完成任务</view>
+        <view class='ic_btn curBg2' data-item="{{item}}" bindtap='openMask' data-content="{{item.content}}" wx:if="{{!item.buy && idx == 0}}">一元完成任务</view>
         <view class='text-right wid180' wx:if="{{article.read && !article.today}}">
           <image class='completeBtn' src='../../files/flag.png'></image>
         </view>

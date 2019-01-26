@@ -1,5 +1,5 @@
 // pages/readDetail/readDetail.js
-
+const app = getApp();
 
 Page({
 
@@ -34,6 +34,7 @@ Page({
    */
   onLoad: function (options) {
     var yw = wx.getStorageSync('yw');
+    
     this.setData({
       info: yw
     });

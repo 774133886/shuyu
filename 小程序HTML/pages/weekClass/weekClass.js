@@ -21,6 +21,7 @@ Page({
     data.aid = that.data.dkid;
     http.postReq('/api/Clock/signInArticle', data, function (res) {
       if (res.code==101) {
+        app.mtj.trackEvent('endread');
         that.setData({
           signBoxShow: true,
           days: res.data

@@ -18,7 +18,8 @@ Page({
     info: {},
     isComplete: false,
     nextId: '',
-    innerAudioContext: {}
+    innerAudioContext: {},
+    lookTime: 0
   },
 
   //播放
@@ -94,11 +95,22 @@ Page({
   //获取音频
   getAudio: function(id){
     var that = this;
+    
     http.postReq('/api/Yp/info', { id: id }, function (res) {
       if (res.code == 101) {
         that.loadAudio(res.data.file);
+        var time = that.data.lookTime;
+        if(time){
+          var lookTime = app.getTime(time);
+          //浏览时间
+          app.mtj.trackEvent('tisklook', {
+            article: res.data.name,
+            time: lookTime
+          });
+        }
         that.setData({
-          info: res.data
+          info: res.data,
+          lookTime: app.getNow()
         });
         that.isLast();
       }
@@ -197,7 +209,17 @@ Page({
    */
   onUnload: function () {
     var innerAudioContext = this.data.innerAudioContext;
-    innerAudioContext.destroy()
+    innerAudioContext.destroy();
+    var that = this;
+    var time = that.data.lookTime;
+    if (time) {
+      var lookTime = app.getTime(time);
+      //浏览时间
+      app.mtj.trackEvent('tisklook', {
+        article: that.info.name,
+        time: lookTime
+      });
+    }
   },
 
   /**

@@ -218,7 +218,17 @@ App({
       }
     })
   },
-  //支付
+  //获取当前时间戳
+  getNow: function(){
+    var date = new Date();
+    return date.getTime();
+  },
+  //计算用时
+  getTime: function(time){
+    var date = new Date();
+    var newTime = date.getTime() - time;
+    return newTime;
+  },
   
   onError: function(msg) {
     console.log("onError:" + msg);

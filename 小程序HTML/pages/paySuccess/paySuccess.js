@@ -7,8 +7,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    info: {},
-    days: ''
+    money: ''
   },
 
   /**
@@ -16,7 +15,9 @@ Page({
    */
   onLoad: function (options) {
     // 获取数据
-   
+    this.setData({
+      money: options.money
+    })
   },
   doneBtn:function(){
     wx.navigateBack();
@@ -80,9 +81,7 @@ Page({
       success: (res) => {    // 成功后要做的事情
         //console.log(res.shareTickets[0])
         // console.log
-        that.setData({
-          signBoxShow: false
-        })
+        wx.navigateBack();
       },
       fail: function (res) {
         // 分享失败

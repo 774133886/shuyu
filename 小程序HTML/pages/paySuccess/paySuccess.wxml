@@ -7,12 +7,12 @@
       中版国教教育技术有限公司
     </view>
     <view class='wcText font48 m-t-30'>
-      ¥50.00
+      ¥{{money}}
     </view>
   </view>
   <view class='wid100 text-center'>
-    <button bindtap='signBtn' bindtap='doneBtn' class='keepBtn fw_600'>完成</button>
-    <button bindtap='signBtn'  open-type='share' class='keepBtn  m-t-50 fw_600'>分享获得复活卡</button>
+    <button bindtap='doneBtn' class='keepBtn fw_600'>完成</button>
+    <button open-type='share' class='keepBtn  m-t-50 fw_600'>分享获得复活卡</button>
   </view>
   <view class='fhtext text-center'>复活卡：阅读断点后，可即时激活阅读</view>
 </view>

@@ -24,7 +24,9 @@ Page({
     pid: '',
     content: '',
     tid: '',
-    swiperIdx: 0
+    swiperIdx: 0,
+    payBook: {},
+    lookTime: 0
   },
   //swiper
   swiperChange: function(e){
@@ -39,9 +41,28 @@ Page({
   },
   
   //开启遮罩
-  openMask: function(e){this.setData({mask: true,payBookId: e.currentTarget.dataset.id,content: e.currentTarget.dataset.content});},
+  openMask: function(e){
+    this.setData({
+      mask: true,
+      payBook: e.currentTarget.dataset.item,
+      content: e.currentTarget.dataset.content,
+      lookTime: app.getNow()
+    });
+    this.clickBtn('一元挑战按钮');
+  },
   //关闭遮罩
-  closeMask: function () {this.setData({mask: false})},
+  closeMask: function () {
+    this.setData({mask: false});
+    var time = this.data.lookTime;
+    var lookTime = app.getTime(time);
+    this.setData({
+      lookTime: 0
+    });
+    //浏览时间
+    app.mtj.trackEvent('lookmask', {
+      time: lookTime, 
+    });
+  },
   //开启中断遮罩
   openMask2: function () {this.setData({mask2: true})},
   //关闭中断遮罩
@@ -92,12 +113,18 @@ Page({
       wx.navigateTo({
         url: '../taskList/taskList?id=' + item.id
       })
+      if(item.today){
+        this.clickBtn('今日任务按钮');
+      }else{
+        this.clickBtn('查看已阅读按钮');
+      }
     }else{
       this.noTap();
     }
   },
   //我的跳转
   goPersonal: function(){
+    
     wx.navigateTo({
       url: '../personal/personal'
     })
@@ -223,11 +250,29 @@ Page({
   //点击去付款
   goPay: function(){
     var that = this;
-    var bookId = this.data.payBookId;
-    
+    var bookId = this.data.payBook.id;
+    var time = this.data.lookTime;
+    var lookTime = app.getTime(time);
+    this.setData({
+      lookTime: 0
+    });
+    //浏览时间
+    app.mtj.trackEvent('lookmask', {
+      time: lookTime,
+    });
     http.postReq('/api/Book/buy', {book_id: bookId},function(res){
       var data = res.data;
-      that.wxPay(data);
+      that.wxPay(data,function(){
+        //分享成功购买统计
+        if (this.data.pid) {
+          app.mtj.trackEvent('sharebuy', {
+            user: pid,
+          });
+        }
+        wx.navigateTo({
+          url: '../paySuccess/paySuccess?money=' + that.data.payBook.price
+        });
+      });
     })
   },
   //中断阅读支付
@@ -259,7 +304,7 @@ Page({
     }
   },
   //付款
-  wxPay: function(data){
+  wxPay: function(data,func){
     var that = this;
     wx.requestPayment({
       appId: data.appid,
@@ -278,6 +323,7 @@ Page({
           mask2: false
         });
         that.getlist();
+        typeof func == 'function' && func();
       },
       fail(res) {
         console.log(res)
@@ -373,6 +419,12 @@ Page({
     this.setData({
       firstIn: false
     })
+  },
+  //按钮点击统计
+  clickBtn: function(name){
+    app.mtj.trackEvent('btns', {
+      btn: name,
+    });
   },
   /**
    * 生命周期函数--监听页面加载
