@@ -28,6 +28,33 @@ Page({
         that.setData({
           answerList: res.data.rows
         })
+        // // 正确率
+        // var i = 0;
+        // var len = that.data.answerList.length;
+        // var info = wx.getStorageSync('bookInfo');
+        // that.data.answerList.forEach(function (arr, index){
+        //   console.log(index, arr)
+        //   // 每题正确率
+        //   if (arr.myanswer == arr.answer){
+        //     i++;
+        //     app.mtj.trackEvent('each_accuracy', {
+        //       answername: arr.name,
+        //       accuracy: 1,
+        //     });
+        //   }else{
+        //     app.mtj.trackEvent('each_accuracy', {
+        //       answername: arr.name,
+        //       accuracy: 0,
+        //     });
+        //   }
+        //   console.log(i);
+          
+        // })
+        // // 章节正确率
+        // app.mtj.trackEvent('article_accuracy', {
+        //   article: info.name,
+        //   accuracy: (i / len).toFixed(2), 
+        // });
       } else {
         wx.showToast({
           title: res.msg,

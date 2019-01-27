@@ -10,6 +10,7 @@ Page({
 	id:'',
 	answerList:[],
   answer: [],
+  answerTime: 0
   },
 
   /**
@@ -19,7 +20,8 @@ Page({
 	var token = wx.getStorageSync('token');
     var that = this;
     this.setData({
-      id: options.aid
+      id: options.aid,
+      answerTime: app.getNow()
     }) 
     var data = {};
     data.token = token;
@@ -91,6 +93,46 @@ Page({
     http.postReq('/api/Answer/submit', data, function (res) {
       if (res) {
         console.log(111)
+        var time = that.data.answerTime;
+        var answerTime = app.getTime(time);
+        var info = wx.getStorageSync('bookInfo');
+        that.setData({
+          answerTime: 0
+        });
+        //答题时间
+        app.mtj.trackEvent('answertime', {
+          article: info.name,
+          time: answerTime,
+        });
+       
+        // 正确率
+        var i = 0;
+        var len = res.data.rows.length;
+        var info = wx.getStorageSync('bookInfo');
+        res.data.rows.forEach(function (arr, index) {
+          console.log(index, arr)
+          // 每题正确率
+          if (arr.myanswer == arr.answer) {
+            i++;
+            app.mtj.trackEvent('each_accuracy', {
+              answername: arr.name,
+              accuracy: 1,
+            });
+          } else {
+            app.mtj.trackEvent('each_accuracy', {
+              answername: arr.name,
+              accuracy: 0,
+            });
+          }
+          console.log(i);
+
+        })
+        // 章节正确率
+        app.mtj.trackEvent('article_accuracy', {
+          article: info.name,
+          accuracy: +(i / len).toFixed(2),
+        });
+        // 跳转解析
         wx.redirectTo({
           url: '../answerResolution/answerResolution?aid=' + that.data.id
         })

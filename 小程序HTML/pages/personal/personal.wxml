@@ -21,7 +21,7 @@
       </view>
       <view wx:if="{{doneBooks.length}}" class='pDoneArea'>
         <view wx:for="{{doneBooks}}" wx:key="{{unique}}" class='pdoneList' data-id='{{item.id}}' bindtap='gomissionDetail'>
-          <image mode='aspectFill' src='{{host+item.logo}}' class='bookPic'></image>
+          <image mode='aspectFill' src='{{item.logo}}' class='bookPic'></image>
           <view class='hgt100rpx p-t-10 p-b-10 column-center-c'>
             <view class='lh1 text-center wid100 font30 color-333 only_line'>《{{item.name}}》</view>
             <view class='lh1 font24 dayColor'>{{item.my_step}}/{{item.total_step}}天</view>

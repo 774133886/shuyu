@@ -151,7 +151,7 @@ Page({
       return false;
     }
     wx.navigateTo({
-      url: '../weekClass/weekClass?aid=' + info.sp.id
+      url: '../weekClass/weekClass?aid=' + info.sp.id + '&dkid=' + this.data.info.id
     })
   },
   /**

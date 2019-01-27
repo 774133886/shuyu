@@ -11,7 +11,9 @@ Page({
     is_display:false,
     videoContext:'',
     info:{},
-    days: ''
+    days: '',
+    isclick:false,
+    videoTime:0,
   },
 
   // 打卡
@@ -54,6 +56,20 @@ Page({
   },
   playVideo: function () {
     this.bindplay();
+
+    // 点击率
+    var info = wx.getStorageSync('bookInfo');
+    app.mtj.trackEvent('videoclick', {
+      article: info.name,
+      isclick: 1,
+    });
+    this.setData({
+      isclick: true
+    });
+    // 点击量
+    app.mtj.trackEvent('videoclicknum', {
+      article: info.name
+    });
   },
   /**
    * 生命周期函数--监听页面加载
@@ -66,7 +82,8 @@ Page({
     var that = this;
     this.setData({
       id: options.aid,
-      dkid: options.dkid
+      dkid: options.dkid,
+      videoTime: app.getNow()
     })
     var data = {};
     data.id = that.data.id;
@@ -105,14 +122,34 @@ Page({
    * 生命周期函数--监听页面隐藏
    */
   onHide: function () {
-
+    
+    
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
   onUnload: function () {
+    // 点击率
+    if (!this.data.isclick) {
+      var info = wx.getStorageSync('bookInfo');
+      app.mtj.trackEvent('videoclick', {
+        article: info.name,
+        isclick: 0,
+      });
+    }
+    //视频任务完成时间
+    var time = this.data.videoTime;
+    var videoTime = app.getTime(time);
+    var info = wx.getStorageSync('bookInfo');
+    this.setData({
+      videoTime: 0
+    });
 
+    app.mtj.trackEvent('videotime', {
+      article: info.name,
+      time: videoTime,
+    });
   },
 
   /**

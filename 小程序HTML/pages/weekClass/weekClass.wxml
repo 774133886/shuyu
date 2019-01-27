@@ -15,9 +15,9 @@
     </view>
   </view>
   <view class='hgt170rpx wid100'></view>
-  <view class='around-center positionB wid100 hgt170rpx'>
+  <cover-view class='around-center positionB wid100 hgt170rpx'>
     <button bindtap='signBtn' class='keepBtn fw_600'>打卡</button>
-  </view>
+  </cover-view>
 </view>
 <!-- 打卡弹窗 -->
 <cover-view wx:if="{{signBoxShow}}" class='markBox'>
