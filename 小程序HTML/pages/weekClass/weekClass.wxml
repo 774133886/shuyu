@@ -16,7 +16,7 @@
   </view>
   <view class='hgt170rpx wid100'></view>
   <cover-view class='around-center positionB wid100 hgt170rpx'>
-    <button bindtap='signBtn' class='keepBtn fw_600'>打卡</button>
+    <button bindtap='signBtn' class='keepBtn curBg5 fw_600'>打卡</button>
   </cover-view>
 </view>
 <!-- 打卡弹窗 -->

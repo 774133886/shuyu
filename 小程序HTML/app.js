@@ -226,7 +226,7 @@ App({
   //计算用时
   getTime: function(time){
     var date = new Date();
-    var newTime = date.getTime() - time;
+    var newTime = +((date.getTime() - time) / 1000).toFixed(2);
     return newTime;
   },
   
