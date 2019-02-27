@@ -61,7 +61,7 @@ page{
 }
 .ic_text{
   padding: 33rpx 50rpx 33rpx 0;
-  width: calc(100% - 180rpx);
+  /* width: calc(100% - 180rpx); */
 }
 .ic_btn{
   width: 180rpx;
