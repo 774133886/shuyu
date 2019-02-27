@@ -1,7 +1,8 @@
 // pages/read/read.js
 const util = require('../../utils/util.js')
 const http = require('../../http.js')
-const app = getApp();
+const app = getApp()
+var WxParse = require('../../wxParse/wxParse.js')
 
 
 
@@ -19,7 +20,10 @@ Page({
     isComplete: false,
     nextId: '',
     innerAudioContext: {},
-    lookTime: 0
+    lookTime: 0,
+    scrollTop: 0,
+    isList: false,
+    isPlay: false
   },
 
   //播放
@@ -39,14 +43,14 @@ Page({
     var that = this;
     for(var i = 0;i < list.length;i++){
       if (list[i].id == id) {
-        if (i == list.length - 1 && !bookInfo.dt.flag){
+        if (i == list.length - 1){
           that.setData({
             isComplete: true
           })
         }else{
           that.setData({
             isComplete: false,
-            nextId: list[i + 1].id
+            nextId: list[i + 1] ? list[i + 1].id : ''
           })
         }
       } 
@@ -68,6 +72,17 @@ Page({
    */
   onLoad: function (options) {
     var that = this;
+    if (options.isList){
+      that.setData({
+        isList: options.isList
+      })
+    }
+    
+    if (options.isPlay) {
+      that.setData({
+        isPlay: options.isPlay
+      })
+    }
     this.getAudio(options.id);
 
   },
@@ -110,8 +125,10 @@ Page({
         }
         that.setData({
           info: res.data,
-          lookTime: app.getNow()
+          lookTime: app.getNow(),
+          scrollTop: 0
         });
+        WxParse.wxParse('article', 'html', that.data.info.content, that, 5);
         that.isLast();
       }
     })
@@ -120,7 +137,6 @@ Page({
   loadAudio: function(src){
     var that = this;
     if (this.data.innerAudioContext.src){
-      console.log(1243)
       this.data.innerAudioContext.destroy();
       this.setData({
         play: false,
@@ -129,10 +145,26 @@ Page({
         progress: '0%'
       })
     }
-    const innerAudioContext = wx.createInnerAudioContext()
+    const innerAudioContext = wx.createInnerAudioContext();
     // innerAudioContext.loop = true
     innerAudioContext.src = src;
     innerAudioContext.obeyMuteSwitch = false;
+    wx.setInnerAudioOption({ obeyMuteSwitch: false});
+    setTimeout(function(){
+      if (that.data.isList) {
+        innerAudioContext.play();
+        innerAudioContext.onEnded(() => {
+          var id = that.data.nextId;
+          that.getAudio(id);
+          innerAudioContext.offEnded();
+        })
+      }
+      if (that.data.isPlay) {
+        innerAudioContext.play();
+        that.setData({ isPlay: false })
+      }
+    },0)
+    
     innerAudioContext.onPlay(() => {
       console.log('开始播放')
       that.setData({ play: true })
@@ -212,11 +244,12 @@ Page({
     innerAudioContext.destroy();
     var that = this;
     var time = that.data.lookTime;
+    console.log(that)
     if (time) {
       var lookTime = app.getTime(time);
       //浏览时间
       app.mtj.trackEvent('tisklook', {
-        article: that.info.name,
+        article: that.data.info.name,
         time: lookTime
       });
     }

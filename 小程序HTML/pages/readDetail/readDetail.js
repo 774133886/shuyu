@@ -1,5 +1,6 @@
 // pages/readDetail/readDetail.js
-const app = getApp();
+const app = getApp()
+var WxParse = require('../../wxParse/wxParse.js')
 
 Page({
 
@@ -34,10 +35,11 @@ Page({
    */
   onLoad: function (options) {
     var yw = wx.getStorageSync('yw');
-    
+    var that = this;
     this.setData({
       info: yw
     });
+    WxParse.wxParse('article', 'html', that.data.info.content, that, 5);
     this.loadAudio();
   },
   //加载音频

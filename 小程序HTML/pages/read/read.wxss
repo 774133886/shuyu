@@ -1,11 +1,14 @@
 /* pages/read/read.wxss */
+@import "../../wxParse/wxParse.wxss";
 page{
   background-color: #fef9f8;
   box-sizing: border-box;
   height: 100%;
-  padding: 30rpx 25rpx;
   -webkit-box-shadow: 0 1px 5px 0 #f8eeec inset;
   box-shadow: 0 1px 5px 0 #f8eeec inset;
+}
+.allCtt{
+  padding: 30rpx 25rpx;
 }
 .readHead{
   border-radius: 10rpx;
@@ -59,4 +62,7 @@ page{
 .icon-voice{
   width: 50rpx;
   height: 50rpx;
+}
+.allHeight{
+  height: 100%;
 }

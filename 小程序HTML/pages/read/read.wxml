@@ -1,5 +1,7 @@
 <!--pages/read/read.wxml-->
-
+<import src="../../wxParse/wxParse.wxml"/>
+<scroll-view class='allHeight' scroll-y="{{true}}" scroll-top="{{scrollTop}}">
+<view class='allCtt'>
 <view class='readHead'>
   <view class='font30 color-333'>{{info.name}}</view>
   <view class='font24 color-999'>{{info.description}}</view>
@@ -16,7 +18,8 @@
 
 <view class='readCtt m-t-30'>
   <view class='font28 color-333'>
-  {{info.content}}
+  <template is="wxParse" data="{{wxParseData:article.nodes}}"/>
+  <!-- {{info.content}} -->
     <!-- <view class='font28 color-333' style='text-indent:2em;'>
     《红楼梦》里的人都管贾宝玉叫“二爷”，其实你有没有想过，贾宝玉的父亲，也是一个“贾二爷”呢。不但如此，贾政的爷爷荣国公，是宁国公的弟弟，也是一个“贾二爷”。就连似乎并没有哥哥的贾琏，也被人叫做“琏二爷”。曹雪芹似乎总是对“二爷”情有独钟。
     </view>
@@ -46,3 +49,5 @@
     <image class='icon-voice' src='../../files/voice.png'></image>
   </view>
 </view>
+</view>
+</scroll-view>

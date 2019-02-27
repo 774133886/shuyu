@@ -81,9 +81,23 @@ Page({
     // }
     wx.setStorageSync('bookInfo', this.data.info);
     wx.navigateTo({
-      url: '../read/read?id=' + aid
+      url: '../read/read?id=' + aid + '&isList=' + 1
     })
     
+  },
+  goPlay2: function(e){
+    var that = this;
+    var idx = e.currentTarget.dataset.idx;
+    var list = this.data.info.yp;
+    console.log(e)
+    if (idx != 0 && !list[idx - 1].flag) {
+      that.toast();
+    } else {
+
+      wx.navigateTo({
+        url: '../read/read?id=' + list[idx].id + '&isPlay=' + 1
+      })
+    }
   },
   //跳转阅读详情
   goDetail: function(e){

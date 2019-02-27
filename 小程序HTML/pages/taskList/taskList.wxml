@@ -1,11 +1,11 @@
 <!--pages/taskList/taskList.wxml-->
 <view class='taskHead'>
   <text class='curBg2 only_line'>{{info.name}}</text>
-  <scroll-view scroll-y="{{true}}">
+  <!-- <scroll-view scroll-y="{{true}}"> -->
     <view class='th_text'>
   {{info.description}}
     </view>
-  </scroll-view>
+  <!-- </scroll-view> -->
 </view>
 
 <view class='taskList'>
@@ -20,13 +20,13 @@
     <view class='flex_dom flex_item_mid m-b-30 relative' wx:for="{{info.yp}}" wx:key="item" wx:for-index="idx">
       <image wx:if="{{item.flag}}" class='icon-com' src='../../files/icon_selected.png'></image>
       <image wx:if="{{!item.flag}}" class='icon-com' src='../../files/noCom.png'></image>
-      <view class='flex_1 taskItem flex_dom flex_item_mid' data-idx="{{idx}}" bindtap='goDetail'>
+      <view class='flex_1 taskItem flex_dom flex_item_mid'>
         <image class='icon-arrow-left' src='../../files/arrow-left.png'></image>
-        <view class='flex_1 m-r-20'>
+        <view class='flex_1 m-r-20' data-idx="{{idx}}" bindtap='goDetail'>
           <view class='color-333 font30 only_line font-w6'>{{item.name}}</view>
           <view class='color-999 font24'>{{item.description}}</view>
         </view>
-        <image wx:if="{{item.file}}" class='icon-voice' src='../../files/play.png'></image>
+        <image wx:if="{{item.file}}" data-idx="{{idx}}" bindtap='goPlay2' class='icon-voice' src='../../files/play.png'></image>
       </view>
     </view>
     <!-- <view class='flex_dom flex_item_mid m-b-30 relative'>

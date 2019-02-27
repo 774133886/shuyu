@@ -479,7 +479,7 @@ Page({
     var that = this;
     
     //iphone 底部横线适配
-    var iphones = ['iPhone X', 'unknown<iPhone11,2>', 'unknown<iPhone11,8>', 'unknown<iPhone11,4>', 'unknown<iPhone11,6>']
+    var iphones = ['iPhone X', 'iPhone XR', 'iPhone XS', 'iPhone XS Max', 'iPhone11,8', 'iPhone11,2', 'iPhone11,4', 'iPhone11,6', 'unknown<iPhone11,2>', 'unknown<iPhone11,8>', 'unknown<iPhone11,4>', 'unknown<iPhone11,6>']
     wx.getSystemInfo({
       success: function (res) {
         //console.log(res.model)
