@@ -13,7 +13,8 @@ Page({
     currentTime: '00:00',
     progress: '0%',
     info: {},
-    innerAudioContext: {}
+    innerAudioContext: {},
+    isLoadAudio: false
   },
 
   //播放
@@ -49,6 +50,7 @@ Page({
     // innerAudioContext.loop = true
     innerAudioContext.src = this.data.info.file;
     innerAudioContext.obeyMuteSwitch = false;
+    wx.setInnerAudioOption({ obeyMuteSwitch: false });
 
     innerAudioContext.onPlay(() => {
       console.log('开始播放')
@@ -70,6 +72,9 @@ Page({
           clearInterval(getDuration);
         }
       }, 500)
+      that.setData({
+        isLoadAudio: true
+      })
     })
 
 

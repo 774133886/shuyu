@@ -1,5 +1,7 @@
 <!--pages/index/index.wxml-->
 
+<import src="../../wxParse/wxParse.wxml"/>
+
 <view class='indexFixed' bindtap='goPersonal'>我的..</view>
 
 <view class='hgt_100 flex_column'>
@@ -64,7 +66,7 @@
       <view class='im_head font36 color-fff curBg3'>坚持每日阅读</view>
       <scroll-view scroll-y="{{true}}" class='im_ctt flex_1 font28'>
         <view class='color-333' style='padding: 25rpx'>
-        {{content}}
+        <template is="wxParse" data="{{wxParseData:article.nodes}}"/>
           <!-- <view class='color-333'>
             中国古代章回体长篇小说，又名《石头记》等，被列为中国古典四大名著之首，一般认为是清代作家曹雪芹所著。小说以贾、史、王、薛四大家族的兴衰为背景，以富贵公子贾宝玉为视角，描绘了一批举止见识出于须眉之上的闺阁佳人的人生百态，展现了真正的人性美和悲剧美，可以说是一部从各个角度.小说以贾、史、王、薛四大家族的兴衰为背景，以富贵公子贾宝玉为视角，描绘了一批举止见识出于须眉之上的闺阁佳人的人生百态...
           </view>

@@ -1,7 +1,7 @@
 <!--pages/readDetail/readDetail.wxml-->
 <import src="../../wxParse/wxParse.wxml"/>
 
-<view class='readHead'>
+<view class='readHead' wx:if="{{isLoadAudio}}">
   <view class='font30 color-333'>{{info.name}}</view>
   <view class='font24 color-999'>{{info.description}}</view>
   <view class='flex_dom flex_item_mid audioBox'>

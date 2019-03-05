@@ -2,6 +2,7 @@
 const util = require('../../utils/util.js')
 const http = require('../../http.js')
 const app = getApp();
+var WxParse = require('../../wxParse/wxParse.js')
 
 Page({
 
@@ -42,12 +43,15 @@ Page({
   
   //开启遮罩
   openMask: function(e){
+    var that = this;
     this.setData({
       mask: true,
       payBook: e.currentTarget.dataset.item,
       content: e.currentTarget.dataset.content,
       lookTime: app.getNow()
     });
+
+    WxParse.wxParse('article', 'html', e.currentTarget.dataset.content, that, 5);
     this.clickBtn('一元挑战按钮');
   },
   //关闭遮罩

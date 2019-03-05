@@ -23,7 +23,8 @@ Page({
     lookTime: 0,
     scrollTop: 0,
     isList: false,
-    isPlay: false
+    isPlay: false,
+    isLoadAudio: false
   },
 
   //播放
@@ -184,7 +185,9 @@ Page({
       }
     }, 500)
     innerAudioContext.onCanplay(() => {
-      
+      that.setData({
+        isLoadAudio: true
+      })
     })
 
 
