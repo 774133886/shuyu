@@ -5,7 +5,7 @@
 <view class='indexFixed' bindtap='goPersonal'>我的..</view>
 
 <view class='hgt_100 flex_column'>
-<view class='font28 p-v-30 text-center' wx:if="{{noData}}">暂无数据~</view>
+<view class='font28 p-v-30 text-center color-999' wx:if="{{noData}}">暂无数据~</view>
 
 <swiper wx:if="{{!noData}}" class='flex_1' indicator-dots="{{false}}" circular="{{true}}" current="{{swiperIdx}}" bindchange="swiperChange">
   <swiper-item class='hgt_100 flex_column indexCen' wx:for="{{list}}" wx:key="item" wx:for-index="index">

@@ -253,9 +253,11 @@ Page({
       that.listLocation();
       console.log(app.mtj);
       var book = that.data.list[0];
-      app.mtj.trackEvent('books', {
-        book: book.name
-      });
+      if (book){
+        app.mtj.trackEvent('books', {
+          book: book.name
+        });
+      }
     })
   },
   //点击去付款
