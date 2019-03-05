@@ -1,6 +1,7 @@
 // pages/missionDetail/missionDetail.js
 var http = require('../../http.js')
 const app = getApp()
+var WxParse = require('../../wxParse/wxParse.js')
 
 Page({
 
@@ -28,6 +29,7 @@ Page({
         that.setData({
           info: res.data
         })
+        WxParse.wxParse('article', 'html', that.data.info.content, that, 5);
       } else {
         wx.showToast({
           title: res.msg,
