@@ -27,7 +27,8 @@ Page({
     tid: '',
     swiperIdx: 0,
     payBook: {},
-    lookTime: 0
+    lookTime: 0,
+    noData: false
   },
   //swiper
   swiperChange: function(e){
@@ -185,6 +186,7 @@ Page({
                 wx.setStorageSync('sskey', res2.data.session_key);
                 wx.getUserInfo({
                   success: function (res3) {
+                    console.log(res3)
                     wx.request({
                       url: 'https://shuyu.qingshanyuwo.cn/api/login/third_login',
                       data: {
@@ -243,6 +245,11 @@ Page({
       that.setData({
         list: res.data.rows
       });
+      if (res.data.rows.length == 0){
+        that.setData({
+          noData: true
+        });
+      }
       that.listLocation();
       console.log(app.mtj);
       var book = that.data.list[0];

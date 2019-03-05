@@ -217,10 +217,10 @@ Page({
    */
   onShareAppMessage: function (res) {
     var that = this;
-    if (res.from === 'button') {
-      // 来自页面内转发按钮
-      console.log(res.target)
-    }
+    // if (res.from === 'button') {
+    //   // 来自页面内转发按钮
+    //   console.log(res.target)
+    // }
     var user = wx.getStorageSync('user');
     return {
       title: '跟我一起重新认识一本书',
