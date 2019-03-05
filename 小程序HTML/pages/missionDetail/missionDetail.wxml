@@ -1,11 +1,13 @@
 <!--pages/missionDetail/missionDetail.wxml-->
+<import src="../../wxParse/wxParse.wxml"/>
 <view class='hgt_100 flex_column'>
   <view class='indexHead'>
     <view class='ih_box curBg flex_dom flex_item_mid'>
       <view>
         <view class='color-fff font36 hide111'>《{{info.name}}》</view>
         <view class='color-fff font28'>
-          {{info.content}}
+          <template is="wxParse" data="{{wxParseData:article.nodes}}"/>
+          <!-- {{info.content}} -->
         </view>
       </view>
     </view>

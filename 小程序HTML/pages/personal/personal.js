@@ -2,6 +2,7 @@
 var http = require('../../http.js');
 var startTime = Date.now();//启动时间
 const app = getApp();
+var WxParse = require('../../wxParse/wxParse.js')
 Page({
 
   /**
@@ -62,6 +63,41 @@ Page({
           doingBooks: res.data.jxz_books,
           recommendBooks: res.data.tj_books,
         })
+        // 进行中
+        let artilesA = res.data.jxz_books;
+        if (artilesA.length){
+          for (let i = 0; i < artilesA.length; i++) {
+            WxParse.wxParse('content' + i, 'html', artilesA[i]['content'], that, 5);
+            if (i === artilesA.length - 1) {
+              WxParse.wxParseTemArray("artileList", 'content', artilesA.length, that)
+            }
+          }
+          for (let i = 0; i < artilesA.length; i++) {
+            artilesA[i].node = that.data.artileList[i]
+          }
+          that.setData({
+            doingBooks: artilesA
+          });
+        }
+        //为您推荐
+        let artilesB = res.data.tj_books;
+        console.log(artilesB.length)
+        if (artilesB.length) {
+          for (let i = 0; i < artilesB.length; i++) {
+            WxParse.wxParse('content' + i, 'html', artilesB[i]['content'], that, 5);
+            if (i === artilesB.length - 1) {
+              WxParse.wxParseTemArray("artileListB", 'content', artilesB.length, that)
+            }
+          }
+          for (let i = 0; i < artilesB.length; i++) {
+            artilesB[i].node = that.data.artileListB[i]
+          }
+          that.setData({
+            recommendBooks: artilesB
+          });
+         }
+    
+        
       } else {
         console.log('xxx')
       }

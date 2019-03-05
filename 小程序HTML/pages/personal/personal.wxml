@@ -1,4 +1,5 @@
 <!--pages/personal/personal.wxml-->
+<import src="../../wxParse/wxParse.wxml"/>
 <view class='Con font30'>
   <view class='personalCon'>
     <view class='indexFixed' bindtap='goIndexMian'>首页..</view>
@@ -35,7 +36,7 @@
       <view wx:if="{{recommendBooks.length}}" class='pListArea'>
         <view wx:for="{{recommendBooks}}" wx:key="{{unique}}" class='pListbox between-center'  data-id='{{item.id}}' bindtap='goIndexMian'>
           <view class='flex_1 l-h-40rpx color-333 m-r-30'>
-            《{{item.name}}》：{{item.content}}
+            《{{item.name}}》：<template is="wxParse" data="{{wxParseData:item.node}}"/>
           </view>
           <view class='font24 color-333'>{{item.total_step}}天</view>
         </view>
@@ -47,7 +48,7 @@
       <view  wx:if="{{doingBooks.length}}" class='pListArea'>
         <view  wx:for="{{doingBooks}}" wx:key="{{unique}}" class='pListbox between-center'  data-id='{{item.id}}' bindtap='goIndexMian'>
           <view class='flex_1 l-h-40rpx color-333 m-r-30'>
-            《{{item.name}}》：{{item.content}}
+            《{{item.name}}》：<template is="wxParse" data="{{wxParseData:item.node}}"/>
           </view>
           <view class='font24 color-333'><text class='font30'>{{item.my_step}}</text>/{{item.total_step}}天</view>
         </view>
