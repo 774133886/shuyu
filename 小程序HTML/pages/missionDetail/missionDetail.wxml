@@ -6,8 +6,8 @@
       <view>
         <view class='color-fff font36 hide111'>《{{info.name}}》</view>
         <view class='color-fff font28'>
-          <template is="wxParse" data="{{wxParseData:article.nodes}}"/>
-          <!-- {{info.content}} -->
+          <!-- <template is="wxParse" data="{{wxParseData:article.nodes}}"/> -->
+          {{info.content}}
         </view>
       </view>
     </view>

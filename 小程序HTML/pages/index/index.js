@@ -301,17 +301,16 @@ Page({
     }else{
       http.postReq('/api/Article/coupon', { aid: bookId }, function (res) {
         if(res.code == 120){
-          if (res.data == '没有可用的复活币了！'){
-            that.setData({
-              shareMask: true,
-              mask2: false
-            });
-          }else{
-            that.setData({
-              mask2: false
-            });
-            that.getlist();
-          }
+          that.setData({
+            shareMask: true,
+            mask2: false
+          });
+        }
+        else{
+          that.setData({
+            mask2: false
+          });
+          that.getlist();
         }
       })
     }
