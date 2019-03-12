@@ -26,7 +26,7 @@
           <view class='color-333 font30 only_line font-w6'>{{item.name}}</view>
           <view class='color-999 font24'>{{item.description}}</view>
         </view>
-        <image wx:if="{{item.file}}" data-idx="{{idx}}" bindtap='goPlay2' class='icon-voice' src='../../files/play.png'></image>
+        <image wx:if="{{item.file}}" data-idx="{{idx}}" bindtap='goPlay2' class='icon-voice' src='{{item.play?"../../files/pause.png":"../../files/play.png"}}'></image>
       </view>
     </view>
     <!-- <view class='flex_dom flex_item_mid m-b-30 relative'>

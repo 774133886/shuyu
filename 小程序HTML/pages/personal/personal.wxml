@@ -58,3 +58,4 @@
     </view>
   </view>
 </view>
+<official-account class="btmwx" bindload="loadwx"></official-account>

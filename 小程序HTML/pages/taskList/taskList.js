@@ -12,7 +12,9 @@ Page({
     signBoxShow: false,
     info: {},
     id: '',
-    days: ''
+    days: '',
+    play: false,
+    innerAudioContext: {}
   },
 
   /**
@@ -27,7 +29,7 @@ Page({
   },
   getDetail: function(id){
     var that = this;
-    http.postReq('/api/Article/info', { id: id},function(res){
+    http.postReq('/api/Article/info', { id: this.data.id},function(res){
       if(res.code == 101){
         that.setData({
           info: res.data
@@ -68,6 +70,21 @@ Page({
       signBoxShow: false
     })
   },
+  //播放
+  playAudio: function (idx) {
+    var innerAudioContext = this.data.innerAudioContext;
+    var list = this.data.info.yp;
+    list.forEach(function(item,index){
+      if(index == idx){
+        if (item.play) {
+          innerAudioContext.pause()
+        } else {
+          innerAudioContext.play()
+        }
+      }
+    })
+    
+  },
   //顺序播放
   goPlay: function(){
     var that = this;
@@ -83,20 +100,85 @@ Page({
     wx.navigateTo({
       url: '../read/read?id=' + aid + '&isList=' + 1
     })
+  },
+  //加载音频
+  loadAudio: function (src,idx) {
+    var that = this;
     
+    const innerAudioContext = wx.createInnerAudioContext();
+    // innerAudioContext.loop = true
+    innerAudioContext.src = src;
+    innerAudioContext.obeyMuteSwitch = false;
+    wx.setInnerAudioOption({ obeyMuteSwitch: false });
+    var info = this.data.info;
+    var list = info.yp;
+    innerAudioContext.onPlay(() => {
+      console.log('开始播放')
+      list.forEach(function (item, index) {
+        if (index == idx) {
+          item.play = true
+        }else{
+          item.play = false
+        }
+      })
+      that.setData({ info: info })
+    })
+    innerAudioContext.onPause(() => {
+      console.log('暂停播放')
+      list.forEach(function (item, index) {
+        if (index == idx) {
+          item.play = false
+        }
+      })
+      that.setData({ info: info })
+    })
+    innerAudioContext.onEnded(() => {
+      // list[idx].id
+      http.postReq('/api/Yp/info', { id: list[idx].id }, function (res) {
+        if (res.code == 101) {
+          that.getDetail();
+        }
+      })
+    })
+    innerAudioContext.onCanplay(() => {
+      
+    })
+    innerAudioContext.onTimeUpdate((res) => {
+      
+    })
+    innerAudioContext.onError((res) => {
+      
+    })
+    this.setData({
+      innerAudioContext: innerAudioContext
+    })
   },
   goPlay2: function(e){
     var that = this;
     var idx = e.currentTarget.dataset.idx;
-    var list = this.data.info.yp;
-    console.log(e)
+    var info = this.data.info;
+    var list = info.yp;
     if (idx != 0 && !list[idx - 1].flag) {
       that.toast();
     } else {
+      // list.forEach(function(item){
+      //   item.play = false;
+      // })
+      // list[idx].play = true;
+      // that.setData({
+      //   info: info
+      // })
+      var innerAudioContext = this.data.innerAudioContext;
+      if (innerAudioContext.src && innerAudioContext.src == list[idx].file) {
 
-      wx.navigateTo({
-        url: '../read/read?id=' + list[idx].id + '&isPlay=' + 1
-      })
+      } else {
+        if (innerAudioContext.destroy){
+          innerAudioContext.destroy()
+        }
+        that.loadAudio(list[idx].file, idx);
+      }
+      
+      that.playAudio(idx);
     }
   },
   //跳转阅读详情
@@ -113,7 +195,6 @@ Page({
         url: '../read/read?id=' + list[idx].id
       })
     }
-    
   },
   //提示
   toast: function(){
@@ -155,7 +236,6 @@ Page({
         url: '../answer/answer?aid=' + this.data.info.id
       })
     }
-    
   },
   //去课程
   goClass: function(){
@@ -179,7 +259,6 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    
     this.getDetail(this.data.id);
     app.mtj.trackEvent('startread');
   },
@@ -195,7 +274,8 @@ Page({
    * 生命周期函数--监听页面卸载
    */
   onUnload: function () {
-
+    var innerAudioContext = this.data.innerAudioContext;
+    innerAudioContext.destroy();
   },
 
   /**

@@ -27,6 +27,9 @@ Page({
       startTime: Date.now() //启动时间
     })
   },
+  loadwx: function(e){
+    console.log(e)
+  },
   //跳转首页
   goIndexMian: function(e){
     var id = e.currentTarget.dataset.id;
