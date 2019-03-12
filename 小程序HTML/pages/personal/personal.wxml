@@ -36,7 +36,9 @@
       <view wx:if="{{recommendBooks.length}}" class='pListArea'>
         <view wx:for="{{recommendBooks}}" wx:key="{{unique}}" class='pListbox between-center'  data-id='{{item.id}}' bindtap='goIndexMian'>
           <view class='flex_1 l-h-40rpx color-333 m-r-30'>
-            《{{item.name}}》：<template is="wxParse" data="{{wxParseData:item.node}}"/>
+            《{{item.name}}》：
+            <!-- <template is="wxParse" data="{{wxParseData:item.node}}"/> -->
+            <view>{{item.description}}</view>
           </view>
           <view class='font24 color-333'>{{item.total_step}}天</view>
         </view>
@@ -50,7 +52,7 @@
           <view class='flex_1 l-h-40rpx color-333 m-r-30'>
             《{{item.name}}》：
             <!-- <template is="wxParse" data="{{wxParseData:item.node}}"/> -->
-            {{item.description}}
+            <view>{{item.description}}</view>
           </view>
           <view class='font24 color-333'><text class='font30'>{{item.my_step}}</text>/{{item.total_step}}天</view>
         </view>
