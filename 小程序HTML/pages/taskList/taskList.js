@@ -14,7 +14,8 @@ Page({
     id: '',
     days: '',
     play: false,
-    innerAudioContext: {}
+    innerAudioContext: {},
+    isSx: false
   },
 
   /**
@@ -27,13 +28,29 @@ Page({
     })
     
   },
-  getDetail: function(id){
+  getDetail: function(idx){
     var that = this;
     http.postReq('/api/Article/info', { id: this.data.id},function(res){
       if(res.code == 101){
         that.setData({
           info: res.data
         });
+        var list = that.data.info.yp;
+        var innerAudioContext = that.data.innerAudioContext;
+        if (typeof idx != 'undefined' && list[idx + 1] && that.data.isSx) {
+          if (innerAudioContext.destroy) {
+            innerAudioContext.destroy()
+          }
+          that.loadAudio(list[idx+1].file, idx+1);
+          that.playAudio(idx + 1);
+        } else if (idx == list.length-1){
+          if (innerAudioContext.destroy) {
+            innerAudioContext.destroy()
+            that.setData({
+              isSx: false
+            })
+          }
+        }
         wx.setStorageSync('bookInfo', res.data);
       }else{
         wx.showToast({
@@ -57,7 +74,7 @@ Page({
     http.postReq('/api/Clock/signInArticle', { aid: info.id }, function (res) {
       if (res.code == 101) {
         app.mtj.trackEvent('endread');
-        that.getDetail(that.data.id);
+        that.getDetail();
         that.setData({
           signBoxShow: true,
           days: res.data
@@ -83,28 +100,35 @@ Page({
         }
       }
     })
-    
   },
   //顺序播放
   goPlay: function(){
     var that = this;
     var list = this.data.info.yp;
     var aid = list[0].id;
+    this.setData({
+      isSx: true
+    });
+    that.loadAudio(list[0].file, 0);
+    that.playAudio(0);
     // for(var i = 0;i < list.length;i++){
     //   if (!list[i].flag){
     //     aid = list[i].id
     //     return;
     //   }
     // }
-    wx.setStorageSync('bookInfo', this.data.info);
-    wx.navigateTo({
-      url: '../read/read?id=' + aid + '&isList=' + 1
-    })
+    // wx.setStorageSync('bookInfo', this.data.info);
+    // wx.navigateTo({
+    //   url: '../read/read?id=' + aid + '&isList=' + 1
+    // })
   },
   //加载音频
   loadAudio: function (src,idx) {
     var that = this;
-    
+    wx.showLoading({
+      title: '加载中',
+      mask: true
+    })
     const innerAudioContext = wx.createInnerAudioContext();
     // innerAudioContext.loop = true
     innerAudioContext.src = src;
@@ -114,6 +138,7 @@ Page({
     var list = info.yp;
     innerAudioContext.onPlay(() => {
       console.log('开始播放')
+      wx.hideLoading();
       list.forEach(function (item, index) {
         if (index == idx) {
           item.play = true
@@ -136,7 +161,7 @@ Page({
       // list[idx].id
       http.postReq('/api/Yp/info', { id: list[idx].id }, function (res) {
         if (res.code == 101) {
-          that.getDetail();
+          that.getDetail(idx);
         }
       })
     })
@@ -168,6 +193,9 @@ Page({
       // that.setData({
       //   info: info
       // })
+      that.setData({
+        isSx: false
+      });
       var innerAudioContext = this.data.innerAudioContext;
       if (innerAudioContext.src && innerAudioContext.src == list[idx].file) {
 
@@ -259,7 +287,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    this.getDetail(this.data.id);
+    this.getDetail();
     app.mtj.trackEvent('startread');
   },
 
@@ -275,7 +303,10 @@ Page({
    */
   onUnload: function () {
     var innerAudioContext = this.data.innerAudioContext;
-    innerAudioContext.destroy();
+    if (innerAudioContext.destroy){
+      innerAudioContext.destroy();
+    }
+    
   },
 
   /**
