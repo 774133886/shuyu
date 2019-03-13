@@ -5,10 +5,8 @@
     <view class='ih_box w-sectionD curBg flex_dom flex_item_mid'>
       <view>
         <view class='color-fff font36 hide111'>{{info.name}}</view>
-        <view class='color-fff font28'>
-          <!-- <template is="wxParse" data="{{wxParseData:article.nodes}}"/> -->
-          {{info.description}}
-        </view>
+                  <!-- <template is="wxParse" data="{{wxParseData:article.nodes}}"/> -->
+        <text class='color-fff block font28'>{{info.description}}</text>
       </view>
     </view>
   </view>
