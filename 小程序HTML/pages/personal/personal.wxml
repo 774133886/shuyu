@@ -38,7 +38,7 @@
           <view class='flex_1 l-h-40rpx color-333 m-r-30'>
             {{item.name}}：
             <!-- <template is="wxParse" data="{{wxParseData:item.node}}"/> -->
-            <view>{{item.description}}</view>
+             <text class='block'>{{item.description}}</text>
           </view>
           <view class='font24 color-333'>{{item.total_step}}天</view>
         </view>
@@ -52,7 +52,7 @@
           <view class='flex_1 l-h-40rpx color-333 m-r-30'>
             {{item.name}}：
             <!-- <template is="wxParse" data="{{wxParseData:item.node}}"/> -->
-            <view>{{item.description}}</view>
+            <text class='block'>{{item.description}}</text>
           </view>
           <view class='font24 color-333'><text class='font30'>{{item.my_step}}</text>/{{item.total_step}}天</view>
         </view>
