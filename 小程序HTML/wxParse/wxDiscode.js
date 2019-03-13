@@ -115,7 +115,8 @@ function strcharacterDiscode(str){
     // str = str.replace(/&amp;/g, '&');
     console.log(str);
     str = str.replace(/&amp;/g, '&');
-    str = str.replace(/&nbsp;/g, " ");
+    // str = str.replace(/&nbsp;/g, " ");
+    str = str.replace(/&nbsp;/g, '\xa0');
    
     str = str.replace(/&tp=webp/g, "");
     console.log(str);
