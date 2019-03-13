@@ -193,3 +193,16 @@ page{
 .overflow_hidden{
   overflow: hidden;
 }
+.imgCtt{
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 150rpx;
+  height: 100%;
+}
+.imgCtt image{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+}
