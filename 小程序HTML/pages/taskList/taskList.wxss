@@ -15,7 +15,7 @@ page{
   box-shadow: 0 0 16rpx 2rpx rgba(241,124,30,.18);
   z-index: 11;
 }
-.taskHead text{
+.taskHead text.th_title{
   display: block;
   height: 120rpx;
   line-height: 120rpx;
@@ -31,6 +31,7 @@ page{
   padding: 35rpx;
   font-size: 28rpx;
   color: #333;
+  display: block;
 }
 .taskList{
   padding-left: 20rpx;

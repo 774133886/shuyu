@@ -1,10 +1,8 @@
 <!--pages/taskList/taskList.wxml-->
 <view class='taskHead'>
-  <text class='curBg2 overflow_hidden'>{{info.name}}</text>
+  <text class='curBg2 overflow_hidden th_title'>{{info.name}}</text>
   <!-- <scroll-view scroll-y="{{true}}"> -->
-    <view class='th_text'>
-  {{info.description}}
-    </view>
+    <text class='th_text'>{{info.description}}</text>
   <!-- </scroll-view> -->
 </view>
 
