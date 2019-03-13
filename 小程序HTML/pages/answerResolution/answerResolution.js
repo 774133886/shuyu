@@ -10,6 +10,8 @@ Page({
     id: '',
     answerList: [],
     answer: [],
+    isvideo: wx.getStorageSync('bookInfo').sp.id?true:false,
+    signBoxShow: false,
   },
 
   /**
@@ -82,6 +84,36 @@ Page({
     }
     
   },
+  // 打卡
+  signBtn: function () {
+    var that = this;
+    var data = {};
+    data.aid = that.data.id;
+    http.postReq('/api/Clock/signInArticle', data, function (res) {
+      if (res.code == 101) {
+        app.mtj.trackEvent('endread');
+        that.setData({
+          signBoxShow: true,
+          days: res.data
+        })
+      } else {
+        wx.showToast({
+          title: res.msg,
+          icon: 'none',
+          duration: 2000
+        })
+      }
+    });
+
+  },
+  closeMask: function () {
+    // this.setData({
+    //   signBoxShow: false
+    // })
+    wx.reLaunch({
+      url: '../index/index'
+    })
+  },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
@@ -128,6 +160,27 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function () {
-
+    var that = this;
+    if (res.from === 'button') {
+      // 来自页面内转发按钮
+      console.log(res.target)
+    }
+    var user = wx.getStorageSync('user');
+    return {
+      title: '跟我一起重新认识一本书',
+      path: '/pages/index/index?pid=' + user.id,
+      imageUrl: '/files/icon_book.png',
+      success: (res) => {    // 成功后要做的事情
+        //console.log(res.shareTickets[0])
+        // console.log
+        that.setData({
+          signBoxShow: false
+        })
+      },
+      fail: function (res) {
+        // 分享失败
+        console.log(res)
+      }
+    }
   }
 })

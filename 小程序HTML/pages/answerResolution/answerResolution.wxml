@@ -42,8 +42,31 @@
     </view>
     <view class='text-center'>
     <!-- 或者打卡 -->
-     <button class='keepBtn fw_600' bindtap='goClass'>趣解</button>
+     <button wx:if='{{isvideo}}' class='keepBtn fw_600' bindtap='goClass'>趣解</button>
+     <button wx:eles class='keepBtn fw_600' bindtap='signBtn'>打卡</button>
     </view>
   </view>
   
 </view>
+<!-- 打卡弹窗 -->
+<cover-view wx:if="{{signBoxShow}}" class='markBox'>
+  <cover-view class='flex_column maskCenter'>
+    <cover-view class='flex_1 flex_column maskCtt'>
+      <cover-image src='../../files/signBg.png' class='signBg'></cover-image>
+      <cover-view  class='markArea center flex_dom'>
+       <cover-image src='../../files/icon_littleBot.png' class='icon_littleBot vertical_mid'></cover-image>
+       <cover-view class='color-333 flex_1 font28 vertical_mid m-l-10'>已连续进行{{days}}天阅读</cover-view>
+      </cover-view>
+      <cover-view  class='markArea center flex_dom'>
+       <cover-image src='../../files/icon_littleBot.png' class='icon_littleBot'></cover-image>
+       <cover-view class='color-333 whitenormal flex_1 font28 m-l-10'>成功解锁明日任务，记得明天免费来读</cover-view>
+      </cover-view>
+      <cover-view class='around-center wid100 hgt200rpx'>
+        <button class='im_btn2  curBg5'  open-type='share'>分享</button>
+      </cover-view>
+    </cover-view>
+    <cover-view class='im_foot'>
+      <cover-image bindtap='closeMask' src='../../files/close.png' class='im_close'></cover-image>
+    </cover-view>
+  </cover-view>
+</cover-view>
