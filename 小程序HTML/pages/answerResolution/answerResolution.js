@@ -10,7 +10,7 @@ Page({
     id: '',
     answerList: [],
     answer: [],
-    isvideo: wx.getStorageSync('bookInfo').sp.id?true:false,
+    isvideo: false,
     signBoxShow: false,
   },
 
@@ -125,7 +125,11 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    if (wx.getStorageSync('bookInfo')){
+      this.setData({
+        isvideo: wx.getStorageSync('bookInfo').sp.id ? true : false
+      })
+    }
   },
 
   /**
