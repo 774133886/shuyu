@@ -849,3 +849,6 @@ border: none;
 ::-webkit-scrollbar-thumb:hover{
   background-color: transparent;
 } */
+
+
+@import 'wxParse/wxParse.wxss'
