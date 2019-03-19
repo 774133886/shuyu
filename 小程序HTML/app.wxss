@@ -682,7 +682,7 @@ textarea:focus,input:focus,button:focus{outline:none}
 .lineUnderline{
 	text-decoration: underline;
 }
-view,textarea,text,input{box-sizing: border-box;color: #000}
+view,textarea,text,input{box-sizing: border-box;}
 .p36{
   padding: 0 36rpx;
 }
