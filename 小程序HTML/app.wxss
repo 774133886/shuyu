@@ -851,4 +851,7 @@ border: none;
 } */
 
 
-@import 'wxParse/wxParse.wxss'
+@import 'wxParse/wxParse.wxss';
+view{
+  overflow: visible
+}

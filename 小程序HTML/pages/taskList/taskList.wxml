@@ -18,7 +18,7 @@
     <view class='flex_dom flex_item_mid m-b-30 relative' wx:for="{{info.yp}}" wx:key="item" wx:for-index="idx">
       <image wx:if="{{item.flag}}" class='icon-com' src='../../files/icon_selected.png'></image>
       <image wx:if="{{!item.flag}}" class='icon-com' src='../../files/noCom.png'></image>
-      <view class='flex_1 taskItem flex_dom flex_item_mid'>
+      <view class='flex_1 taskItem flex_dom flex_item_mid overflow_hidden'>
         <image class='icon-arrow-left' src='../../files/arrow-left.png'></image>
         <view class='flex_1' style='margin-right: 100rpx' data-idx="{{idx}}" bindtap='goDetail'>
           <view class='color-333 font30 only_line font-w6'>{{item.name}}</view>

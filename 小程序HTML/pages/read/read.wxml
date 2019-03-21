@@ -36,7 +36,10 @@
     <view class='font28 color-999 m-t-40' wx:if="{{info.tips}}">注：{{info.tips}}</view>
   </view>
   <button class='read_btn curBg4' wx:if="{{!isComplete}}" bindtap='goReadDetail2'>继续阅读</button>
-  <button class='read_btn curBg4' wx:if="{{isComplete}}" bindtap='goAnswer'>已完成阅读任务，去做题</button>
+  <button class='read_btn curBg4' wx:if="{{isComplete && isdati}}" bindtap='goAnswer'>已完成阅读任务，去做题</button>
+  <button class='read_btn curBg4' wx:if="{{isComplete && isqujie}}" bindtap='goAnswer2'>已完成阅读任务，去趣解</button>
+  <button class='read_btn curBg4' wx:if="{{isComplete && !isdati && !isqujie && !isdk}}" bindtap='goAnswer3'>已完成阅读任务，去打卡</button>
+  <button class='read_btn curBg4' wx:if="{{isComplete && isdk}}" bindtap='goAnswer4'>已完成</button>
 </view>
 
 <view class='readBtm' wx:if="{{info.yw.length != 0}}">

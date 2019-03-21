@@ -24,7 +24,10 @@ Page({
     scrollTop: 0,
     isList: false,
     isPlay: false,
-    isLoadAudio: false
+    isLoadAudio: false,
+    isdati: false,
+    isqujie: false,
+    isdk: false
   },
 
   //播放
@@ -55,6 +58,33 @@ Page({
           })
         }
       } 
+    }
+    if (this.data.isComplete && bookInfo.dt.name){
+      this.setData({
+        isdati: true
+      })
+    }else{
+      this.setData({
+        isdati: false
+      })
+    }
+    if (this.data.isComplete && bookInfo.sp.length != 0) {
+      this.setData({
+        isqujie: true
+      })
+    } else {
+      this.setData({
+        isqujie: false
+      })
+    }
+    if (this.data.isComplete && bookInfo.dk) {
+      this.setData({
+        isdk: true
+      })
+    } else {
+      this.setData({
+        isdk: false
+      })
     }
   },
   //详情跳转
@@ -90,13 +120,13 @@ Page({
   //去答题
   goAnswer: function () {
     var info = wx.getStorageSync('bookInfo');
-    if(!info.dt.name){
-      wx.showToast({
-        title: '该任务没有答题',
-        icon: 'none'
-      })
-      return false;
-    }
+    // if(!info.dt.name){
+    //   wx.showToast({
+    //     title: '该任务没有答题',
+    //     icon: 'none'
+    //   })
+    //   return false;
+    // }
     if(info.dt.flag){
       wx.redirectTo({
         url: '../answerResolution/answerResolution?aid=' + info.id
@@ -106,7 +136,29 @@ Page({
         url: '../answer/answer?aid=' + info.id
       })
     }
-    
+  },
+  goAnswer2: function () {
+    var info = wx.getStorageSync('bookInfo');
+    wx.redirectTo({
+      url: '../weekClass/weekClass?aid=' + info.id
+    })
+  },
+  goAnswer3: function () {
+    var info = wx.getStorageSync('bookInfo');
+    http.postReq('/api/Clock/signInArticle', { aid: info.id }, function (res) {
+      if (res.code == 101) {
+        app.mtj.trackEvent('endread');
+        wx.showToast({
+          title: '打卡成功'
+        });
+        setTimeout(function(){
+          wx.navigateBack({})
+        },2000)
+      }
+    })
+  },
+  goAnswer4: function () {
+    wx.navigateBack({})
   },
   //获取音频
   getAudio: function(id){
@@ -114,14 +166,22 @@ Page({
     
     http.postReq('/api/Yp/info', { id: id }, function (res) {
       if (res.code == 101) {
-        that.loadAudio(res.data.file);
+        if (res.data.file){
+          that.loadAudio(res.data.file);
+        }else{
+          that.setData({
+            isLoadAudio: false
+          })
+        }
+        
         var time = that.data.lookTime;
         if(time){
           var lookTime = app.getTime(time);
           //浏览时间
+          
           app.mtj.trackEvent('tisklook', {
             article: res.data.name,
-            time: lookTime
+            time: lookTime,
           });
         }
         that.setData({
@@ -244,7 +304,9 @@ Page({
    */
   onUnload: function () {
     var innerAudioContext = this.data.innerAudioContext;
-    innerAudioContext.destroy();
+    if (innerAudioContext.destroy){
+      innerAudioContext.destroy();
+    }
     var that = this;
     var time = that.data.lookTime;
     console.log(that)
