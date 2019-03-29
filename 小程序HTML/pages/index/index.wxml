@@ -82,21 +82,24 @@
         </view>
         <view class='font22'>
           <view class='color-666'>
-            1.开启阅读后,坚持每日打卡,免费开启次日阅读任务;
+            <!-- 1.开启阅读后,坚持每日打卡,免费开启次日阅读任务; -->
+            1.一元开启后，坚持每日打卡，免费开放次日任务;
           </view>
           <view class='color-666'>
-            2.分享小程序给好友开启一本书,您将获得一张复活卡;
+            <!-- 2.分享小程序给好友开启一本书,您将获得一张复活卡; -->
+            2.分享小程序给好友，好友成功开启任务，你将获得一张复活卡;
           </view>
           <view class='color-666'>
-            3.若阅读断开，您需要重启计划;
+            <!-- 3.若阅读断开，您需要重启计划; -->
+            3.若挑战中断，可用复活卡或加一元重启任务。
           </view>
-          <view class='color-666'>
+          <!-- <view class='color-666'>
             4.可同时开启多本读物阅读任务。
-          </view>
+          </view> -->
         </view>
       </view>
       <view class='im_btn'>
-        <button class='curBg2' bindtap='goPay'>立即付款</button>
+        <button class='curBg2' bindtap='goPay'>1元开启</button>
       </view>
     </view>
     <view class='im_foot'>
