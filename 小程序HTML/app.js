@@ -3,9 +3,6 @@
 const mtj = require('./utils/mtj-wx-sdk.js');
 
 var do_md5 = require('utils/md5.js');
-// var host = "http://192.168.1.80:8011/";
-// var host = "http://wenxue.iok.la/";
-// var host = "https://ssxcx.server190.ehecd.com/";
 var host = "https://shuyu.qingshanyuwo.cn/";
 var aryFile = []; //上传文件成功后返回的服务器地址，如果执行一个新的上传时，需先设置为null
 App({
@@ -25,42 +22,6 @@ App({
         that.globalData.bIsLogin = false;
       }
     });
-    // 登录
-    // wx.login({
-    //   success: res => {
-    //     wx.setStorage({
-    //       key: 'code',
-    //       data: res.code,
-    //     });
-    //     var data = {
-    //       sCode: res.code
-    //     };
-    //     that.request('GetWeKey', data, function(res) {
-    //       if (res.success) {
-    //         wx.setStorage({
-    //           key: 'openid',
-    //           data: res.data,
-    //         });
-    //       }
-    //     });
-    //   }
-    // });
-    // wx.getSetting({//引导用户允许微信获得你的公共信息，重新唤起微信运动授权
-    //   success: function (res) {
-    //     wx.openSetting({
-    //       data: {
-    //         "scope.werun": true
-    //       },
-    //       success: function (res) {
-    //         that.setData({
-    //           getWerun: true
-    //         })
-    //         wx.redirectTo({
-    //           url: '/pages/start/start?id=userConsole',//跳到中转页面再跳回当前页面
-    //         })
-    //       }
-    //     })
-    //   }});
   },
   //调用服务器接口功能方法
   request: function(commandName, param, callBack, maskwin) {
@@ -92,55 +53,6 @@ App({
       sCommandName: commandName,
       sInput: JSON.stringify(param)
     };
-    // wx.request({
-    //   method: 'POST',
-    //   url: host + 'api/DoCommand',
-    //   data: data,
-    //   header: {
-    //     'content-type': 'application/json'
-    //   },
-    //   success: function(res) {
-    //     if (maskwin) {
-    //       wx.hideLoading();
-    //     }
-    //     var result = res.data;
-    //     if (!result.success) {
-    //       if (result.data == -200) {
-    //         user.iState = 2;
-    //         wx.setStorageSync('user', user)
-    //         wx.showToast({
-    //           title: result.message,
-    //           duration: 3000,
-    //           mask: true,
-    //           icon: "none"
-    //         });
-    //       } else if (result.data == -100) {
-    //         wx.removeStorageSync('user');
-    //         wx.showToast({
-    //           title: '用户不存在，请退出等待15分钟后再进入',
-    //           duration: 3000,
-    //           mask: true,
-    //           icon: "none"
-    //         });
-    //         setTimeout(function() {
-    //           wx.navigateBack({
-    //             delta: -5
-    //           });
-    //         }, 3000);
-    //       }
-
-    //     }
-    //     typeof callBack == "function" && callBack(res.data);
-    //   },
-    //   fail: function(error) {
-    //     console.log(error);
-    //   },
-    //   complete: function() {
-    //     // if (true) {
-    //     //   wx.hideLoading()
-    //     // }
-    //   }
-    // })
   },
   globalData: {
     userInfo: null,

@@ -77,7 +77,7 @@ Page({
     return {
       title: '跟我一起重新认识一本书',
       path: '/pages/index/index?pid=' + user.id,
-      imageUrl: '/files/icon_book.png',
+      imageUrl: '/files/share.jpg',
       success: (res) => {    // 成功后要做的事情
         //console.log(res.shareTickets[0])
         // console.log

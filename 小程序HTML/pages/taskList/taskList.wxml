@@ -30,37 +30,6 @@
         
       </view>
     </view>
-    <!-- <view class='flex_dom flex_item_mid m-b-30 relative'>
-      <image class='icon-com' src='../../files/noCom.png'></image>
-      <view class='flex_1 taskItem flex_dom flex_item_mid' bindtap='goDetail' data-last="1">
-        <image class='icon-arrow-left' src='../../files/arrow-left.png'></image>
-        <view class='flex_1 m-r-20'>
-          <view class='color-333 font30 only_line font-w6'>为什么叫他“贾二爷”</view>
-          <view class='color-999 font24'>曹雪芹为何对“二爷”如此情有独钟？</view>
-        </view>
-        <image class='icon-voice' src='../../files/play.png'></image>
-      </view>
-    </view>
-    <view class='flex_dom flex_item_mid m-b-30 relative'>
-      <image class='icon-com' src='../../files/noCom.png'></image>
-      <view class='flex_1 taskItem flex_dom flex_item_mid' bindtap='goDetail' data-last="1">
-        <image class='icon-arrow-left' src='../../files/arrow-left.png'></image>
-        <view class='flex_1 m-r-20'>
-          <view class='color-333 font30 only_line font-w6'>为什么叫他“贾二爷”</view>
-          <view class='color-999 font24'>曹雪芹为何对“二爷”如此情有独钟？曹雪芹为何对“二爷”如此情有独钟？</view>
-        </view>
-        <image class='icon-voice' src='../../files/play.png'></image>
-      </view>
-    </view> -->
-    <!-- <view class='flex_dom flex_item_mid m-b-30 relative' wx:if="{{!info.dt.name}}">
-      <image wx:if="{{info.dt.flag}}" class='icon-com' src='../../files/icon_selected.png'></image>
-      <image wx:if="{{!info.dt.flag}}" class='icon-com' src='../../files/noCom.png'></image>
-      <view class='flex_1 taskItem flex_dom flex_item_mid' bindtap='goAnswer'>
-        <image class='icon-arrow-left' src='../../files/arrow-left.png'></image>
-        <view class='flex_1 m-r-20 font30 color-333'><view class='p-v-10'>{{'答题'}}</view></view>
-        <image class='icon-right' src='../../files/next.png'></image>
-      </view>
-    </view> -->
     <view class='flex_dom flex_item_mid m-b-30 relative' wx:if="{{info.dt.name}}">
       <image wx:if="{{info.dt.flag}}" class='icon-com' src='../../files/icon_selected.png'></image>
       <image wx:if="{{!info.dt.flag}}" class='icon-com' src='../../files/noCom.png'></image>
