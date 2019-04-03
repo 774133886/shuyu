@@ -1,4 +1,4 @@
-var rootDocment = 'https://shuyu.qingshanyuwo.cn';
+var rootDocment = 'https://shuyu.educhinstyle.cn';
 var header = {
   'Accept': 'application/json',
   'content-type': 'application/json',
@@ -26,7 +26,7 @@ function getReq(url, cb) {
           success: function (res1) {
             if (res1.code) {
               wx.request({
-                url: 'https://shuyu.qingshanyuwo.cn/api/Login/code2Session?code=' + res1.code,
+                url: 'https://shuyu.educhinstyle.cn/api/Login/code2Session?code=' + res1.code,
                 success: function (res2) {
                   if (res2.data.openid) {
                     wx.setStorageSync('sskey', res2.data.session_key);
@@ -34,7 +34,7 @@ function getReq(url, cb) {
                       success: function (res3) {
                         var pid = wx.getStorageSync('pid');
                         wx.request({
-                          url: 'https://shuyu.qingshanyuwo.cn/api/login/third_login',
+                          url: 'https://shuyu.educhinstyle.cn/api/login/third_login',
                           data: {
                             nickname: res3.userInfo.nickName,
                             openid: res2.data.openid,
@@ -90,7 +90,7 @@ function postReq(url, data, cb) {
             success: function (res1) {
               if (res1.code) {
                 wx.request({
-                  url: 'https://shuyu.qingshanyuwo.cn/api/Login/code2Session?code=' + res1.code,
+                  url: 'https://shuyu.educhinstyle.cn/api/Login/code2Session?code=' + res1.code,
                   success: function (res2) {
                     if (res2.data.openid) {
                       wx.setStorageSync('sskey', res2.data.session_key);
@@ -98,7 +98,7 @@ function postReq(url, data, cb) {
                         success: function (res3) {
                           var pid = wx.getStorageSync('pid');
                           wx.request({
-                            url: 'https://shuyu.qingshanyuwo.cn/api/login/third_login',
+                            url: 'https://shuyu.educhinstyle.cn/api/login/third_login',
                             data: {
                               nickname: res3.userInfo.nickName,
                               openid: res2.data.openid,

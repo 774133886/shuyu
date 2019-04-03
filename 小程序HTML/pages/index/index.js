@@ -180,7 +180,7 @@ Page({
       success: function (res1) {
         if (res1.code) {
           wx.request({
-            url: 'https://shuyu.qingshanyuwo.cn/api/Login/code2Session?code=' + res1.code,
+            url: 'https://shuyu.educhinstyle.cn/api/Login/code2Session?code=' + res1.code,
             success: function (res2) {
               if (res2.data.openid) {
                 wx.setStorageSync('sskey', res2.data.session_key);
@@ -188,7 +188,7 @@ Page({
                   success: function (res3) {
                     console.log(res3)
                     wx.request({
-                      url: 'https://shuyu.qingshanyuwo.cn/api/login/third_login',
+                      url: 'https://shuyu.educhinstyle.cn/api/login/third_login',
                       data: {
                         nickname: res3.userInfo.nickName,
                         openid: res2.data.openid,
@@ -388,7 +388,7 @@ Page({
     // console.log(e.detail.encryptedData);
     var that = this;
     wx.request({
-      url: 'https://shuyu.qingshanyuwo.cn/api/Login/decode',
+      url: 'https://shuyu.educhinstyle.cn/api/Login/decode',
       data: {
         'encryptedData': e.detail.encryptedData,
         'iv': e.detail.iv,
