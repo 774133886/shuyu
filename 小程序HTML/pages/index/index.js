@@ -44,6 +44,15 @@ Page({
   
   //开启遮罩
   openMask: function(e){
+    // 判断是否绑定手机号
+    var phone = wx.getStorageSync('phone');
+    console.log(phone)
+    if (phone ==''){
+      this.setData({
+        isPhone: true,
+      });
+      return false;
+    }
     var that = this;
     this.setData({
       mask: true,
@@ -197,6 +206,9 @@ Page({
                       }, success: function (res4) {
                         wx.setStorageSync('token', res4.data.data.token);
                         wx.setStorageSync('user', res4.data.data.info);
+                        // 存入一个空手机号
+                        wx.setStorageSync('phone', '');
+                        wx.setStorageSync("first", '');
                         that.setData({
                           isLogin: false,
                           // firstIn: true
@@ -404,7 +416,6 @@ Page({
             if(res1.code == 101){
               that.setData({
                 isPhone: false,
-                firstIn: true
               })
             }else{
               wx.showToast({
@@ -415,8 +426,19 @@ Page({
           })
 
           //存入缓存即可
-          // wx.setStorageSync('phone', res.phone);
+          wx.setStorageSync('phone', res.data.phoneNumber);
 
+        }else{
+          // 还是关闭弹窗
+          that.setData({
+            isPhone: false,
+          })
+        }
+        // 判断是否第一次进入
+        if (wx.getStorageSync('first') == ''){
+          that.setData({
+            firstIn: true,
+          });
         }
       },
       fail: function (err) {
