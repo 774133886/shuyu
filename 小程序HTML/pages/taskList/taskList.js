@@ -109,6 +109,10 @@ Page({
     this.setData({
       isSx: true
     });
+    var innerAudioContext = this.data.innerAudioContext;
+    if (innerAudioContext.destroy) {
+      innerAudioContext.destroy();
+    }
     that.loadAudio(list[0].file, 0);
     that.playAudio(0);
     // for(var i = 0;i < list.length;i++){
