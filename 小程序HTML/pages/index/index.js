@@ -28,7 +28,8 @@ Page({
     swiperIdx: 0,
     payBook: {},
     lookTime: 0,
-    noData: false
+    noData: false,
+    p_show:false,
   },
   //swiper
   swiperChange: function(e){
@@ -47,7 +48,7 @@ Page({
     // 判断是否绑定手机号
     var phone = wx.getStorageSync('phone');
     console.log(phone)
-    if (phone ==''){
+    if (phone == '' && this.data.p_show){
       this.setData({
         isPhone: true,
       });
@@ -211,8 +212,8 @@ Page({
                         wx.setStorageSync("first", '');
                         that.setData({
                           isLogin: false,
-                          // firstIn: true
-                          isPhone: true
+                          firstIn: true
+                          // isPhone: true
                         })
                         that.getlist();
                       }
@@ -255,7 +256,9 @@ Page({
     var that = this;
     http.getReq('/api/Index/getBooks',function(res){
       that.setData({
-        list: res.data.rows
+        list: res.data.rows,
+        // 获取显示隐藏
+        p_show: res.data.flag
       });
       if (res.data.rows.length == 0){
         that.setData({

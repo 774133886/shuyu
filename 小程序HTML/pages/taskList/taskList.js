@@ -295,7 +295,10 @@ Page({
    * 生命周期函数--监听页面隐藏
    */
   onHide: function () {
-
+    var innerAudioContext = this.data.innerAudioContext;
+    if (innerAudioContext.destroy) {
+      innerAudioContext.destroy();
+    }
   },
 
   /**
