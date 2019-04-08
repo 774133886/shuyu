@@ -21,7 +21,7 @@ function getReq(url, cb) {
     method: 'get',
     success: function (res) {
       wx.hideLoading();
-      if (res.data.msg == "请登录后操作") {
+      if (res.data.code == 500) {
         wx.login({
           success: function (res1) {
             if (res1.code) {
@@ -85,7 +85,7 @@ function postReq(url, data, cb) {
       method: 'post',
       success: function (res) {
         wx.hideLoading();
-        if (res.data.msg == "请登录后操作") {
+        if (res.data.code == 500) {
           wx.login({
             success: function (res1) {
               if (res1.code) {
