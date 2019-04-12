@@ -288,6 +288,9 @@ Page({
     app.mtj.trackEvent('lookmask', {
       time: lookTime,
     });
+    wx.showLoading({
+      title: '',
+    })
     http.postReq('/api/Book/buy', {book_id: bookId},function(res){
       var data = res.data;
       that.wxPay(data,function(){
@@ -297,6 +300,7 @@ Page({
             user: pid,
           });
         }
+        wx.hideLoading();
         wx.navigateTo({
           url: '../paySuccess/paySuccess?money=' + that.data.payBook.price
         });
