@@ -6,8 +6,7 @@
 
 <view class='hgt_100 flex_column'>
 <view class='font28 p-v-30 text-center color-999' wx:if="{{noData}}">暂无数据~</view>
-
-<swiper wx:if="{{!noData}}" class='flex_1' indicator-dots="{{false}}" circular="{{true}}" current="{{swiperIdx}}" bindchange="swiperChange">
+<swiper wx:if="{{!noData}}" class='flex_1 indexSwiper {{isIphone ? "indexSwiper2" : ""}}' indicator-dots="{{false}}" circular="{{true}}" current="{{swiperIdx}}" bindchange="swiperChange">
   <swiper-item class='hgt_100 flex_column indexCen' wx:for="{{list}}" wx:key="item" wx:for-index="index">
     <view class='indexHead'>
       <view class='ih_box curBg flex_dom'>
@@ -17,7 +16,8 @@
         </view>
       </view>
     </view>
-    <scroll-view scroll-y="{{true}}" scroll-top="{{scrollTop}}" id='indexCtt' class='flex_1 w-sectionD indexCtt'>
+    <view class='flex_1 indexCtt'>
+      <scroll-view scroll-y="{{true}}" scroll-top="{{scrollTop}}" id='indexCtt'>
       <view wx:for="{{item.articles}}" wx:key="article" wx:for-index="idx" wx:for-item="article" class='icItem flex_dom flex_item_mid'  bindtap='goReadMain' data-item="{{article}}" data-book="{{item}}" id="{{id}}">
         <view class='ic_text font26 {{article.today ? "color-f9ab71" : (article.read ? "color-ff5a71" : "color-333")}}'>{{article.name}}</view>
         <view class='ic_btn curBg2' data-item="{{item}}" bindtap='openMask' data-content="{{item.content}}" wx:if="{{!item.buy && idx == 0}}">一元完成任务</view>
@@ -27,6 +27,8 @@
         <view wx:if="{{article.today}}" class='ic_btn curBg2'><text>{{idx+1}}/</text>{{item.maxday}}天</view>
       </view>
     </scroll-view>
+    </view>
+    
     <view class='indexFoot'>
       <view class='if_text font24 m-b-20'>每天来读，连续{{item.maxday}}天完成任务</view>
     </view>
@@ -64,7 +66,8 @@
           </view>
           <view class='color-666'>
             <!-- 3.若阅读断开，您需要重启计划; -->
-            3.若挑战中断，可用复活卡或加一元重启任务。
+            <!-- 3.若挑战中断，可用复活卡或加一元重启任务。 -->
+            3.若忘记按时学习打卡导致挑战中断。
           </view>
           <!-- <view class='color-666'>
             4.可同时开启多本读物阅读任务。

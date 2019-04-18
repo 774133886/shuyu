@@ -30,6 +30,7 @@ Page({
     lookTime: 0,
     noData: false,
     p_show:false,
+    iphoneId: ''
   },
   //swiper
   swiperChange: function(e){
@@ -47,10 +48,12 @@ Page({
   openMask: function(e){
     // 判断是否绑定手机号
     var phone = wx.getStorageSync('phone');
-    console.log(phone)
     if (phone == '' && this.data.p_show){
       this.setData({
         isPhone: true,
+        payBook: e.currentTarget.dataset.item,
+        content: e.currentTarget.dataset.content,
+        lookTime: app.getNow()
       });
       return false;
     }
@@ -266,7 +269,7 @@ Page({
         });
       }
       that.listLocation();
-      console.log(app.mtj);
+      console.log(res.data.rows);
       var book = that.data.list[0];
       if (book){
         app.mtj.trackEvent('books', {
@@ -295,7 +298,7 @@ Page({
       var data = res.data;
       that.wxPay(data,function(){
         //分享成功购买统计
-        if (this.data.pid) {
+        if (that.data.pid) {
           app.mtj.trackEvent('sharebuy', {
             user: pid,
           });
@@ -313,9 +316,20 @@ Page({
     var bookId = this.data.articleId;
     var cType = this.data.cType;
     if (cType == 'wechat'){
+      wx.showLoading({
+        title: '',
+      })
       http.postReq('/api/Article/buy', { aid: bookId }, function (res) {
         var data = res.data;
-        that.wxPay(data);
+        that.wxPay(data,function(){
+          wx.hideLoading();
+          that.setData({
+            mask2: false
+          });
+          wx.navigateTo({
+            url: '../paySuccess/paySuccess?money=' + that.data.payBook.price
+          });
+        });
       })
     }else{
       http.postReq('/api/Article/coupon', { aid: bookId }, function (res) {
@@ -423,6 +437,7 @@ Page({
             if(res1.code == 101){
               that.setData({
                 isPhone: false,
+                mask: true
               })
             }else{
               wx.showToast({

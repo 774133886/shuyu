@@ -64,9 +64,9 @@ Page({
   clockIn: function(){
     var that = this;
     var info = this.data.info;
-    if (info.dk){
-      return false;
-    }
+    // if (info.dk){
+    //   return false;
+    // }
     if (!this.isreaded() || (info.dt.name && !info.dt.flag) || (info.sp.name && !info.sp.flag)) {
       this.toast();
       return false;
@@ -128,6 +128,7 @@ Page({
   },
   //加载音频
   loadAudio: function (src,idx) {
+    console.log(src);
     var that = this;
     wx.showLoading({
       title: '加载中',
@@ -302,6 +303,9 @@ Page({
     var innerAudioContext = this.data.innerAudioContext;
     if (innerAudioContext.destroy) {
       innerAudioContext.destroy();
+      this.setData({
+        innerAudioContext: {}
+      })
     }
   },
 

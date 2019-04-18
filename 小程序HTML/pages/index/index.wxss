@@ -14,6 +14,12 @@ page{
 .hgt_100{
   height: 100%;
 }
+.indexSwiper{
+  height: calc(100% - 32rpx);
+}
+.indexSwiper2{
+  height: calc(100% - 120rpx);
+}
 .indexHead{
   padding: 30rpx 0;
   margin-bottom: 10rpx;
@@ -48,6 +54,11 @@ page{
 .indexCtt{
   background-color: #fff;
   border-radius: 10rpx;
+  position: relative;
+}
+#indexCtt{
+  position: absolute;
+  height: 100%;
 }
 /* .indexCtt::-webkit-scrollbar-thumb{
   width: 6rpx;
@@ -306,4 +317,7 @@ page{
 }
 .wid180{
   width: 180rpx;
+}
+.hgt_100{
+  height: 100% !important;
 }

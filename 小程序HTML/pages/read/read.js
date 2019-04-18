@@ -234,6 +234,9 @@ Page({
       console.log('暂停播放')
       that.setData({ play: false })
     })
+    innerAudioContext.onEnded(() => {
+      that.setData({ play: false })
+    })
     var getDuration = setInterval(function () {
       var duration = innerAudioContext.duration
       if (duration > 0) {
