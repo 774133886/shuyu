@@ -82,7 +82,8 @@ Page({
     });
   },
   //开启中断遮罩
-  openMask2: function () {this.setData({mask2: true})},
+  openMask2: function () {
+    this.setData({mask2: true, payBook: e.currentTarget.dataset.item,content: e.currentTarget.dataset.content,})},
   //关闭中断遮罩
   closeMask2: function () { this.setData({ mask2: false }) },
   //开启分享遮罩
@@ -433,12 +434,16 @@ Page({
       // }, // 设置请求的 header
       success: function (res) {
         if (res.data.phoneNumber) {//我后台设置的返回值为1是正确
+
           http.postReq('/api/User/bindMobile', { 'mobile': res.data.phoneNumber},function(res1){
             if(res1.code == 101){
               that.setData({
                 isPhone: false,
                 mask: true
-              })
+              });
+
+              //存入缓存即可
+              wx.setStorageSync('phone', res.data.phoneNumber);
             }else{
               wx.showToast({
                 title: res1.msg,
@@ -446,9 +451,6 @@ Page({
               })
             }
           })
-
-          //存入缓存即可
-          wx.setStorageSync('phone', res.data.phoneNumber);
 
         }else{
           // 还是关闭弹窗
