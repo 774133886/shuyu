@@ -82,8 +82,8 @@ Page({
     });
   },
   //开启中断遮罩
-  openMask2: function () {
-    this.setData({mask2: true, payBook: e.currentTarget.dataset.item,content: e.currentTarget.dataset.content,})},
+  openMask2: function (e) {
+    this.setData({mask2: true})},
   //关闭中断遮罩
   closeMask2: function () { this.setData({ mask2: false }) },
   //开启分享遮罩
@@ -124,7 +124,8 @@ Page({
     if(item.buy){
       this.setData({
         mask2: true,
-        articleId: item.id
+        articleId: item.id,
+        payBook: item,
       });
       return false;
     }
@@ -212,7 +213,7 @@ Page({
                         wx.setStorageSync('token', res4.data.data.token);
                         wx.setStorageSync('user', res4.data.data.info);
                         // 存入一个空手机号
-                        wx.setStorageSync('phone', '');
+                        wx.setStorageSync('phone', res4.data.data.info.mobile ? res4.data.data.info.mobile : '');
                         wx.setStorageSync("first", '');
                         that.setData({
                           isLogin: false,

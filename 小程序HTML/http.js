@@ -43,6 +43,7 @@ function getReq(url, cb) {
                           }, success: function (res4) {
                             wx.setStorageSync('token', res4.data.data.token);
                             wx.setStorageSync('user', res4.data.data.info);
+                            wx.setStorageSync('phone', res4.data.data.info.mobile ? res4.data.data.info.mobile : '');
                             getReq(url, cb);
                           }
                         })
@@ -107,6 +108,7 @@ function postReq(url, data, cb) {
                             }, success: function (res4) {
                               wx.setStorageSync('token', res4.data.data.token);
                               wx.setStorageSync('user', res4.data.data.info);
+                              wx.setStorageSync('phone', res4.data.data.info.mobile ? res4.data.data.info.mobile : '');
                               postReq(url, data, cb);
                             }
                           })
