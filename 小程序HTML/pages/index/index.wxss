@@ -250,9 +250,10 @@ page{
   margin: 65rpx auto 0;
 }
 .shareMask image{
-  margin-right: 70px;
-  width: 475rpx;
-  height: 164rpx;
+  display: block;
+  margin: 240rpx auto 0;
+  width: 495rpx;
+  height: 265rpx;
 }
 .share_btn{
   width: 290rpx;
@@ -261,7 +262,7 @@ page{
   line-height: 90rpx;
   border-radius: 90rpx;
   color: #fff !important;
-  margin: 110rpx auto 0;
+  margin: 50rpx auto 0;
 }
 .maskBox{
   position: absolute;
@@ -311,9 +312,17 @@ page{
   left: calc(50% - 140rpx);
 }
 .completeBtn{
-  width: 70rpx;
-  height: 71rpx;
+  width: 53rpx;
+  height: 54rpx;
   margin-bottom: -2rpx;
+  vertical-align: middle;
+}
+.completeText{
+  font-size: 24rpx;
+  color: #FF6666;
+  display: inline-block;
+  vertical-align: middle;
+  margin-top: 10rpx;
 }
 .wid180{
   width: 180rpx;

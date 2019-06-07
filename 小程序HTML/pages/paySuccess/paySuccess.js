@@ -7,7 +7,9 @@ Page({
    * 页面的初始数据
    */
   data: {
-    money: ''
+    money: '',
+    image: '',
+    wxname: 'shuyupipa'
   },
 
   /**
@@ -20,7 +22,23 @@ Page({
     })
   },
   doneBtn:function(){
-    wx.navigateBack();
+    
+  },
+  cloneText: function(){
+    var that = this;
+    wx.setClipboardData({
+      data: that.wxname,
+      success: function (res) {
+        wx.getClipboardData({
+          success: function(res) {
+            wx.showToast({
+              title: '复制成功',
+              icon: 'none'
+            })
+          }
+        })
+      }
+    })
   },
   /**
    * 生命周期函数--监听页面初次渲染完成

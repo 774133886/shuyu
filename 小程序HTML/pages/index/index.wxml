@@ -23,6 +23,7 @@
         <view class='ic_btn curBg2' data-item="{{item}}" bindtap='openMask' data-content="{{item.content}}" wx:if="{{!item.buy && idx == 0}}">一元完成任务</view>
         <view class='text-right wid180' wx:if="{{article.read && !article.today}}">
           <image class='completeBtn' src='../../files/flag.png'></image>
+          <text class='completeText'>2019.3.12</text>
         </view>
         <view wx:if="{{article.today}}" class='ic_btn curBg2'><text>{{idx+1}}/</text>{{item.maxday}}天</view>
       </view>
@@ -114,7 +115,7 @@
 <!-- 分享朋友圈 -->
 <view class='indexMask {{shareMask ? "" : "hide"}}'>
   <view class='shareMask text-right'>
-    <image src='../../files/shareMask.png'></image>
+    <image src='../../files/sharePic.png'></image>
     <button class='share_btn curBg5' bindtap='closeShareMask'>知道了</button>
   </view>
 </view>
