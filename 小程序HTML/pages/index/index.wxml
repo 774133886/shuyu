@@ -23,7 +23,7 @@
         <view class='ic_btn curBg2' data-item="{{item}}" bindtap='openMask' data-content="{{item.content}}" wx:if="{{!item.buy && idx == 0}}">一元完成任务</view>
         <view class='text-right wid180' wx:if="{{article.read && !article.today}}">
           <image class='completeBtn' src='../../files/flag.png'></image>
-          <text class='completeText'>2019.3.12</text>
+          <text class='completeText'>{{article.time}}</text>
         </view>
         <view wx:if="{{article.today}}" class='ic_btn curBg2'><text>{{idx+1}}/</text>{{item.maxday}}天</view>
       </view>

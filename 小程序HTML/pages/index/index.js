@@ -89,7 +89,12 @@ Page({
   //开启分享遮罩
   openShareMask: function () { this.setData({ shareMask: true, mask2: false }) },
   //关闭分享遮罩
-  closeShareMask: function () { this.setData({ shareMask: false }) },
+  closeShareMask: function () { 
+    wx.navigateTo({
+      url: '../poster/poster?id=' + this.data.list[this.data.activeIdx].id,
+    })
+    this.setData({ shareMask: false });
+  },
   //开启中断阅读选择
   choiceType: function(e){
     this.setData({
@@ -201,7 +206,6 @@ Page({
                 wx.setStorageSync('sskey', res2.data.session_key);
                 wx.getUserInfo({
                   success: function (res3) {
-                    console.log(res3)
                     wx.request({
                       url: 'https://shuyu.educhinstyle.cn/api/login/third_login',
                       data: {

@@ -14,7 +14,7 @@
     <button bindtap='doneBtn' class='keepBtn'>添加助教微信</button>
   </view>
 </view>
-<view class='mask'>
+<view class='mask {{payHide ? "payhide" : ""}}'>
   <view class='maskCenter payMask'>
     <view class='payMaskHead curBg7'>--请添加助教微信  开启学习之旅--</view>
     <view class='payTitle'>
@@ -22,7 +22,7 @@
       <view>即可获得专属福利</view>
     </view>
     <view class='paysanjiao'></view>
-    <image class='payCode' src='image'></image>
+    <image class='payCode' src='{{image}}'></image>
     <view class='payText'>微信号：{{wxname}}</view>
     <button class='curBg4' bindtap='cloneText'>复制微信号</button>
   </view>

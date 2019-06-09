@@ -9,7 +9,8 @@ Page({
   data: {
     money: '',
     image: '',
-    wxname: 'shuyupipa'
+    wxname: 'shuyupipa',
+    payHide: true
   },
 
   /**
@@ -19,15 +20,18 @@ Page({
     // 获取数据
     this.setData({
       money: options.money
-    })
+    });
+    this.getTeacher();
   },
   doneBtn:function(){
-    
+    this.setData({
+      payHide: false
+    })
   },
   cloneText: function(){
     var that = this;
     wx.setClipboardData({
-      data: that.wxname,
+      data: that.data.wxname,
       success: function (res) {
         wx.getClipboardData({
           success: function(res) {
@@ -38,6 +42,15 @@ Page({
           }
         })
       }
+    })
+  },
+  getTeacher: function(){
+    var that = this;
+    http.getReq('/api/Index/config',function(res){
+      that.setData({
+        image: res.data.qrcode,
+        wxname: res.data.wechat
+      })
     })
   },
   /**

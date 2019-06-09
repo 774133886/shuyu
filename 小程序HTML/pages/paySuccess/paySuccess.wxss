@@ -95,6 +95,7 @@ page{
   width: 264rpx;
   height: 264rpx;
   margin: 20rpx auto 0;
+  display: block;
 }
 .payText{
   text-align: center;
@@ -109,4 +110,7 @@ page{
   color: #fff;
   font-size: 30rpx;
   margin: auto;
+}
+.payhide{
+  display: none
 }
