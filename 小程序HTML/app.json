@@ -1,5 +1,5 @@
 {
-  "pages":[
+  "pages": [
     "pages/index/index",
     "pages/answerResolution/answerResolution",
     "pages/answer/answer",
@@ -11,13 +11,12 @@
     "pages/personal/personal",
     "pages/poster/poster",
     "pages/missionDetail/missionDetail"
-    
-    
   ],
-  "window":{
-    "backgroundTextStyle":"light",
+  "window": {
+    "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#ffffff",
     "navigationBarTitleText": "书予",
-    "navigationBarTextStyle":"black"
-  }
+    "navigationBarTextStyle": "black"
+  },
+  "sitemapLocation": "sitemap.json"
 }

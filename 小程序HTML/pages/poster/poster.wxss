@@ -1,4 +1,13 @@
 /* pages/poster/poster.wxss */
+page{
+  background-color: #fef9f8;
+  box-shadow:0px 5px 10px 0px rgba(248,238,236,.7) inset;
+  padding-bottom: 85px;
+  height: 100%;
+  width: 100%;
+}
+
+
 .bgImg{
   display: block;
   width: 100%;
@@ -97,39 +106,33 @@ button[class="zfbtn m_l"]::after {
   border: 0;
 } 
 .imagePathBox{
+  position: fixed;
   width: 100%;
   height: 100%;
-  background: rgba(0,0,0,0.7);
-  position: fixed;
+  background-color: #fef9f8;
   top: 0;
   left: 0;
-  right: 0;
-  bottom: 0;
-  z-index: 10;
+  z-index: 2;
 }
 .shengcheng{
-  width: 80%;
-  height: 80%;
-  position: fixed;
-  top: 50rpx;
-  left: 50%;
-  margin-left: -40%;
-  z-index: 10;
+  width: 700rpx;
+  height: 1075rpx;
+  position: absolute;
+  top: 20rpx;
+  left: 25rpx;
+  right: 25rpx;
+  /* left: 50%;
+  margin-left: -350rpx; */
+  z-index: 9999;
 }
 .baocun{
-  display: block;
-  width: 80%;
-  height: 80rpx;
   padding: 0;
   line-height: 80rpx;
   text-align: center;
-  position: fixed;
+  position: absolute;
   bottom: 50rpx;
   left: 10%;
-  background: #ffe200;
-  color: #333;
-  font-size: 32rpx;
-  border-radius: 44rpx;
+ z-index: 2
 }
 button[class="baocun"]::after{
   border: 0;
