@@ -264,6 +264,7 @@ Page({
     if(!token) return;
     var that = this;
     http.getReq('/api/Index/getBooks',function(res){
+      // res.data.rows[0].articles[1].time = '2019.06.09'
       that.setData({
         list: res.data.rows,
         // 获取显示隐藏
