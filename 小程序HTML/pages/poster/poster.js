@@ -15,6 +15,7 @@ Page({
     name: "风云天clear",
     slogan:'7天get有趣的建筑园林知识, 从不同维度了解传统文化！',
     token: wx.getStorageSync('token'),
+    path4:''
   },
   //获取输入框的值
   bindKeyInput: function (e) {
@@ -40,29 +41,63 @@ Page({
       if (res.code == 101) {
         that.setData({
           name: res.data.nickname,
-          path: res.data.bpath,
-          avatar: res.data.avatar,
+          // path: res.data.bpath,
+          // avatar: res.data.avatar,
+        })
+        wx.downloadFile({
+          url: res.data.bpath,
+          success: function (res) {
+            console.log(res.tempFilePath);
+            that.setData({
+              path: res.tempFilePath,
+            })
+          }, fail: function (fres) {
+
+          }
+        })
+        wx.downloadFile({
+          url: res.data.avatar,
+          success: function (res) {
+            console.log(res.tempFilePath);
+            that.setData({
+              avatar: res.tempFilePath,
+            })
+          }, fail: function (fres) {
+
+          }
         })
 
-        // http.postReq('/api/User/getQrcode', function (res) {
-        //   console.log(res.data)
-        //   if (res.code == 101) {
-        //     that.setData({
-        //       name: res.data.nickname,
-        //     })
-        //     that.createNewImg();
-        //   } else {
-        //     wx.showToast({
-        //       title: res.msg,
-        //       icon: 'none'
-        //     })
-        //   }
-        // })
-        that.createNewImg();
+
+        http.postReq('/api/User/getQrcode',{}, function (res1) {
+          if (res1.code == 101) {
+            // that.setData({
+            //   path4: res1.data.data,
+            // })
+            wx.downloadFile({
+              url: res1.data,
+              success: function (res2) {
+                that.setData({
+                  path4: res2.tempFilePath,
+                })
+                console.log(that.data.path4);
+                setTimeout(() => {
+                  that.createNewImg();
+                }, 1000)
+              }
+            })
+          } else {
+            wx.showToast({
+              title: res1.msg,
+              icon: 'none',
+              duration: 2000
+            })
+          }
+        })
       }else{
         wx.showToast({
           title: res.msg,
-          icon: 'none'
+          icon: 'none',
+          duration: 2000
         })
       }
     })
@@ -76,6 +111,7 @@ Page({
     context.setFillStyle("rgba(0,0,0,0)")
     context.fillRect(0, 0, 375, 585)
     var path = that.data.path;
+    // var path = "../../files/postor_center_bg.png";
     //将模板图片绘制到canvas,在开发工具中drawImage()函数有问题，不显示图片
     //不知道是什么原因，手机环境能正常显示
     context.drawImage(path, 0, 0, 375, 585);
@@ -83,8 +119,8 @@ Page({
     // console.log(path1, "path1")
     //将模板图片绘制到canvas,在开发工具中drawImage()函数有问题，不显示图片
     var path2 = that.data.avatar;
-    var path3 = "../../files/postor_center_bg.png";
-    var path4 = app.host + '/api/User/getQrcode?token=' + that.data.token;
+    // var path3 = "../../files/postor_center_bg.png";
+    var path4 = that.data.path4;
     console.log(path4)
     //不知道是什么原因，手机环境能正常显示
     // context.save(); // 保存当前context的状态
@@ -107,6 +143,7 @@ Page({
     // context.drawImage(path3, 38, 220, 300, 145);
     //绘制扫码二维码 
     context.drawImage(path4, 158, 488, 50, 50);
+    context.stroke();
     // 绘制头像
     context.arc(62, 62, 30, 0, 2 * Math.PI) //画出圆
     context.strokeStyle = "rgba(0,0,0,0)";
@@ -117,6 +154,11 @@ Page({
   
 
     context.draw();
+    wx.showToast({
+      title: '海报生成中...',
+      icon: 'loading',
+      duration: 2000
+    })
     //将生成好的图片保存到本地，需要延迟一会，绘制期间耗时
     setTimeout(function () {
       wx.canvasToTempFilePath({
@@ -132,7 +174,7 @@ Page({
           console.log(res);
         }
       });
-    }, 1000);
+    }, 2000);
   },
   //点击保存到相册
   baocun: function () {
