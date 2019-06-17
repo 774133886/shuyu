@@ -247,7 +247,8 @@ Page({
           that.setData({
             isLogin: true
           })
-        }else{
+        } else {
+          
           if(!token){
             that.userLogin();
           }
@@ -426,12 +427,21 @@ Page({
   getPhoneNumber: function (e) {
     // console.log(e.detail.iv);
     // console.log(e.detail.encryptedData);
+    // wx.checkSession({
+    //   success() {
+    //     //session_key 未过期，并且在本生命周期一直有效
+    //   },
+    //   fail() {
+    //     // session_key 已经失效，需要重新执行登录流程
+    //     that.userLogin(); //重新登录
+    //   }
+    // })
     var that = this;
     wx.request({
       url: 'https://shuyu.educhinstyle.cn/api/Login/decode',
       data: {
         'encryptedData': e.detail.encryptedData,
-        'iv': e.detail.iv,
+        'iv': encodeURIComponent(e.detail.iv),
         'sessionKey': wx.getStorageSync('sskey')
       },
       method: 'POST', // OPTIONS, GET, HEAD, POST, PUT, DELETE, TRACE, CONNECT
@@ -495,6 +505,7 @@ Page({
    */
   onLoad: function(options) {
     var that = this;
+    
     //获取要求人id
     if (options.pid) {
       wx.setStorageSync('pid', options.pid)
@@ -540,6 +551,12 @@ Page({
   onShow: function (options) {
     this.loadUser();
     this.getlist();
+    http.postReq('/api/User/info', {}, function (res) {
+      console.log(res);
+      setTimeout(function () {
+        that.getlist();
+      }, 0);
+    })
     var that = this;
     
     //iphone 底部横线适配

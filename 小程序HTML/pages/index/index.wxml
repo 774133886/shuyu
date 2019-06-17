@@ -9,10 +9,13 @@
 <swiper wx:if="{{!noData}}" class='flex_1 indexSwiper {{isIphone ? "indexSwiper2" : ""}}' indicator-dots="{{false}}" circular="{{true}}" current="{{swiperIdx}}" bindchange="swiperChange">
   <swiper-item class='hgt_100 flex_column indexCen' wx:for="{{list}}" wx:key="item" wx:for-index="index">
     <view class='indexHead'>
-      <view class='ih_box curBg flex_dom'>
-        <view>
+      <view class='ih_box curBg flex_dom relative'>
+        <view style="margin-top: 20rpx">
           <view class='color-fff font36 hide111'>{{item.name}}</view>
-          <text class='color-fff font28 m-t-10 line4'>{{item.description}}</text>
+          <text class='color-fff font28 m-t-10 line3'>{{item.description}}</text>
+        </view>
+        <view class='indexShareIcon' bindtap='closeShareMask'>
+          <image src='../../files/share.png'></image>
         </view>
       </view>
     </view>

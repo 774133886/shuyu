@@ -21,7 +21,7 @@ function getReq(url, cb) {
     method: 'get',
     success: function (res) {
       wx.hideLoading();
-      if (res.data.code == 500) {
+      if (res.data.code == 401) {
         wx.login({
           success: function (res1) {
             if (res1.code) {
@@ -79,14 +79,15 @@ function postReq(url, data, cb) {
       data={};
     }
     var token = wx.getStorageSync('token');
-    console.log(data);
+    // console.log(data);
     wx.request({
       url: rootDocment + url + '?token=' + token,
       data: data,
       method: 'post',
       success: function (res) {
         wx.hideLoading();
-        if (res.data.code == 500) {
+        // console.log(res);
+        if (res.data.code == 401) {
           wx.login({
             success: function (res1) {
               if (res1.code) {
