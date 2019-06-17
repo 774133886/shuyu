@@ -179,10 +179,82 @@ Page({
   //点击保存到相册
   baocun: function () {
     var that = this;
+    if (!wx.saveImageToPhotosAlbum) {
+      wx.showModal({
+        title: '提示',
+        content: '当前微信版本过低，无法使用该功能，请升级到最新微信版本后重试。'
+      })
+      return;
+    }
+    
+    // 可以通过 wx.getSetting 先查询一下用户是否授权了 "scope.writePhotosAlbum" 这个 scope  
+    wx.getSetting({
+      success(res) {
+        console.log("getSetting: success");
+        if (!res.authSetting['scope.writePhotosAlbum']) {
+          // 接口调用询问  
+          wx.authorize({
+            scope: 'scope.writePhotosAlbum',
+            success() {
+              that.downloadImage();
+            },
+            fail() {
+              // 用户拒绝了授权  
+              wx.showModal({
+                title: '保存图片',
+                content: '保存图片需要您授权',
+                showCancel: true,
+                confirmText: '确定',
+
+                success: function (res) {
+                  if (res.confirm) {
+                    // 打开设置页面  
+                    wx.openSetting({
+                      success: function (data) {
+                        if (data.authSetting['scope.writePhotosAlbum']) {
+                          that.downloadImage();
+                        } else {
+                          console.log("授权失败");
+                        }
+                      },
+                      fail: function (data) {
+                        console.log("openSetting: fail");
+                      }
+                    });
+                  } else if (res.cancel) {
+                    console.log('用户点击取消')
+                  }
+
+                }
+              })
+
+
+
+            }
+          })
+        } else {
+          that.downloadImage()
+        }
+      },
+      fail(res) {
+        console.log("getSetting: fail");
+        console.log(res);
+      }
+
+    })
+
+  },
+  // 下载
+  downloadImage(){
+    wx.showLoading({
+      title: '保存中...',
+    })
+    var that = this;
     console.log("baocun", that.data.imagePath)
     wx.saveImageToPhotosAlbum({
       filePath: that.data.imagePath,
       success(res) {
+        wx.hideLoading();
         wx.showModal({
           content: '图片已保存到相册，快去分享到朋友圈吧~',
           showCancel: false,
@@ -192,14 +264,18 @@ Page({
             if (res.confirm) {
               console.log('用户点击确定');
             }
-          }, 
+          },
           fail: function (res) {
             console.log(11111)
+
           }
         })
       },
       fail: function (res) {
         console.log(res)
+        if (res.errMsg === "saveImageToPhotosAlbum:fail authorize no response") {
+          console.log("打开设置窗口");
+        }
       }
     })
   },
