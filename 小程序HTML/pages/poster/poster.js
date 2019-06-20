@@ -132,13 +132,14 @@ Page({
     context.setTextAlign('center');
     context.fillText(name, 160, 55);
     context.stroke();
-    //绘制标语
-    // context.setFontSize(20);
-    // context.setFillStyle('#ff6666');
-    // context.setTextAlign('center');
-    // context.fillText(that.data.slogan.split(',')[0]+',', 185, 190);
-    // context.fillText(that.data.slogan.split(',')[1], 185, 215);
-    // context.stroke();
+    //绘制白色背景
+
+    context.arc(183, 513, 35, 0, Math.PI * 2, true);
+    context.closePath();
+    context.fillStyle = "white";
+    context.strokeStyle = "rgba(0,0,0,0)";
+    context.fill();
+    context.stroke();
     //绘制验证码背景
     // context.drawImage(path3, 38, 220, 300, 145);
     //绘制扫码二维码 
@@ -278,25 +279,6 @@ Page({
         }
       }
     })
-  },
-  //点击生成
-  formSubmit: function (e) {
-    var that = this;
-    this.setData({
-      maskHidden: false
-    });
-    wx.showToast({
-      title: '装逼中...',
-      icon: 'loading',
-      duration: 1000
-    });
-    setTimeout(function () {
-      wx.hideToast()
-      
-      that.setData({
-        maskHidden: true
-      });
-    }, 1000)
   },
 
   /**

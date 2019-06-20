@@ -8,7 +8,7 @@
         <view class='hgt150rpx wid100 between'>
           <image src='{{info.avatar}}' class='icon_person'></image>
           <view class='hgt150 font28 column-between flex_1 m-l-30'>
-            <view class='text-right color-333'>{{info.nickname}}已经连续阅读{{info.day}}天</view>
+            <view class='text-right color-333'><text class='only_line max200'>{{info.nickname}}</text>已经连续阅读{{info.day}}天</view>
             <view class='text-right color-333'>在阅读{{info.book_count}}本书</view>
             <view class='text-right color-333'>已获得{{info.total_coupon_count}}张复活卡，还可使用{{info.conpon_count}}张</view>
           </view> 
