@@ -125,7 +125,8 @@ Page({
     //不知道是什么原因，手机环境能正常显示
     // context.save(); // 保存当前context的状态
 
-    var name = that.data.name;
+    var name = that.data.name || '';
+    console.log(name);
     //绘制名字
     context.setFontSize(18);
     context.setFillStyle('#ffffff');

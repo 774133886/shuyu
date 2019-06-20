@@ -337,7 +337,8 @@ page{
   padding: 10rpx 30rpx;
 }
 .indexShareIcon image{
+  display: block;
   width: 40rpx;
   height: 40rpx;
-  margin-top: -10rpx;
+  /* margin-top: -10rpx; */
 }
