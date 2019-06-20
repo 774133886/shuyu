@@ -38,6 +38,9 @@ Page({
             wx.showToast({
               title: '复制成功',
               icon: 'none'
+            });
+            that.setData({
+              payHide: true
             })
           }
         })
