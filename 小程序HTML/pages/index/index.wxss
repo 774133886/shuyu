@@ -334,11 +334,11 @@ page{
   position: absolute;
   top: 0;
   right: 0;
-  padding: 10rpx 30rpx;
+  padding: 20rpx 20rpx 0;
 }
 .indexShareIcon image{
   display: block;
-  width: 40rpx;
-  height: 40rpx;
+  width: 30rpx;
+  height: 30rpx;
   /* margin-top: -10rpx; */
 }
