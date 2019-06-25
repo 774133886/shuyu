@@ -82,7 +82,7 @@ Page({
                 console.log(that.data.path4);
                 setTimeout(() => {
                   that.createNewImg();
-                }, 1000)
+                }, 3000)
               }
             })
           } else {
@@ -114,7 +114,7 @@ Page({
     // var path = "../../files/postor_center_bg.png";
     //将模板图片绘制到canvas,在开发工具中drawImage()函数有问题，不显示图片
     //不知道是什么原因，手机环境能正常显示
-    context.drawImage(path, 0, 0, 375, 585);
+    context.drawImage(path, 0, 0, 375, 598);
     var path1 = that.data.touxiang;
     // console.log(path1, "path1")
     //将模板图片绘制到canvas,在开发工具中drawImage()函数有问题，不显示图片
@@ -131,11 +131,11 @@ Page({
     context.setFontSize(18);
     context.setFillStyle('#ffffff');
     context.setTextAlign('center');
-    context.fillText(name, 160, 55);
+    context.fillText(name, 160, 52);
     context.stroke();
     //绘制白色背景
 
-    context.arc(183, 513, 35, 0, Math.PI * 2, true);
+    context.arc(186, 528, 35, 0, Math.PI * 2, true);
     context.closePath();
     context.fillStyle = "white";
     context.strokeStyle = "rgba(0,0,0,0)";
@@ -144,10 +144,10 @@ Page({
     //绘制验证码背景
     // context.drawImage(path3, 38, 220, 300, 145);
     //绘制扫码二维码 
-    context.drawImage(path4, 158, 488, 50, 50);
+    context.drawImage(path4, 161, 503, 50, 50);
     context.stroke();
     // 绘制头像
-    context.arc(62, 62, 30, 0, 2 * Math.PI) //画出圆
+    context.arc(63, 60, 30, 0, 2 * Math.PI) //画出圆
     context.strokeStyle = "rgba(0,0,0,0)";
     context.clip(); //裁剪上面的圆形
     context.drawImage(path2, 31, 31, 62, 62); // 在刚刚裁剪的园上画图
