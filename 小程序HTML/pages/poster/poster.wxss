@@ -123,7 +123,7 @@ button[class="zfbtn m_l"]::after {
   right: 30rpx;
   /* left: 50%;
   margin-left: -350rpx; */
-  z-index: 9999;
+  z-index: 1;
 }
 .baocun{
   padding: 0;

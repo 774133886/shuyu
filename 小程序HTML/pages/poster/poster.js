@@ -114,7 +114,6 @@ Page({
     // var path = "../../files/postor_center_bg.png";
     //将模板图片绘制到canvas,在开发工具中drawImage()函数有问题，不显示图片
     //不知道是什么原因，手机环境能正常显示
-    context.drawImage(path, 0, 0, 375, 598);
     var path1 = that.data.touxiang;
     // console.log(path1, "path1")
     //将模板图片绘制到canvas,在开发工具中drawImage()函数有问题，不显示图片
@@ -127,12 +126,19 @@ Page({
 
     var name = that.data.name || '';
     console.log(name);
+    context.arc(186, 528, 35, 0, Math.PI * 2, true);
+    context.closePath();
+    context.fillStyle = "white";
+    context.strokeStyle = "rgba(0,0,0,0)";
+    context.fill();
+    context.stroke();
+    context.drawImage(path, 0, 0, 375, 598);
+    context.stroke();
     //绘制名字
     context.setFontSize(18);
     context.setFillStyle('#ffffff');
     context.setTextAlign('center');
     context.fillText(name, 160, 52);
-    context.stroke();
     //绘制白色背景
 
     context.arc(186, 528, 35, 0, Math.PI * 2, true);
