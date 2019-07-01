@@ -264,7 +264,7 @@ Page({
       success(res) {
         wx.hideLoading();
         wx.showModal({
-          content: '图片已保存到相册，快去分享到朋友圈吧~',
+          content: '图片已保存到相册，快去分享给好友吧！',
           showCancel: false,
           confirmText: '好的',
           confirmColor: '#333',

@@ -2,7 +2,7 @@
 <view class='imagePathBox'>
   <image src="{{imagePath}}" class='shengcheng'></image>
   <!-- <button class='baocun' bindtap='baocun'>保存相册，分享到朋友圈</button> -->
-  <button bindtap='baocun' hover-class='none' class='keepBtn baocun curBg5 fw_600'>保存相册，并转发朋友圈</button>
+  <button bindtap='baocun' hover-class='none' class='keepBtn baocun curBg5 fw_600'>保存到相册，并分享给好友</button>
   <view class="canvas-box">
       <canvas  style="width: 375px;height: 600px;position:fixed;top:9999px" canvas-id="mycanvas"/>
   </view>  
