@@ -130,7 +130,7 @@ Page({
       this.setData({
         mask2: true,
         articleId: item.id,
-        payBook: item,
+        payBook: book,
       });
       return false;
     }
@@ -323,6 +323,7 @@ Page({
     var that = this;
     var bookId = this.data.articleId;
     var cType = this.data.cType;
+    console.log(that.data.payBook)
     if (cType == 'wechat'){
       wx.showLoading({
         title: '',
@@ -427,64 +428,79 @@ Page({
   getPhoneNumber: function (e) {
     // console.log(e.detail.iv);
     // console.log(e.detail.encryptedData);
-    // wx.checkSession({
-    //   success() {
-    //     //session_key 未过期，并且在本生命周期一直有效
-    //   },
-    //   fail() {
-    //     // session_key 已经失效，需要重新执行登录流程
-    //     that.userLogin(); //重新登录
-    //   }
-    // })
-    var that = this;
-    wx.request({
-      url: 'https://shuyu.educhinstyle.cn/api/Login/decode',
-      data: {
-        'encryptedData': e.detail.encryptedData,
-        'iv': encodeURIComponent(e.detail.iv),
-        'sessionKey': wx.getStorageSync('sskey')
-      },
-      method: 'POST', // OPTIONS, GET, HEAD, POST, PUT, DELETE, TRACE, CONNECT
-      // header: {
-      //   'content-type': 'application/json'
-      // }, // 设置请求的 header
-      success: function (res) {
-        if (res.data.phoneNumber) {//我后台设置的返回值为1是正确
 
-          http.postReq('/api/User/bindMobile', { 'mobile': res.data.phoneNumber},function(res1){
-            if(res1.code == 101){
+    var that = this;
+
+    wx.checkSession({
+      success() {
+        //session_key 未过期，并且在本生命周期一直有效
+        wx.request({
+          url: 'https://shuyu.educhinstyle.cn/api/Login/decode',
+          data: {
+            'encryptedData': e.detail.encryptedData,
+            'iv': encodeURIComponent(e.detail.iv),
+            'sessionKey': wx.getStorageSync('sskey')
+          },
+          method: 'POST', // OPTIONS, GET, HEAD, POST, PUT, DELETE, TRACE, CONNECT
+          // header: {
+          //   'content-type': 'application/json'
+          // }, // 设置请求的 header
+          success: function (res) {
+            if (res.data.phoneNumber) {//我后台设置的返回值为1是正确
+
+              http.postReq('/api/User/bindMobile', { 'mobile': res.data.phoneNumber }, function (res1) {
+                if (res1.code == 101) {
+                  that.setData({
+                    isPhone: false,
+                    mask: true
+                  });
+
+                  //存入缓存即可
+                  wx.setStorageSync('phone', res.data.phoneNumber);
+                } else {
+                  wx.showToast({
+                    title: res1.msg,
+                    icon: 'none'
+                  })
+                }
+              })
+
+            } else {
+              // 还是关闭弹窗
+              wx.showToast({
+                title: '获取手机号失败',
+                icon: 'none'
+              });
               that.setData({
                 isPhone: false,
-                mask: true
-              });
-
-              //存入缓存即可
-              wx.setStorageSync('phone', res.data.phoneNumber);
-            }else{
-              wx.showToast({
-                title: res1.msg,
-                icon: 'none'
               })
             }
-          })
-
-        }else{
-          // 还是关闭弹窗
-          that.setData({
-            isPhone: false,
-          })
-        }
-        // 判断是否第一次进入
-        if (wx.getStorageSync('first') == ''){
-          that.setData({
-            firstIn: true,
-          });
-        }
+            // 判断是否第一次进入
+            if (wx.getStorageSync('first') == '') {
+              that.setData({
+                firstIn: true,
+              });
+            }
+          },
+          fail: function (err) {
+            wx.showToast({
+              title: err,
+              icon: 'none'
+            });
+            console.log(err);
+          }
+        })
       },
-      fail: function (err) {
-        console.log(err);
+      fail() {
+        // session_key 已经失效，需要重新执行登录流程
+        wx.showToast({
+          title: '登录失效，重新登录',
+          icon: 'none'
+        });
+        that.userLogin(); //重新登录
       }
     })
+    
       
   },
   //首次进入提示
@@ -549,10 +565,10 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function (options) {
+    var that = this;
     this.loadUser();
-    this.getlist();
+    // this.getlist();
     http.postReq('/api/User/info', {}, function (res) {
-      console.log(res);
       setTimeout(function () {
         that.getlist();
       }, 0);

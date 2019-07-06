@@ -148,4 +148,3 @@
     <button class='curBg4' open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber">微信授权获取手机号</button>
   </view>
 </view>
-
