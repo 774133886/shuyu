@@ -109,7 +109,7 @@ Page({
     var that = this;
     var context = wx.createCanvasContext('mycanvas');
     context.setFillStyle("rgba(0,0,0,0)")
-    context.fillRect(0, 0, 375, 585)
+    context.fillRect(0, 0, 375, 590)
     var path = that.data.path;
     // var path = "../../files/postor_center_bg.png";
     //将模板图片绘制到canvas,在开发工具中drawImage()函数有问题，不显示图片
@@ -132,7 +132,7 @@ Page({
     context.strokeStyle = "rgba(0,0,0,0)";
     context.fill();
     context.stroke();
-    context.drawImage(path, 0, 0, 375, 598);
+    context.drawImage(path, 0, 0, 375, 602);
     context.stroke();
     //绘制名字
     context.setFontSize(18);
