@@ -1,6 +1,6 @@
 /* pages/readDetail/readDetail.wxss */
 /* pages/read/read.wxss */
-@import "../../wxParse/wxParse.wxss";
+/* @import "../../wxParse/wxParse.wxss"; */
 page{
   background-color: #fff;
   box-sizing: border-box;

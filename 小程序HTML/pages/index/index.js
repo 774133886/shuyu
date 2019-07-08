@@ -174,7 +174,7 @@ Page({
                     if (!res.authSetting["scope.userInfo"]) {
                       //这里是授权成功之后 填写你重新获取数据的js
                       //参考:
-                      
+                      that.userLogin();
                     }else{
                       that.userLogin();
                     }
@@ -523,11 +523,12 @@ Page({
     var that = this;
     
     //获取要求人id
-    if (options.pid) {
-      wx.setStorageSync('pid', options.pid)
+    if (options.pid || options.scene) {
+      wx.setStorageSync('pid', options.pid || options.scene)
       that.setData({
-        pid: options.pid
-      })
+        pid: options.pid || options.scene
+      });
+      that.userLogin();
     }else{
       wx.removeStorageSync('pid');
     }
