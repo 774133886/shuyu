@@ -30,7 +30,9 @@ Page({
     lookTime: 0,
     noData: false,
     p_show:false,
-    iphoneId: ''
+    iphoneId: '',
+    systemInfo:{},
+    isIos:false,
   },
   //swiper
   swiperChange: function(e){
@@ -46,6 +48,13 @@ Page({
   
   //开启遮罩
   openMask: function(e){
+    var token = wx.getStorageSync('token');
+    if(!token) {
+      this.setData({
+        isLogin:true
+      })
+      return
+    };
     // 判断是否绑定手机号
     var phone = wx.getStorageSync('phone');
     if (phone == '' && this.data.p_show){
@@ -58,6 +67,35 @@ Page({
       return false;
     }
     var that = this;
+    // 判断IOS
+    if (this.data.isIos){
+      // wx.showModal({
+      //   title: '温馨提示',
+      //   content: '小程序暂不支持开启阅读',
+      //   confirmText:'好的',
+      //   showCancel: false
+      // })
+
+      let bookid = e.currentTarget.dataset.bookid;
+     
+      // 新增免费
+      wx.showModal({
+        title: '提示',
+        content: '确认开启本书籍？',
+        success(res) {
+          if (res.confirm) {
+            console.log('用户点击确定')
+            console.log(bookid)
+            that.open(bookid);
+          } else if (res.cancel) {
+            console.log('用户点击取消')
+          }
+        }
+      })
+
+      return false;
+    }
+
     this.setData({
       mask: true,
       payBook: e.currentTarget.dataset.item,
@@ -83,13 +121,19 @@ Page({
   },
   //开启中断遮罩
   openMask2: function (e) {
-    this.setData({mask2: true})},
+    this.setData({mask2: true})
+  },
   //关闭中断遮罩
   closeMask2: function () { this.setData({ mask2: false }) },
   //开启分享遮罩
   openShareMask: function () { this.setData({ shareMask: true, mask2: false }) },
   //关闭分享遮罩
-  closeShareMask: function () { this.setData({ shareMask: false }) },
+  closeShareMask: function () { 
+    wx.navigateTo({
+      url: '../poster/poster?id=' + this.data.list[this.data.activeIdx].id,
+    })
+    this.setData({ shareMask: false });
+  },
   //开启中断阅读选择
   choiceType: function(e){
     this.setData({
@@ -125,7 +169,7 @@ Page({
       this.setData({
         mask2: true,
         articleId: item.id,
-        payBook: item,
+        payBook: book,
       });
       return false;
     }
@@ -144,7 +188,13 @@ Page({
   },
   //我的跳转
   goPersonal: function(){
-    
+    var token = wx.getStorageSync('token');
+    if(!token) {
+      this.setData({
+        isLogin:true
+      })
+      return
+    };
     wx.navigateTo({
       url: '../personal/personal'
     })
@@ -157,27 +207,32 @@ Page({
       success: function(res) {
         console.log(res.authSetting['scope.userInfo'])
         if (!res.authSetting['scope.userInfo']) {
-          wx.showModal({
-            title: '警告',
-            content: '小程序需要您的授权进行登录，如果您拒绝，您将无法正常使用；后期如有需要可将小程序删除后重新搜索，重新授权方可使用。',
-            cancelText: "不授权",
-            confirmText: '授权',
-            success(res) {
-              if (res.confirm) {
-                wx.openSetting({
-                  success: function(res) {
-                    if (!res.authSetting["scope.userInfo"]) {
-                      //这里是授权成功之后 填写你重新获取数据的js
-                      //参考:
-                      
-                    }else{
-                      that.userLogin();
-                    }
-                  }
-                })
-              }
-            }
+          that.setData({
+            isLogin: false,
+            // firstIn: true
           })
+          console.log(11111)
+          // wx.showModal({
+          //   title: '警告',
+          //   content: '小程序需要您的授权进行登录，如果您拒绝，您将无法正常使用；后期如有需要可将小程序删除后重新搜索，重新授权方可使用。',
+          //   cancelText: "不授权",
+          //   confirmText: '授权',
+          //   success(res) {
+          //     if (res.confirm) {
+          //       wx.openSetting({
+          //         success: function(res) {
+          //           if (!res.authSetting["scope.userInfo"]) {
+          //             //这里是授权成功之后 填写你重新获取数据的js
+          //             //参考:
+          //             that.userLogin();
+          //           }else{
+          //             that.userLogin();
+          //           }
+          //         }
+          //       })
+          //     }
+          //   }
+          // })
         } else {
           that.userLogin();
         }
@@ -201,7 +256,6 @@ Page({
                 wx.setStorageSync('sskey', res2.data.session_key);
                 wx.getUserInfo({
                   success: function (res3) {
-                    console.log(res3)
                     wx.request({
                       url: 'https://shuyu.educhinstyle.cn/api/login/third_login',
                       data: {
@@ -217,7 +271,7 @@ Page({
                         wx.setStorageSync("first", '');
                         that.setData({
                           isLogin: false,
-                          firstIn: true
+                          // firstIn: true
                           // isPhone: true
                         })
                         that.getlist();
@@ -241,25 +295,29 @@ Page({
         // console.log(res);
         if (!res.authSetting['scope.userInfo']) {
           that.setData({
-            isLogin: true
+            // isLogin: true
+            firstIn: true,
           })
-        }else{
+        } else {
+          
           if(!token){
             that.userLogin();
           }
           that.setData({
             isLogin: false
           })
+          console.log(2222)
         }
       }
     })
   },
   //getlist
   getlist: function(){
-    var token = wx.getStorageSync('token');
-    if(!token) return;
+    // var token = wx.getStorageSync('token');
+    // if(!token) return;
     var that = this;
     http.getReq('/api/Index/getBooks',function(res){
+      // res.data.rows[0].articles[1].time = '2019.06.09'
       that.setData({
         list: res.data.rows,
         // 获取显示隐藏
@@ -317,6 +375,7 @@ Page({
     var that = this;
     var bookId = this.data.articleId;
     var cType = this.data.cType;
+    console.log(that.data.payBook)
     if (cType == 'wechat'){
       wx.showLoading({
         title: '',
@@ -421,56 +480,120 @@ Page({
   getPhoneNumber: function (e) {
     // console.log(e.detail.iv);
     // console.log(e.detail.encryptedData);
-    var that = this;
-    wx.request({
-      url: 'https://shuyu.educhinstyle.cn/api/Login/decode',
-      data: {
-        'encryptedData': e.detail.encryptedData,
-        'iv': e.detail.iv,
-        'sessionKey': wx.getStorageSync('sskey')
-      },
-      method: 'POST', // OPTIONS, GET, HEAD, POST, PUT, DELETE, TRACE, CONNECT
-      // header: {
-      //   'content-type': 'application/json'
-      // }, // 设置请求的 header
-      success: function (res) {
-        if (res.data.phoneNumber) {//我后台设置的返回值为1是正确
 
-          http.postReq('/api/User/bindMobile', { 'mobile': res.data.phoneNumber},function(res1){
-            if(res1.code == 101){
+    var that = this;
+
+    wx.checkSession({
+      success() {
+        //session_key 未过期，并且在本生命周期一直有效
+        wx.request({
+          url: 'https://shuyu.educhinstyle.cn/api/Login/decode',
+          data: {
+            'encryptedData': e.detail.encryptedData,
+            'iv': encodeURIComponent(e.detail.iv),
+            'sessionKey': wx.getStorageSync('sskey')
+          },
+          method: 'POST', // OPTIONS, GET, HEAD, POST, PUT, DELETE, TRACE, CONNECT
+          // header: {
+          //   'content-type': 'application/json'
+          // }, // 设置请求的 header
+          success: function (res) {
+            if (res.data.phoneNumber) {//我后台设置的返回值为1是正确
+
+              http.postReq('/api/User/bindMobile', { 'mobile': res.data.phoneNumber }, function (res1) {
+                if (res1.code == 101) {
+                  that.setData({
+                    isPhone: false,
+                  });
+
+                  //存入缓存即可
+                  wx.setStorageSync('phone', res.data.phoneNumber);
+                  // 判断IOS
+                  if (this.data.isIos) {
+                    // wx.showModal({
+                    //   title: '温馨提示',
+                    //   content: '小程序暂不支持开启阅读',
+                    //   confirmText: '好的',
+                    //   showCancel: false
+                    // })
+                    // return false;
+
+                    
+                  }
+                  that.setData({
+                    mask: true
+                  });
+                } else {
+                  wx.showToast({
+                    title: res1.msg,
+                    icon: 'none'
+                  })
+                }
+              })
+
+            } else {
+              // 还是关闭弹窗
+              wx.showToast({
+                title: '获取手机号失败',
+                icon: 'none'
+              });
               that.setData({
                 isPhone: false,
-                mask: true
-              });
-
-              //存入缓存即可
-              wx.setStorageSync('phone', res.data.phoneNumber);
-            }else{
-              wx.showToast({
-                title: res1.msg,
-                icon: 'none'
               })
             }
-          })
-
-        }else{
-          // 还是关闭弹窗
-          that.setData({
-            isPhone: false,
-          })
-        }
-        // 判断是否第一次进入
-        if (wx.getStorageSync('first') == ''){
-          that.setData({
-            firstIn: true,
-          });
-        }
+            // 判断是否第一次进入
+            if (wx.getStorageSync('first') == '') {
+              that.setData({
+                firstIn: true,
+              });
+            }
+          },
+          fail: function (err) {
+            wx.showToast({
+              title: err,
+              icon: 'none'
+            });
+            console.log(err);
+          }
+        })
       },
-      fail: function (err) {
-        console.log(err);
+      fail() {
+        // session_key 已经失效，需要重新执行登录流程
+        wx.showToast({
+          title: '登录失效，重新登录',
+          icon: 'none'
+        });
+        that.userLogin(); //重新登录
       }
     })
+    
       
+  },
+  open(e){
+    console.log(e)
+    var that = this;
+    var token = wx.getStorageSync('token');
+    if (!token) return;
+    var that = this;
+    var data={};
+    data.book_id=e;
+    http.postReq('/api/Book/openBook', data, function (res) {
+      // that.setData({
+      //   list: res.data.rows,
+      //   // 获取显示隐藏
+      //   p_show: res.data.flag
+      // });
+      wx.showToast({
+        title: res.msg,
+        icon: 'none',
+        success:function(){
+          setTimeout(()=>{
+            that.getlist();
+          },1500)
+        }
+      });
+      
+    })
   },
   //首次进入提示
   firstCome: function(){
@@ -490,12 +613,14 @@ Page({
    */
   onLoad: function(options) {
     var that = this;
+    
     //获取要求人id
-    if (options.pid) {
-      wx.setStorageSync('pid', options.pid)
+    if (options.pid || options.scene) {
+      wx.setStorageSync('pid', options.pid || options.scene)
       that.setData({
-        pid: options.pid
-      })
+        pid: options.pid || options.scene
+      });
+      that.userLogin();
     }else{
       wx.removeStorageSync('pid');
     }
@@ -517,6 +642,29 @@ Page({
     //   })
     // }
 
+
+    // 判断IOS
+    wx.getSystemInfo({
+      success: function (res) {
+        that.setData({
+          systemInfo: res,
+        })
+        console.log(res)
+        // 判断ios
+        // if (res.platform == "ios") {
+        //   that.setData({
+        //     isIos: true
+        //   })
+        //   console.log(that.data.isIos)
+        // }
+        that.setData({
+          isIos: true
+        })
+        console.log(that.data.isIos)
+      }
+    })
+
+
   },
 
   /**
@@ -533,8 +681,15 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function (options) {
+    var that = this;
+    
     this.loadUser();
     this.getlist();
+    http.postReq('/api/User/info', {}, function (res) {
+      setTimeout(function () {
+        that.getlist();
+      }, 0);
+    })
     var that = this;
     
     //iphone 底部横线适配

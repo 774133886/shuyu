@@ -831,6 +831,10 @@ border: none;
   background: -webkit-linear-gradient(144deg, #f9ab71 , #ff5a71) !important; 
   background: linear-gradient(144deg, #f9ab71 , #ff5a71) !important;
 }
+.curBg7{
+  background: -webkit-linear-gradient(180deg, #f9ab71 , #ff5a71) !important; 
+  background: linear-gradient(180deg, #f9ab71 , #ff5a71) !important;
+}
 /* ::-webkit-scrollbar{
   color: transparent;
   background-color: transparent !important;
@@ -853,5 +857,5 @@ border: none;
 
 @import 'wxParse/wxParse.wxss';
 view{
-  overflow: visible
+  overflow: visible;
 }

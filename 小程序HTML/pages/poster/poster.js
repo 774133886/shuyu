@@ -1,5 +1,6 @@
 // pages/poster/poster.js
-// pages/prize/prize.js
+const util = require('../../utils/util.js')
+const http = require('../../http.js')
 const app = getApp()
 Page({
 
@@ -7,15 +8,14 @@ Page({
    * 页面的初始数据
    */
   data: {
-    img: "../../images/gobg.png",
-    wechat: "../../images/wechat.png",
+    path: "",
+    avatar: "",
     quan: "../../images/quan.png",
-    code: "E7AI98",
-    inputValue: "",
     maskHidden: false,
-    name: "",
-    touxiang: "",
-    code: "E7A93C"
+    name: "风云天clear",
+    slogan:'7天get有趣的建筑园林知识, 从不同维度了解传统文化！',
+    token: wx.getStorageSync('token'),
+    path4:''
   },
   //获取输入框的值
   bindKeyInput: function (e) {
@@ -37,156 +37,255 @@ Page({
    */
   onLoad: function (options) {
     var that = this;
-    wx.getUserInfo({
-      success: res => {
-        console.log(res.userInfo, "huoqudao le ")
-        this.setData({
-          name: res.userInfo.nickName,
+    http.postReq('/api/Book/shareBook', { bid: options.id }, function (res) {
+      if (res.code == 101) {
+        that.setData({
+          name: res.data.nickname,
+          // path: res.data.bpath,
+          // avatar: res.data.avatar,
         })
         wx.downloadFile({
-          url: res.userInfo.avatarUrl, //仅为示例，并非真实的资源
+          url: res.data.bpath,
           success: function (res) {
-            // 只要服务器有响应数据，就会把响应内容写入文件并进入 success 回调，业务需要自行判断是否下载到了想要的内容
-            if (res.statusCode === 200) {
-              console.log(res, "reererererer")
-              that.setData({
-                touxiang: res.tempFilePath
-              })
-            }
+            console.log(res.tempFilePath);
+            that.setData({
+              path: res.tempFilePath,
+            })
+          }, fail: function (fres) {
+
           }
+        })
+        wx.downloadFile({
+          url: res.data.avatar,
+          success: function (res) {
+            console.log(res.tempFilePath);
+            that.setData({
+              avatar: res.tempFilePath,
+            })
+          }, fail: function (fres) {
+
+          }
+        })
+
+
+        http.postReq('/api/User/getQrcode',{}, function (res1) {
+          if (res1.code == 101) {
+            // that.setData({
+            //   path4: res1.data.data,
+            // })
+            wx.downloadFile({
+              url: res1.data,
+              success: function (res2) {
+                that.setData({
+                  path4: res2.tempFilePath,
+                })
+                console.log(that.data.path4);
+                setTimeout(() => {
+                  that.createNewImg();
+                }, 3000)
+              }
+            })
+          } else {
+            wx.showToast({
+              title: res1.msg,
+              icon: 'none',
+              duration: 2000
+            })
+          }
+        })
+      }else{
+        wx.showToast({
+          title: res.msg,
+          icon: 'none',
+          duration: 2000
         })
       }
     })
 
   },
+  
   //将canvas转换为图片保存到本地，然后将图片路径传给image图片的src
   createNewImg: function () {
     var that = this;
     var context = wx.createCanvasContext('mycanvas');
-    context.setFillStyle("#ffe200")
-    context.fillRect(0, 0, 375, 667)
-    var path = "/images/gobg.png";
+    context.setFillStyle("rgba(0,0,0,0)")
+    context.fillRect(0, 0, 375, 590)
+    var path = that.data.path;
+    // var path = "../../files/postor_center_bg.png";
     //将模板图片绘制到canvas,在开发工具中drawImage()函数有问题，不显示图片
     //不知道是什么原因，手机环境能正常显示
-    context.drawImage(path, 0, 0, 375, 183);
     var path1 = that.data.touxiang;
-    console.log(path1, "path1")
+    // console.log(path1, "path1")
     //将模板图片绘制到canvas,在开发工具中drawImage()函数有问题，不显示图片
-    var path2 = "/images/txquan.png";
-    var path3 = "/images/heise.png";
-    var path4 = "/images/wenziBg.png";
-    var path5 = "/images/wenxin.png";
-    context.drawImage(path2, 126, 186, 120, 120);
+    var path2 = that.data.avatar;
+    // var path3 = "../../files/postor_center_bg.png";
+    var path4 = that.data.path4;
+    console.log(path4)
     //不知道是什么原因，手机环境能正常显示
     // context.save(); // 保存当前context的状态
 
-    var name = that.data.name;
-    //绘制名字
-    context.setFontSize(24);
-    context.setFillStyle('#333333');
-    context.setTextAlign('center');
-    context.fillText(name, 185, 340);
+    var name = that.data.name || '';
+    console.log(name);
+    context.arc(186, 528, 35, 0, Math.PI * 2, true);
+    context.closePath();
+    context.fillStyle = "white";
+    context.strokeStyle = "rgba(0,0,0,0)";
+    context.fill();
     context.stroke();
-    //绘制一起吃面标语
-    context.setFontSize(14);
-    context.setFillStyle('#333333');
+    context.drawImage(path, 0, 0, 375, 602);
+    context.stroke();
+    //绘制名字
+    context.setFontSize(18);
+    context.setFillStyle('#ffffff');
     context.setTextAlign('center');
-    context.fillText("邀请你一起去吃面", 185, 370);
+    context.fillText(name, 160, 52);
+    //绘制白色背景
+
+    context.arc(186, 528, 35, 0, Math.PI * 2, true);
+    context.closePath();
+    context.fillStyle = "white";
+    context.strokeStyle = "rgba(0,0,0,0)";
+    context.fill();
     context.stroke();
     //绘制验证码背景
-    context.drawImage(path3, 48, 390, 280, 84);
-    //绘制code码
-    context.setFontSize(40);
-    context.setFillStyle('#ffe200');
-    context.setTextAlign('center');
-    context.fillText(that.data.code, 185, 435);
+    // context.drawImage(path3, 38, 220, 300, 145);
+    //绘制扫码二维码 
+    context.drawImage(path4, 161, 503, 50, 50);
     context.stroke();
-    //绘制左下角文字背景图
-    context.drawImage(path4, 25, 520, 184, 82);
-    context.setFontSize(12);
-    context.setFillStyle('#333');
-    context.setTextAlign('left');
-    context.fillText("进入小程序输入朋友的邀请", 35, 540);
-    context.stroke();
-    context.setFontSize(12);
-    context.setFillStyle('#333');
-    context.setTextAlign('left');
-    context.fillText("码，朋友和你各自获得通用", 35, 560);
-    context.stroke();
-    context.setFontSize(12);
-    context.setFillStyle('#333');
-    context.setTextAlign('left');
-    context.fillText("优惠券1张哦~", 35, 580);
-    context.stroke();
-    //绘制右下角扫码提示语
-    context.drawImage(path5, 248, 578, 90, 25);
-    //绘制头像
-    context.arc(186, 246, 50, 0, 2 * Math.PI) //画出圆
-    context.strokeStyle = "#ffe200";
+    // 绘制头像
+    context.arc(63, 60, 30, 0, 2 * Math.PI) //画出圆
+    context.strokeStyle = "rgba(0,0,0,0)";
     context.clip(); //裁剪上面的圆形
-    context.drawImage(path1, 136, 196, 100, 100); // 在刚刚裁剪的园上画图
+    context.drawImage(path2, 31, 31, 62, 62); // 在刚刚裁剪的园上画图
+    context.stroke();
+    
+  
+
     context.draw();
+    wx.showToast({
+      title: '海报生成中...',
+      icon: 'loading',
+      duration: 2000
+    })
     //将生成好的图片保存到本地，需要延迟一会，绘制期间耗时
     setTimeout(function () {
       wx.canvasToTempFilePath({
         canvasId: 'mycanvas',
         success: function (res) {
           var tempFilePath = res.tempFilePath;
+          console.log(res)
           that.setData({
             imagePath: tempFilePath,
-            canvasHidden: true
           });
         },
         fail: function (res) {
           console.log(res);
         }
       });
-    }, 200);
+    }, 2000);
   },
   //点击保存到相册
   baocun: function () {
-    var that = this
+    var that = this;
+    if (!wx.saveImageToPhotosAlbum) {
+      wx.showModal({
+        title: '提示',
+        content: '当前微信版本过低，无法使用该功能，请升级到最新微信版本后重试。'
+      })
+      return;
+    }
+    
+    // 可以通过 wx.getSetting 先查询一下用户是否授权了 "scope.writePhotosAlbum" 这个 scope  
+    wx.getSetting({
+      success(res) {
+        console.log("getSetting: success");
+        if (!res.authSetting['scope.writePhotosAlbum']) {
+          // 接口调用询问  
+          wx.authorize({
+            scope: 'scope.writePhotosAlbum',
+            success() {
+              that.downloadImage();
+            },
+            fail() {
+              // 用户拒绝了授权  
+              wx.showModal({
+                title: '保存图片',
+                content: '保存图片需要您授权',
+                showCancel: true,
+                confirmText: '确定',
+
+                success: function (res) {
+                  if (res.confirm) {
+                    // 打开设置页面  
+                    wx.openSetting({
+                      success: function (data) {
+                        if (data.authSetting['scope.writePhotosAlbum']) {
+                          that.downloadImage();
+                        } else {
+                          console.log("授权失败");
+                        }
+                      },
+                      fail: function (data) {
+                        console.log("openSetting: fail");
+                      }
+                    });
+                  } else if (res.cancel) {
+                    console.log('用户点击取消')
+                  }
+
+                }
+              })
+
+
+
+            }
+          })
+        } else {
+          that.downloadImage()
+        }
+      },
+      fail(res) {
+        console.log("getSetting: fail");
+        console.log(res);
+      }
+
+    })
+
+  },
+  // 下载
+  downloadImage(){
+    wx.showLoading({
+      title: '保存中...',
+    })
+    var that = this;
+    console.log("baocun", that.data.imagePath)
     wx.saveImageToPhotosAlbum({
       filePath: that.data.imagePath,
       success(res) {
+        wx.hideLoading();
         wx.showModal({
-          content: '图片已保存到相册，赶紧晒一下吧~',
+          content: '图片已保存到相册，快去分享给好友吧！',
           showCancel: false,
           confirmText: '好的',
           confirmColor: '#333',
           success: function (res) {
             if (res.confirm) {
               console.log('用户点击确定');
-              /* 该隐藏的隐藏 */
-              that.setData({
-                maskHidden: false
-              })
             }
-          }, fail: function (res) {
+          },
+          fail: function (res) {
             console.log(11111)
+
           }
         })
+      },
+      fail: function (res) {
+        console.log(res)
+        if (res.errMsg === "saveImageToPhotosAlbum:fail authorize no response") {
+          console.log("打开设置窗口");
+        }
       }
     })
-  },
-  //点击生成
-  formSubmit: function (e) {
-    var that = this;
-    this.setData({
-      maskHidden: false
-    });
-    wx.showToast({
-      title: '装逼中...',
-      icon: 'loading',
-      duration: 1000
-    });
-    setTimeout(function () {
-      wx.hideToast()
-      
-      that.setData({
-        maskHidden: true
-      });
-    }, 1000)
   },
 
   /**
@@ -222,7 +321,7 @@ Page({
     //   }
     // })
 
-    that.createNewImg();
+   
   },
 
   /**

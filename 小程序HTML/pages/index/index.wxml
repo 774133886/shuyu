@@ -9,22 +9,28 @@
 <swiper wx:if="{{!noData}}" class='flex_1 indexSwiper {{isIphone ? "indexSwiper2" : ""}}' indicator-dots="{{false}}" circular="{{true}}" current="{{swiperIdx}}" bindchange="swiperChange">
   <swiper-item class='hgt_100 flex_column indexCen' wx:for="{{list}}" wx:key="item" wx:for-index="index">
     <view class='indexHead'>
-      <view class='ih_box curBg flex_dom'>
-        <view>
+      <view class='ih_box curBg flex_dom relative'>
+        <view style="margin-top: 20rpx">
           <view class='color-fff font36 hide111'>{{item.name}}</view>
-          <text class='color-fff font28 m-t-10 line4'>{{item.description}}</text>
+          <text class='color-fff font28 m-t-10 line3'>{{item.description}}</text>
+        </view>
+        <view class='indexShareIcon' bindtap='closeShareMask'>
+          <image src='../../files/share.png'></image>
         </view>
       </view>
     </view>
     <view class='flex_1 indexCtt'>
       <scroll-view scroll-y="{{true}}" scroll-top="{{scrollTop}}" id='indexCtt'>
       <view wx:for="{{item.articles}}" wx:key="article" wx:for-index="idx" wx:for-item="article" class='icItem flex_dom flex_item_mid'  bindtap='goReadMain' data-item="{{article}}" data-book="{{item}}" id="{{id}}">
-        <view class='ic_text font26 {{article.today ? "color-f9ab71" : (article.read ? "color-ff5a71" : "color-333")}}'>{{article.name}}</view>
-        <view class='ic_btn curBg2' data-item="{{item}}" bindtap='openMask' data-content="{{item.content}}" wx:if="{{!item.buy && idx == 0}}">一元完成任务</view>
-        <view class='text-right wid180' wx:if="{{article.read && !article.today}}">
+        <view wx:if="{{item.articles[idx-1] && item.articles[idx-1].today && item.articles[idx-1].time}}" class="ic_text font26 color-f9ab71">{{article.name}}</view>
+        <view wx:else class='ic_text font26 {{article.today ? (article.time ? "color-ff5a71" : "color-f9ab71") : (article.read ? "color-ff5a71" : "color-333")}}'>{{article.name}}</view>
+        <view class='ic_btn curBg2' data-item="{{item}}" data-bookid="{{item.id}}" bindtap='openMask' data-content="{{item.content}}" wx:if="{{!item.buy && idx == 0}}">{{isIos?'开启阅读':'一元完成任务'}}</view>
+        <view class='text-right wid180' wx:if="{{(article.read && !article.today) || (article.today && article.time)}}">
           <image class='completeBtn' src='../../files/flag.png'></image>
+          <text class='completeText'>{{article.time}}</text>
         </view>
-        <view wx:if="{{article.today}}" class='ic_btn curBg2'><text>{{idx+1}}/</text>{{item.maxday}}天</view>
+        <view wx:if="{{article.today && !article.time}}" class='ic_btn curBg2'><text>{{idx+1}}/</text>{{item.maxday}}天</view>
+        <view wx:if="{{item.articles[idx-1] && item.articles[idx-1].today && item.articles[idx-1].time}}" class='ic_btn curBg2'><text>{{idx+1}}/</text>{{item.maxday}}天</view>
       </view>
     </scroll-view>
     </view>
@@ -89,13 +95,13 @@
   <view class='flex_column maskCenter'>
     <view class='flex_1 flex_column maskCtt'>
       <text class='font40 color-333 font-w6'>开启阅读</text>
-      <view class='flex_dom choiceType'>
-        <view class='flex_1 m-r-25 {{cType == "wechat" ? "curBg4" : ""}}' bindtap='choiceType' data-type="wechat">
+      <view class='around-center choiceType'>
+        <view wx:if="{{!isIos}}" class=' wid45 m-r-25 {{cType == "wechat" ? "curBg4" : ""}}' bindtap='choiceType' data-type="wechat">
           <image class='icon-wechat m-b-10' src='../../files/wechat.png'></image>
           <view>微信支付</view>
           <view>1元开启</view>
         </view>
-        <view class='flex_1 {{cType == "car" ? "curBg4" : ""}}' bindtap='choiceType' data-type="car">
+        <view class=' wid45 {{cType == "car" ? "curBg4" : ""}}' bindtap='choiceType' data-type="car">
           <image class='icon-car m-b-10' src='../../files/car.png'></image>
           <view>复活卡</view>
           <view>开启</view>
@@ -114,7 +120,7 @@
 <!-- 分享朋友圈 -->
 <view class='indexMask {{shareMask ? "" : "hide"}}'>
   <view class='shareMask text-right'>
-    <image src='../../files/shareMask.png'></image>
+    <image src='../../files/sharePic.png'></image>
     <button class='share_btn curBg5' bindtap='closeShareMask'>知道了</button>
   </view>
 </view>
@@ -142,4 +148,3 @@
     <button class='curBg4' open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber">微信授权获取手机号</button>
   </view>
 </view>
-

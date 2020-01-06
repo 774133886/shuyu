@@ -7,7 +7,10 @@ Page({
    * 页面的初始数据
    */
   data: {
-    money: ''
+    money: '',
+    image: '',
+    wxname: 'shuyupipa',
+    payHide: true
   },
 
   /**
@@ -17,10 +20,41 @@ Page({
     // 获取数据
     this.setData({
       money: options.money
-    })
+    });
+    this.getTeacher();
   },
   doneBtn:function(){
-    wx.navigateBack();
+    this.setData({
+      payHide: false
+    })
+  },
+  cloneText: function(){
+    var that = this;
+    wx.setClipboardData({
+      data: that.data.wxname,
+      success: function (res) {
+        wx.getClipboardData({
+          success: function(res) {
+            wx.showToast({
+              title: '复制成功',
+              icon: 'none'
+            });
+            that.setData({
+              payHide: true
+            })
+          }
+        })
+      }
+    })
+  },
+  getTeacher: function(){
+    var that = this;
+    http.getReq('/api/Index/config',function(res){
+      that.setData({
+        image: res.data.qrcode,
+        wxname: res.data.wechat
+      })
+    })
   },
   /**
    * 生命周期函数--监听页面初次渲染完成

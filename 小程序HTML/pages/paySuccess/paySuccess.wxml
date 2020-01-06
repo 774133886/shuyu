@@ -11,10 +11,20 @@
     </view>
   </view>
   <view class='wid100 text-center'>
-    <button bindtap='doneBtn' class='keepBtn fw_600'>完成</button>
-    <button open-type='share' class='keepBtn  m-t-50 fw_600'>分享获得复活卡</button>
+    <button bindtap='doneBtn' class='keepBtn'>添加助教微信</button>
   </view>
-  <view class='fhtext text-center'>复活卡：阅读断点后，可即时激活阅读</view>
 </view>
-
+<view class='mask {{payHide ? "payhide" : ""}}'>
+  <view class='maskCenter payMask'>
+    <view class='payMaskHead curBg7'>--请添加助教微信  开启学习之旅--</view>
+    <view class='payTitle'>
+      <view>扫描添加老师微信</view>
+      <view>即可获得专属福利</view>
+    </view>
+    <view class='paysanjiao'></view>
+    <image class='payCode' src='{{image}}'></image>
+    <view class='payText'>微信号：{{wxname}}</view>
+    <button class='curBg4' bindtap='cloneText'>复制微信号</button>
+  </view>
+</view>
 

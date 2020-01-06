@@ -218,7 +218,7 @@ page{
 .choiceType{
   margin-top: 50rpx;
 }
-.choiceType .flex_1{
+.choiceType .wid45{
   height: 280rpx;
   background-color: #fae8e8;
   border-radius: 10rpx;
@@ -232,7 +232,7 @@ page{
   width: 65rpx;
   height: 80rpx;
 }
-.choiceType .flex_1 view{
+.choiceType .wid45 view{
   font-size: 30rpx;
   color: #cc9a9a;
   line-height: 40rpx;
@@ -250,9 +250,10 @@ page{
   margin: 65rpx auto 0;
 }
 .shareMask image{
-  margin-right: 70px;
-  width: 475rpx;
-  height: 164rpx;
+  display: block;
+  margin: 240rpx auto 0;
+  width: 495rpx;
+  height: 265rpx;
 }
 .share_btn{
   width: 290rpx;
@@ -261,7 +262,7 @@ page{
   line-height: 90rpx;
   border-radius: 90rpx;
   color: #fff !important;
-  margin: 110rpx auto 0;
+  margin: 50rpx auto 0;
 }
 .maskBox{
   position: absolute;
@@ -311,13 +312,33 @@ page{
   left: calc(50% - 140rpx);
 }
 .completeBtn{
-  width: 70rpx;
-  height: 71rpx;
+  width: 53rpx;
+  height: 54rpx;
   margin-bottom: -2rpx;
+  vertical-align: middle;
+}
+.completeText{
+  font-size: 24rpx;
+  color: #FF6666;
+  display: inline-block;
+  vertical-align: middle;
+  margin-top: 10rpx;
 }
 .wid180{
   width: 180rpx;
 }
 .hgt_100{
   height: 100% !important;
+}
+.indexShareIcon{
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 20rpx 20rpx 0;
+}
+.indexShareIcon image{
+  display: block;
+  width: 30rpx;
+  height: 30rpx;
+  /* margin-top: -10rpx; */
 }

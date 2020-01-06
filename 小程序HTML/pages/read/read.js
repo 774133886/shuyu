@@ -27,7 +27,10 @@ Page({
     isLoadAudio: false,
     isdati: false,
     isqujie: false,
-    isdk: false
+    isdk: false,
+    signBoxShow: false,
+    optionsId: '',
+    days: ''
   },
 
   //播放
@@ -114,6 +117,9 @@ Page({
         isPlay: options.isPlay
       })
     }
+    this.setData({
+      optionsId: options.id
+    });
     this.getAudio(options.id);
 
   },
@@ -145,17 +151,22 @@ Page({
   },
   goAnswer3: function () {
     var info = wx.getStorageSync('bookInfo');
+    var that = this;
     http.postReq('/api/Clock/signInArticle', { aid: info.id }, function (res) {
       if (res.code == 101) {
         app.mtj.trackEvent('endread');
-        wx.showToast({
-          title: '打卡成功'
-        });
-        setTimeout(function(){
-          wx.navigateBack({})
-        },2000)
+        that.setData({
+          signBoxShow: true,
+          days: res.data
+        })
       }
     })
+  },
+  closeMask:function(){
+    this.setData({
+      signBoxShow: false
+    });
+    this.getAudio(this.data.optionsId);
   },
   goAnswer4: function () {
     wx.navigateBack({})
@@ -341,6 +352,28 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function () {
-
+    var that = this;
+    // if (res.from === 'button') {
+    //   // 来自页面内转发按钮
+    //   console.log(res.target)
+    // }
+    var user = wx.getStorageSync('user');
+    return {
+      title: '跟我一起重新认识一本书',
+      path: '/pages/index/index?pid=' + user.id,
+      imageUrl: '/files/share.jpg',
+      success: (res) => {    // 成功后要做的事情
+        //console.log(res.shareTickets[0])
+        // console.log
+        that.setData({
+          signBoxShow: false
+        });
+        that.getAudio(options.id);
+      },
+      fail: function (res) {
+        // 分享失败
+        console.log(res)
+      }
+    }
   }
 })
